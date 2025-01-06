@@ -1,5 +1,4 @@
-import 'package:formz/formz.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+part of 'member_info.dart';
 
 enum GenderValidationError { invalid }
 

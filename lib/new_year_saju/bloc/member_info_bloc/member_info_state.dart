@@ -1,43 +1,38 @@
-part of 'new_year_saju_bloc.dart';
+part of 'member_info_bloc.dart';
 
-enum NewYearSajuStatus { initial, loading, success, failure }
+enum NewYearSajuMemberInfoStatus { initial, loading, success, failure }
 
-final class NewYearSajuState extends Equatable {
-  const NewYearSajuState({
-    this.status = NewYearSajuStatus.initial,
+final class NewYearSajuMemberInfoState extends Equatable {
+  const NewYearSajuMemberInfoState({
+    this.status = NewYearSajuMemberInfoStatus.initial,
     this.gender = const Gender.pure(),
     this.birthDate = const BirthDate.pure(),
     this.birthHour = const BirthHour.pure(),
     this.birthMinute = const BirthMinute.pure(),
-    this.question = const Question.pure(),
   });
 
-  final NewYearSajuStatus status;
+  final NewYearSajuMemberInfoStatus status;
   final Gender gender;
   final BirthDate birthDate;
   final BirthHour birthHour;
   final BirthMinute birthMinute;
-  final Question question;
 
-  NewYearSajuState copyWith({
-    NewYearSajuStatus? status,
+  NewYearSajuMemberInfoState copyWith({
+    NewYearSajuMemberInfoStatus? status,
     Gender? gender,
     BirthDate? birthDate,
     BirthHour? birthHour,
     BirthMinute? birthMinute,
-    Question? question,
   }) {
-    return NewYearSajuState(
+    return NewYearSajuMemberInfoState(
       status: status ?? this.status,
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,
       birthHour: birthHour ?? this.birthHour,
       birthMinute: birthMinute ?? this.birthMinute,
-      question: question ?? this.question,
     );
   }
 
   @override
-  List<Object> get props =>
-      [status, gender, birthDate, birthHour, birthMinute, question];
+  List<Object> get props => [status, gender, birthDate, birthHour, birthMinute];
 }

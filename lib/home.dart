@@ -1,4 +1,5 @@
-part of 'app.dart';
+import 'package:byul_mobile/new_year_saju/view/member_info/member_info_page.dart';
+import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key, required this.title});
@@ -101,7 +102,7 @@ class MainPageNavigation extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NewYearSajuPage()),
+              MaterialPageRoute(builder: (context) => NewYearSajuMemberInfoPage()),
             );
           },
           style: ElevatedButton.styleFrom(

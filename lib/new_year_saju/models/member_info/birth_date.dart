@@ -1,4 +1,4 @@
-import 'package:formz/formz.dart';
+part of 'member_info.dart';
 
 enum BirthDateValidationError { invalid }
 

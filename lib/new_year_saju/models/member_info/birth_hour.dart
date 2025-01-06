@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:formz/formz.dart';
+part of 'member_info.dart';
 
 enum BirthTimeValidationError { invalid }
 
