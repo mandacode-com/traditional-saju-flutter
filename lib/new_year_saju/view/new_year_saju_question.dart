@@ -1,13 +1,13 @@
-import 'package:byul_mobile/today_saju/bloc/today_saju_bloc.dart';
+import 'package:byul_mobile/new_year_saju/bloc/new_year_saju_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TodaySajuQuestion extends StatelessWidget {
-  const TodaySajuQuestion({super.key});
+class NewYearSajuQuestion extends StatelessWidget {
+  const NewYearSajuQuestion({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TodaySajuBloc, TodaySajuState>(
+    return BlocListener<NewYearSajuBloc, NewYearSajuState>(
       listener: (context, state) {},
       child: Align(
         alignment: Alignment.center,
@@ -32,7 +32,7 @@ class _QuestionForm extends StatelessWidget {
         labelText: '질문을 입력하세요',
       ),
       onChanged: (text) {
-        context.read<TodaySajuBloc>().add(TodaySajuQuestionChanged(text));
+        context.read<NewYearSajuBloc>().add(NewYearSajuQuestionChanged(text));
       },
     );
   }

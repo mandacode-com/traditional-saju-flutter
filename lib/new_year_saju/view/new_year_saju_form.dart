@@ -1,14 +1,14 @@
-import 'package:byul_mobile/today_saju/bloc/today_saju_bloc.dart';
-import 'package:byul_mobile/today_saju/models/models.dart';
+import 'package:byul_mobile/new_year_saju/bloc/new_year_saju_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 
-class TodaySajuForm extends StatelessWidget {
-  const TodaySajuForm({super.key});
+class NewYearSajuForm extends StatelessWidget {
+  const NewYearSajuForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TodaySajuBloc, TodaySajuState>(
+    return BlocListener<NewYearSajuBloc, NewYearSajuState>(
       listener: (context, state) {},
       child: Align(
         alignment: Alignment.center,
@@ -51,13 +51,14 @@ class GenderSelectButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:
-            context.select((TodaySajuBloc bloc) => bloc.state.gender.value) ==
+            context.select((NewYearSajuBloc bloc) => bloc.state.gender.value) ==
                     genderType
                 ? Colors.green
                 : Colors.grey,
       ),
-      onPressed: () =>
-          context.read<TodaySajuBloc>().add(TodaySajuGenderChanged(genderType)),
+      onPressed: () => context
+          .read<NewYearSajuBloc>()
+          .add(NewYearSajuGenderChanged(genderType)),
       child: genderType == GenderType.unknown
           ? const Text('성별')
           : Text(genderType == GenderType.male ? '남자' : '여자'),
@@ -83,7 +84,7 @@ class _BirthDateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime? birthDate =
-        context.select((TodaySajuBloc bloc) => bloc.state.birthDate.value);
+        context.select((NewYearSajuBloc bloc) => bloc.state.birthDate.value);
     return ElevatedButton(
         onPressed: () async {
           final date = await showDatePicker(
@@ -93,7 +94,9 @@ class _BirthDateButton extends StatelessWidget {
             lastDate: DateTime(2100),
           ).then((value) => value ?? DateTime.now());
           if (context.mounted) {
-            context.read<TodaySajuBloc>().add(TodaySajuBirthDateChanged(date));
+            context
+                .read<NewYearSajuBloc>()
+                .add(NewYearSajuBirthDateChanged(date));
           }
         },
         child: birthDate == null
@@ -106,10 +109,11 @@ class _BirthHourButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
-      value: context.select((TodaySajuBloc bloc) => bloc.state.birthHour.value),
+      value:
+          context.select((NewYearSajuBloc bloc) => bloc.state.birthHour.value),
       onChanged: (value) => context
-          .read<TodaySajuBloc>()
-          .add(TodaySajuBirthHourChanged(value ?? 0)),
+          .read<NewYearSajuBloc>()
+          .add(NewYearSajuBirthHourChanged(value ?? 0)),
       items: List.generate(24, (index) => index)
           .map((hour) => DropdownMenuItem<int>(
                 value: hour,
@@ -124,11 +128,11 @@ class _BirthMinuteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
-      value:
-          context.select((TodaySajuBloc bloc) => bloc.state.birthMinute.value),
+      value: context
+          .select((NewYearSajuBloc bloc) => bloc.state.birthMinute.value),
       onChanged: (value) => context
-          .read<TodaySajuBloc>()
-          .add(TodaySajuBirthMinuteChanged(value ?? 0)),
+          .read<NewYearSajuBloc>()
+          .add(NewYearSajuBirthMinuteChanged(value ?? 0)),
       items: List.generate(60, (index) => index)
           .map((minute) => DropdownMenuItem<int>(
                 value: minute,

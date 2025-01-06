@@ -1,7 +1,10 @@
-part of 'today_saju_bloc.dart';
+part of 'new_year_saju_bloc.dart';
 
-final class TodaySajuState extends Equatable {
-  const TodaySajuState({
+enum NewYearSajuStatus { initial, loading, success, failure }
+
+final class NewYearSajuState extends Equatable {
+  const NewYearSajuState({
+    this.status = NewYearSajuStatus.initial,
     this.gender = const Gender.pure(),
     this.birthDate = const BirthDate.pure(),
     this.birthHour = const BirthHour.pure(),
@@ -9,20 +12,23 @@ final class TodaySajuState extends Equatable {
     this.question = const Question.pure(),
   });
 
+  final NewYearSajuStatus status;
   final Gender gender;
   final BirthDate birthDate;
   final BirthHour birthHour;
   final BirthMinute birthMinute;
   final Question question;
 
-  TodaySajuState copyWith({
+  NewYearSajuState copyWith({
+    NewYearSajuStatus? status,
     Gender? gender,
     BirthDate? birthDate,
     BirthHour? birthHour,
     BirthMinute? birthMinute,
     Question? question,
   }) {
-    return TodaySajuState(
+    return NewYearSajuState(
+      status: status ?? this.status,
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,
       birthHour: birthHour ?? this.birthHour,
@@ -32,5 +38,6 @@ final class TodaySajuState extends Equatable {
   }
 
   @override
-  List<Object> get props => [gender, birthDate, birthHour, birthMinute, question];
+  List<Object> get props =>
+      [status, gender, birthDate, birthHour, birthMinute, question];
 }

@@ -1,8 +1,7 @@
 import 'package:formz/formz.dart';
+import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 
 enum GenderValidationError { invalid }
-
-enum GenderType { male, female, unknown }
 
 class Gender extends FormzInput<GenderType, GenderValidationError> {
   const Gender.pure() : super.pure(GenderType.unknown);
