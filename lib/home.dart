@@ -6,7 +6,7 @@ class Home extends StatelessWidget {
 
   final String title;
 
-  final EdgeInsets padding =
+  static final EdgeInsets padding =
       const EdgeInsets.symmetric(vertical: 120, horizontal: 20);
 
   @override
