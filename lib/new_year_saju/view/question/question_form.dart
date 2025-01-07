@@ -8,9 +8,14 @@ class QuestionForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<NewYearSajuQuestionBloc, NewYearSajuQuestionState>(
-      listener: (context, state) {},
-      child: _QuestionFormInput(),
-    );
+        listener: (context, state) {},
+        child: Column(
+          children: [
+            _QuestionFormInput(),
+            Text(
+                'value: ${context.select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value)}')
+          ],
+        ));
   }
 }
 
@@ -18,8 +23,6 @@ class _QuestionFormInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: context
-          .select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value),
       onChanged: (value) =>
           context.read<NewYearSajuQuestionBloc>().add(QuestionChanged(value)),
     );
