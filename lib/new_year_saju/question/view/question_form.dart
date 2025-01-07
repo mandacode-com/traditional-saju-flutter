@@ -11,7 +11,17 @@ class QuestionForm extends StatelessWidget {
           children: [
             _QuestionFormInput(),
             Text(
-                'value: ${context.select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value)}')
+                'value: ${context.select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value)}'),
+            PageNavigationButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewYearSajuResultPage()),
+                );
+              },
+              text: "다음",
+            )
           ],
         ));
   }

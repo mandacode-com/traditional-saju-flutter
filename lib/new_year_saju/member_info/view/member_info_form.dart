@@ -31,7 +31,16 @@ class NewYearSajuMemberInfoForm extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            _NextPageButton(),
+            PageNavigationButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewYearSajuQuestionPage()),
+                );
+              },
+              text: "다음",
+            )
           ],
         ),
       ),
@@ -137,24 +146,6 @@ class _BirthMinuteButton extends StatelessWidget {
                 child: Text('$minute분'),
               ))
           .toList(),
-    );
-  }
-}
-
-class _NextPageButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.lime,
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewYearSajuQuestionPage()),
-        );
-      },
-      child: Text('다음'),
     );
   }
 }
