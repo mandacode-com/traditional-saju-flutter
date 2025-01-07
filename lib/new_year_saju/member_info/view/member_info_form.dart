@@ -1,8 +1,4 @@
-import 'package:byul_mobile/new_year_saju/bloc/member_info_bloc/member_info_bloc.dart';
-import 'package:byul_mobile/new_year_saju/view/question/question_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+part of 'member_info_page.dart';
 
 class NewYearSajuMemberInfoForm extends StatelessWidget {
   const NewYearSajuMemberInfoForm({super.key});

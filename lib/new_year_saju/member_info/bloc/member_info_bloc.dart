@@ -1,5 +1,5 @@
+import 'package:byul_mobile/new_year_saju/member_info/model/member_info.dart';
 import 'package:equatable/equatable.dart';
-import 'package:byul_mobile/new_year_saju/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 

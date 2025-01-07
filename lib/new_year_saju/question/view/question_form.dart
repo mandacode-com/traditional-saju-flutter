@@ -1,6 +1,4 @@
-import 'package:byul_mobile/new_year_saju/bloc/question_bloc/question_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'question_page.dart';
 
 class QuestionForm extends StatelessWidget {
   const QuestionForm({super.key});

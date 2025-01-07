@@ -1,4 +1,5 @@
-part of 'question_bloc.dart';
+import 'package:byul_mobile/new_year_saju/question/model/question.dart';
+import 'package:equatable/equatable.dart';
 
 enum NewYearSajuQuestionStatus { initial, loading, success, failure }
 
