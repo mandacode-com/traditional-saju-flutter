@@ -6,7 +6,8 @@ import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 part 'member_info_state.dart';
 part 'member_info_event.dart';
 
-class NewYearSajuMemberInfoBloc extends Bloc<NewYearSajuMemberInfoEvent, NewYearSajuMemberInfoState> {
+class NewYearSajuMemberInfoBloc
+    extends Bloc<NewYearSajuMemberInfoEvent, NewYearSajuMemberInfoState> {
   NewYearSajuMemberInfoBloc({
     required NewYearSajuRepository newYearSajuRepository,
   })  : _newYearSajuRepository = newYearSajuRepository,
@@ -61,8 +62,8 @@ class NewYearSajuMemberInfoBloc extends Bloc<NewYearSajuMemberInfoEvent, NewYear
     );
   }
 
-  void _onBirthDateChanged(
-      MemberInfoBirthDateChanged event, Emitter<NewYearSajuMemberInfoState> emit) {
+  void _onBirthDateChanged(MemberInfoBirthDateChanged event,
+      Emitter<NewYearSajuMemberInfoState> emit) {
     final birthDate = BirthDate.dirty(event.birthDate);
 
     _newYearSajuRepository.updateSajuForm(
@@ -76,8 +77,8 @@ class NewYearSajuMemberInfoBloc extends Bloc<NewYearSajuMemberInfoEvent, NewYear
     );
   }
 
-  void _onBirthHourChanged(
-      MemberInfoBirthHourChanged event, Emitter<NewYearSajuMemberInfoState> emit) {
+  void _onBirthHourChanged(MemberInfoBirthHourChanged event,
+      Emitter<NewYearSajuMemberInfoState> emit) {
     final birthHour = BirthHour.dirty(event.birthHour);
 
     final currentBirthDateTime =
@@ -102,8 +103,8 @@ class NewYearSajuMemberInfoBloc extends Bloc<NewYearSajuMemberInfoEvent, NewYear
     );
   }
 
-  void _onBirthMinuteChanged(
-      MemberInfoBirthMinuteChanged event, Emitter<NewYearSajuMemberInfoState> emit) {
+  void _onBirthMinuteChanged(MemberInfoBirthMinuteChanged event,
+      Emitter<NewYearSajuMemberInfoState> emit) {
     final birthMinute = BirthMinute.dirty(event.birthMinute);
 
     final currentBirthDateTime =
