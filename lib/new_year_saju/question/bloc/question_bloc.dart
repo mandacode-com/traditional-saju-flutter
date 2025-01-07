@@ -38,7 +38,7 @@ class NewYearSajuQuestionBloc
   }
 
   void _onQuestionChanged(
-      QuestionChanged event, Emitter<NewYearSajuQuestionState> emit) {
+      QuestionChanged event, Emitter<NewYearSajuQuestionState> emit) async {
     final question = Question.dirty(event.question);
 
     _newYearSajuRepository.updateSajuForm(

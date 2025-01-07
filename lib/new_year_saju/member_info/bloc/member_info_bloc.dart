@@ -47,8 +47,8 @@ class NewYearSajuMemberInfoBloc
     }
   }
 
-  void _onGenderChanged(
-      MemberInfoGenderChanged event, Emitter<NewYearSajuMemberInfoState> emit) {
+  void _onGenderChanged(MemberInfoGenderChanged event,
+      Emitter<NewYearSajuMemberInfoState> emit) async {
     final gender = Gender.dirty(event.gender);
 
     _newYearSajuRepository.updateSajuForm(
@@ -63,7 +63,7 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthDateChanged(MemberInfoBirthDateChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) {
+      Emitter<NewYearSajuMemberInfoState> emit) async {
     final birthDate = BirthDate.dirty(event.birthDate);
 
     _newYearSajuRepository.updateSajuForm(
@@ -78,7 +78,7 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthHourChanged(MemberInfoBirthHourChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) {
+      Emitter<NewYearSajuMemberInfoState> emit) async {
     final birthHour = BirthHour.dirty(event.birthHour);
 
     final currentBirthDateTime =
@@ -104,7 +104,7 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthMinuteChanged(MemberInfoBirthMinuteChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) {
+      Emitter<NewYearSajuMemberInfoState> emit) async {
     final birthMinute = BirthMinute.dirty(event.birthMinute);
 
     final currentBirthDateTime =
