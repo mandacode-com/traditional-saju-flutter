@@ -1,4 +1,5 @@
 import 'package:byul_mobile/new_year_saju/bloc/member_info_bloc/member_info_bloc.dart';
+import 'package:byul_mobile/new_year_saju/view/question/question_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';
@@ -34,6 +35,7 @@ class NewYearSajuMemberInfoForm extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
+            _NextPageButton(),
           ],
         ),
       ),
@@ -50,11 +52,11 @@ class GenderSelectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor:
-            context.select((NewYearSajuMemberInfoBloc bloc) => bloc.state.gender.value) ==
-                    genderType
-                ? Colors.green
-                : Colors.grey,
+        backgroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                    bloc.state.gender.value) ==
+                genderType
+            ? Colors.green
+            : Colors.grey,
       ),
       onPressed: () => context
           .read<NewYearSajuMemberInfoBloc>()
@@ -83,8 +85,8 @@ class _FemaleSelectButton extends StatelessWidget {
 class _BirthDateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DateTime? birthDate =
-        context.select((NewYearSajuMemberInfoBloc bloc) => bloc.state.birthDate.value);
+    DateTime? birthDate = context
+        .select((NewYearSajuMemberInfoBloc bloc) => bloc.state.birthDate.value);
     return ElevatedButton(
         onPressed: () async {
           final date = await showDatePicker(
@@ -109,8 +111,8 @@ class _BirthHourButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
-      value:
-          context.select((NewYearSajuMemberInfoBloc bloc) => bloc.state.birthHour.value),
+      value: context.select(
+          (NewYearSajuMemberInfoBloc bloc) => bloc.state.birthHour.value),
       onChanged: (value) => context
           .read<NewYearSajuMemberInfoBloc>()
           .add(MemberInfoBirthHourChanged(value ?? 0)),
@@ -128,8 +130,8 @@ class _BirthMinuteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
-      value: context
-          .select((NewYearSajuMemberInfoBloc bloc) => bloc.state.birthMinute.value),
+      value: context.select(
+          (NewYearSajuMemberInfoBloc bloc) => bloc.state.birthMinute.value),
       onChanged: (value) => context
           .read<NewYearSajuMemberInfoBloc>()
           .add(MemberInfoBirthMinuteChanged(value ?? 0)),
@@ -139,6 +141,24 @@ class _BirthMinuteButton extends StatelessWidget {
                 child: Text('$minute분'),
               ))
           .toList(),
+    );
+  }
+}
+
+class _NextPageButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.lime,
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NewYearSajuQuestionPage()),
+        );
+      },
+      child: Text('다음'),
     );
   }
 }
