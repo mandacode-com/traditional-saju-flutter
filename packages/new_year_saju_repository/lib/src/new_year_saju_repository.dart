@@ -22,6 +22,9 @@ class NewYearSajuRepository {
     _localSajuForm = const SajuForm();
   }
 
+  /// TODO: create commit api
+  Future<void> commitSajuForm() async {}
+
   /// Updates the SajuForm with the given parameters
   SajuForm copyWith({
     GenderType? gender,
