@@ -1,7 +1,7 @@
 import 'package:byul_mobile/new_year_saju/question/bloc/question_bloc.dart';
 import 'package:byul_mobile/new_year_saju/question/bloc/question_state.dart';
 import 'package:byul_mobile/new_year_saju/result/view/result_page.dart';
-import 'package:byul_mobile/widgets/page_navigation_button.dart';
+import 'package:byul_mobile/widgets/page_navigation_button/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';

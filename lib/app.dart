@@ -26,7 +26,20 @@ class _AppState extends State<App> {
       child: MaterialApp(
         title: 'Byuljogak Saju',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.light(
+            primary: Colors.black,
+            secondary: Colors.grey,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey,
+              foregroundColor: Colors.black,
+            ),
+          ),
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.lightBlue,
+            textTheme: ButtonTextTheme.normal,
+          ),
         ),
         home: const Home(title: 'Byuljogak Saju'),
       ),

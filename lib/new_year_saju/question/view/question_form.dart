@@ -13,13 +13,7 @@ class QuestionForm extends StatelessWidget {
             Text(
                 'value: ${context.select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value)}'),
             PageNavigationButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NewYearSajuResultPage()),
-                );
-              },
+              page: NewYearSajuResultPage(),
               text: "다음",
             )
           ],
@@ -31,8 +25,9 @@ class _QuestionFormInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (value) =>
-          context.read<NewYearSajuQuestionBloc>().add(QuestionChanged(value)),
+      key: UniqueKey(),
+      initialValue: context
+          .select((NewYearSajuQuestionBloc bloc) => bloc.state.question.value),
     );
   }
 }

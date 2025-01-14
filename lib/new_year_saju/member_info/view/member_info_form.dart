@@ -3,48 +3,48 @@ part of 'member_info_page.dart';
 class NewYearSajuMemberInfoForm extends StatelessWidget {
   const NewYearSajuMemberInfoForm({super.key});
 
+  static final EdgeInsets padding =
+      const EdgeInsets.symmetric(vertical: 120, horizontal: 20);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<NewYearSajuMemberInfoBloc, NewYearSajuMemberInfoState>(
-      listener: (context, state) {},
-      child: Align(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _MaleSelectButton(),
-                _FemaleSelectButton(),
+        listener: (context, state) {},
+        child: Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _MaleSelectButton(),
+                    _FemaleSelectButton(),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                _BirthDateButton(),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _BirthHourButton(),
+                    _BirthMinuteButton(),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                PageNavigationButton(
+                  page: NewYearSajuQuestionPage(),
+                  theme: DarkPageNavigationButtonTheme(),
+                  text: "다음",
+                )
               ],
             ),
-            const SizedBox(height: 8),
-            _BirthDateButton(),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _BirthHourButton(),
-                _BirthMinuteButton(),
-              ],
-            ),
-            const SizedBox(height: 8),
-            PageNavigationButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NewYearSajuQuestionPage()),
-                );
-              },
-              text: "다음",
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
@@ -57,12 +57,16 @@ class GenderSelectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
-                    bloc.state.gender.value) ==
-                genderType
-            ? Colors.green
-            : Colors.grey,
-      ),
+          foregroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                      bloc.state.gender.value) ==
+                  genderType
+              ? Colors.white
+              : Colors.black,
+          backgroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                      bloc.state.gender.value) ==
+                  genderType
+              ? Colors.black
+              : Colors.grey),
       onPressed: () => context
           .read<NewYearSajuMemberInfoBloc>()
           .add(MemberInfoGenderChanged(genderType)),

@@ -1,4 +1,5 @@
 import 'package:byul_mobile/new_year_saju/member_info/view/member_info_page.dart';
+import 'package:byul_mobile/widgets/page_navigation_button/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -98,27 +99,16 @@ class MainPageNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewYearSajuMemberInfoPage()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonBackgroundColor,
-            minimumSize: buttonMinimumSize,
-          ),
-          child: const Text('오늘의 운세'),
+        PageNavigationButton(
+          page: NewYearSajuMemberInfoPage(),
+          text: '오늘의 운세',
+          theme: ObscurePageNavigationButtonTheme(),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonBackgroundColor,
-            minimumSize: buttonMinimumSize,
-          ),
-          child: const Text('🐍 2025년 신년운세 🐍'),
+        PageNavigationButton(
+          page: NewYearSajuMemberInfoPage(),
+          text: '🐍 2025년 신년운세 🐍',
+          theme: ObscurePageNavigationButtonTheme(),
         ),
       ],
     );
