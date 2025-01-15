@@ -1,35 +1,36 @@
-part of 'page_navigation_button.dart';
+import 'package:byul_mobile/themes/button_color.dart';
+import 'package:flutter/material.dart';
 
 class PageNavigationButtonTheme {
   const PageNavigationButtonTheme();
 
-  Color get backgroundColor => Colors.grey;
-  Color get textColor => Colors.black;
+  Color get backgroundColor => ButtonColor.white;
+  Color get textColor => ButtonColor.blackText;
 }
 
 class LightPageNavigationButtonTheme extends PageNavigationButtonTheme {
   const LightPageNavigationButtonTheme();
 
   @override
-  Color get backgroundColor => Colors.white;
+  Color get backgroundColor => ButtonColor.white;
   @override
-  Color get textColor => Colors.black;
+  Color get textColor => ButtonColor.blackText;
 }
 
 class DarkPageNavigationButtonTheme extends PageNavigationButtonTheme {
   const DarkPageNavigationButtonTheme();
 
   @override
-  Color get backgroundColor => Colors.black;
+  Color get backgroundColor => ButtonColor.black;
   @override
-  Color get textColor => Colors.white;
+  Color get textColor => ButtonColor.whiteText;
 }
 
 class ObscurePageNavigationButtonTheme extends PageNavigationButtonTheme {
   const ObscurePageNavigationButtonTheme();
 
   @override
-  Color get textColor => Colors.black;
+  Color get textColor => ButtonColor.blackText;
   @override
-  Color get backgroundColor => const Color.fromRGBO(255, 255, 255, 0.8);
+  Color get backgroundColor => ButtonColor.obsureWhite;
 }

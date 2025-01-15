@@ -1,5 +1,5 @@
 import 'package:byul_mobile/new_year_saju/member_info/view/member_info_page.dart';
-import 'package:byul_mobile/widgets/page_navigation_button/page_navigation_button.dart';
+import 'package:byul_mobile/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {

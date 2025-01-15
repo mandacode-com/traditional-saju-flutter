@@ -1,6 +1,5 @@
+import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
 import 'package:flutter/material.dart';
-
-part 'theme.dart';
 
 class PageNavigationButton extends StatelessWidget {
   const PageNavigationButton({
@@ -33,4 +32,3 @@ class PageNavigationButton extends StatelessWidget {
         child: Text(text));
   }
 }
-
