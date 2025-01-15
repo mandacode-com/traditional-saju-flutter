@@ -41,6 +41,8 @@ dependencies:
   equatable: ^2.0.0
   new_year_saju_repository:
     path: packages/new_year_saju_repository
+  saju_local_storage:
+    path: packages/saju_local_storage
 
 dev_dependencies:
   flutter_test:

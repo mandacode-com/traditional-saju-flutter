@@ -2,6 +2,7 @@ import 'package:byul_mobile/new_year_saju/member_info/model/member_info.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:saju_local_storage/saju_local_storage.dart';
 
 part 'member_info_state.dart';
 part 'member_info_event.dart';
@@ -25,10 +26,10 @@ class NewYearSajuMemberInfoBloc
       Emitter<NewYearSajuMemberInfoState> emit) async {
     emit(state.copyWith(status: NewYearSajuMemberInfoStatus.loading));
     try {
-      final newYearSaju = _newYearSajuRepository.sajuForm;
-      final gender = Gender.dirty(newYearSaju.gender ?? GenderType.unknown);
+      final newYearSajuForm = await _newYearSajuRepository.getSajuForm();
+      final gender = Gender.dirty(newYearSajuForm.gender ?? GenderType.unknown);
 
-      final birthDateTime = newYearSaju.birthDateTime ?? DateTime.now();
+      final birthDateTime = newYearSajuForm.birthDateTime ?? DateTime.now();
       final birthDate = BirthDate.dirty(
           DateTime(birthDateTime.year, birthDateTime.month, birthDateTime.day));
       final birthHour = BirthHour.dirty(birthDateTime.hour);
@@ -51,9 +52,7 @@ class NewYearSajuMemberInfoBloc
       Emitter<NewYearSajuMemberInfoState> emit) async {
     final gender = Gender.dirty(event.gender);
 
-    _newYearSajuRepository.updateSajuForm(
-      _newYearSajuRepository.sajuForm.copyWith(gender: gender.value),
-    );
+    _newYearSajuRepository.updateSajuForm(gender: event.gender);
 
     emit(
       state.copyWith(
@@ -67,7 +66,13 @@ class NewYearSajuMemberInfoBloc
     final birthDate = BirthDate.dirty(event.birthDate);
 
     _newYearSajuRepository.updateSajuForm(
-      _newYearSajuRepository.sajuForm.copyWith(birthDateTime: event.birthDate),
+      birthDateTime: DateTime(
+        event.birthDate.year,
+        event.birthDate.month,
+        event.birthDate.day,
+        state.birthHour.value,
+        state.birthMinute.value,
+      ),
     );
 
     emit(
@@ -81,18 +86,15 @@ class NewYearSajuMemberInfoBloc
       Emitter<NewYearSajuMemberInfoState> emit) async {
     final birthHour = BirthHour.dirty(event.birthHour);
 
-    final currentBirthDateTime =
-        _newYearSajuRepository.sajuForm.birthDateTime ?? DateTime.now();
+    final currentBirthDateTime = DateTime.now();
 
     _newYearSajuRepository.updateSajuForm(
-      _newYearSajuRepository.sajuForm.copyWith(
-        birthDateTime: DateTime(
-          currentBirthDateTime.year,
-          currentBirthDateTime.month,
-          currentBirthDateTime.day,
-          event.birthHour,
-          state.birthMinute.value,
-        ),
+      birthDateTime: DateTime(
+        state.birthDate.value?.year ?? currentBirthDateTime.year,
+        state.birthDate.value?.month ?? currentBirthDateTime.month,
+        state.birthDate.value?.day ?? currentBirthDateTime.day,
+        event.birthHour,
+        state.birthMinute.value,
       ),
     );
 
@@ -107,18 +109,15 @@ class NewYearSajuMemberInfoBloc
       Emitter<NewYearSajuMemberInfoState> emit) async {
     final birthMinute = BirthMinute.dirty(event.birthMinute);
 
-    final currentBirthDateTime =
-        _newYearSajuRepository.sajuForm.birthDateTime ?? DateTime.now();
+    final currentBirthDateTime = DateTime.now();
 
     _newYearSajuRepository.updateSajuForm(
-      _newYearSajuRepository.sajuForm.copyWith(
-        birthDateTime: DateTime(
-          currentBirthDateTime.year,
-          currentBirthDateTime.month,
-          currentBirthDateTime.day,
-          state.birthHour.value,
-          event.birthMinute,
-        ),
+      birthDateTime: DateTime(
+        state.birthDate.value?.year ?? currentBirthDateTime.year,
+        state.birthDate.value?.month ?? currentBirthDateTime.month,
+        state.birthDate.value?.day ?? currentBirthDateTime.day,
+        state.birthHour.value,
+        event.birthMinute,
       ),
     );
 

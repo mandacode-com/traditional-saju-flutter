@@ -1,4 +1,4 @@
-import 'package:new_year_saju_repository/src/models/saju_form.dart';
+import 'package:saju_local_storage/saju_local_storage.dart';
 
 /// {@template new_year_saju_repository}
 /// A Very Good Project created by Very Good CLI.
@@ -7,34 +7,39 @@ class NewYearSajuRepository {
   /// {@macro new_year_saju_repository}
   NewYearSajuRepository();
 
-  SajuForm _localSajuForm = const SajuForm();
+  final NewYearSajuFormStorage _newYearSajuFormStorage =
+      NewYearSajuFormStorage();
 
-  /// Returns the current SajuForm
-  SajuForm get sajuForm => _localSajuForm;
-
-  /// Updates the SajuForm with the given [sajuForm]
-  Future<void> updateSajuForm(SajuForm sajuForm) async {
-    _localSajuForm = sajuForm;
+  /// Get the [NewYearSajuForm] from the local storage.
+  Future<NewYearSajuForm> getSajuForm() async {
+    return _newYearSajuFormStorage.form;
   }
 
-  /// Resets the SajuForm to its initial state
+  /// Save the [NewYearSajuForm] to the local storage.
+  Future<void> saveSajuForm(NewYearSajuForm form) async {
+    await _newYearSajuFormStorage.updateForm(form: form);
+  }
+
+  /// Reset the [NewYearSajuForm] in the local storage.
   Future<void> resetSajuForm() async {
-    _localSajuForm = const SajuForm();
+    await _newYearSajuFormStorage.resetForm();
   }
 
-  /// TODO: create commit api
-  Future<void> commitSajuForm() async {}
+  /// Copy the [NewYearSajuForm] from the local storage.
+  Future<NewYearSajuForm> copySajuForm() async {
+    return _newYearSajuFormStorage.copyForm();
+  }
 
-  /// Updates the SajuForm with the given parameters
-  SajuForm copyWith({
+  /// Update the [NewYearSajuForm] in the local storage.
+  Future<void> updateSajuForm({
     GenderType? gender,
     DateTime? birthDateTime,
     String? question,
-  }) {
-    return SajuForm(
-      gender: gender ?? _localSajuForm.gender,
-      birthDateTime: birthDateTime ?? _localSajuForm.birthDateTime,
-      question: question ?? _localSajuForm.question,
+  }) async {
+    await _newYearSajuFormStorage.updateFormWith(
+      gender: gender,
+      birthDateTime: birthDateTime,
+      question: question,
     );
   }
 }

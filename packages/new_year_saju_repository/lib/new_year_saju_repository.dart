@@ -1,5 +1,4 @@
 /// A Very Good Project created by Very Good CLI.
-library;
+library new_year_saju_repository;
 
-export 'src/models/models.dart';
 export 'src/new_year_saju_repository.dart';

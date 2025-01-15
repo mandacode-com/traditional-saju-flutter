@@ -5,6 +5,7 @@ import 'package:byul_mobile/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:saju_local_storage/saju_local_storage.dart';
 
 part 'member_info_form.dart';
 

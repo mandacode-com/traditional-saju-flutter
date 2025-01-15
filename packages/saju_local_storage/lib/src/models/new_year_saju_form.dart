@@ -1,14 +1,4 @@
-/// Represents Gender type
-enum GenderType {
-  /// male
-  male,
-
-  /// female
-  female,
-
-  /// unknown
-  unknown
-}
+part of 'models.dart';
 
 /// {@template saju_form}
 /// Form data for the Saju page.

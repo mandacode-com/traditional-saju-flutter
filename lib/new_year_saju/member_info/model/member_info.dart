@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:saju_local_storage/saju_local_storage.dart';
 
 part 'gender.dart';
 part 'birth_date.dart';

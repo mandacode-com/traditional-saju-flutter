@@ -22,9 +22,9 @@ class NewYearSajuQuestionBloc
       Emitter<NewYearSajuQuestionState> emit) async {
     emit(state.copyWith(status: NewYearSajuQuestionStatus.loading));
     try {
-      final newYearSaju = _newYearSajuRepository.sajuForm;
+      final newYearSajuForm = await _newYearSajuRepository.getSajuForm();
 
-      final question = Question.dirty(newYearSaju.question ?? '');
+      final question = Question.dirty(newYearSajuForm.question ?? '');
 
       emit(
         state.copyWith(
@@ -42,7 +42,7 @@ class NewYearSajuQuestionBloc
     final question = Question.dirty(event.question);
 
     _newYearSajuRepository.updateSajuForm(
-      _newYearSajuRepository.copyWith(question: question.value),
+      question: event.question,
     );
 
     emit(
