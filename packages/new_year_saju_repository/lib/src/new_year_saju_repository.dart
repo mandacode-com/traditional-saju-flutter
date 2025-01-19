@@ -34,12 +34,27 @@ class NewYearSajuRepository {
   Future<void> updateSajuForm({
     GenderType? gender,
     DateTime? birthDateTime,
+    bool? birthTimeDisabled,
     String? question,
+    bool? questionDisabled,
   }) async {
     await _newYearSajuFormStorage.updateFormWith(
       gender: gender,
       birthDateTime: birthDateTime,
+      birthTimeDisabled: birthTimeDisabled,
       question: question,
+      questionDisabled: questionDisabled,
     );
+  }
+
+  /// Submit the [NewYearSajuForm] to the server.
+  Future<bool> submitSajuForm() async {
+    final form = await _newYearSajuFormStorage.copyForm();
+    // Submit the form to the server and receive the response.
+
+    // wait for 2 seconds to simulate the server response time.
+    await Future.delayed(const Duration(seconds: 4));
+
+    return true;
   }
 }

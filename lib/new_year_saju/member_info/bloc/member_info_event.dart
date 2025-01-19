@@ -46,3 +46,12 @@ final class MemberInfoBirthMinuteChanged extends NewYearSajuMemberInfoEvent {
   @override
   List<Object> get props => [birthMinute];
 }
+
+final class MemberInfoBirthTimeDisabledChanged extends NewYearSajuMemberInfoEvent {
+  const MemberInfoBirthTimeDisabledChanged(this.disabled);
+
+  final bool disabled;
+
+  @override
+  List<Object> get props => [disabled];
+}

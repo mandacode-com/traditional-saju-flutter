@@ -14,6 +14,7 @@ class NewYearSajuQuestionBloc
         super(const NewYearSajuQuestionState()) {
     on<QuestionSubscriptionRequested>(_onSubscriptionRequested);
     on<QuestionChanged>(_onQuestionChanged);
+    on<QuestionDisabledChanged>(_onQuestionDisabledChanged);
   }
 
   final NewYearSajuRepository _newYearSajuRepository;
@@ -30,6 +31,7 @@ class NewYearSajuQuestionBloc
         state.copyWith(
           status: NewYearSajuQuestionStatus.success,
           question: question,
+          questionDisabled: newYearSajuForm.questionDisabled ?? false,
         ),
       );
     } catch (e) {
@@ -47,6 +49,17 @@ class NewYearSajuQuestionBloc
 
     emit(
       state.copyWith(question: question),
+    );
+  }
+
+  void _onQuestionDisabledChanged(
+      QuestionDisabledChanged event, Emitter<NewYearSajuQuestionState> emit) {
+    _newYearSajuRepository.updateSajuForm(
+      questionDisabled: event.disabled,
+    );
+
+    emit(
+      state.copyWith(questionDisabled: event.disabled),
     );
   }
 }

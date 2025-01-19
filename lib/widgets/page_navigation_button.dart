@@ -7,6 +7,7 @@ class PageNavigationButton extends StatelessWidget {
     required this.page,
     this.theme = const LightPageNavigationButtonTheme(),
     required this.text,
+    this.onPressed,
   });
 
   final Size buttonMinimumSize = const Size(double.infinity, 50);
@@ -14,21 +15,34 @@ class PageNavigationButton extends StatelessWidget {
   final StatelessWidget page;
   final PageNavigationButtonTheme theme;
   final String text;
+  final Future<void> Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.backgroundColor,
-          foregroundColor: theme.textColor,
-          minimumSize: buttonMinimumSize,
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              backgroundColor: theme.backgroundColor,
+              foregroundColor: theme.textColor,
+            ),
+            onPressed: () async {
+              if (onPressed != null) {
+                onPressed!();
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => page),
+              );
+            },
+            child: Text(text),
+          ),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => page),
-          );
-        },
-        child: Text(text));
+      ],
+    );
   }
 }

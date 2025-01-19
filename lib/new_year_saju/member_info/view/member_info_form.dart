@@ -17,17 +17,20 @@ class NewYearSajuMemberInfoForm extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                _Label(text: '성별'),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _MaleSelectButton(),
-                    _FemaleSelectButton(),
+                    _GenderSelectButton(genderType: GenderType.male),
+                    _GenderSelectButton(genderType: GenderType.female),
                   ],
                 ),
                 const SizedBox(height: 8),
+                _Label(text: '생년월일(양력)'),
                 _BirthDateButton(),
                 const SizedBox(height: 8),
+                _Label(text: '태어난 시각'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -35,12 +38,25 @@ class NewYearSajuMemberInfoForm extends StatelessWidget {
                     _BirthMinuteButton(),
                   ],
                 ),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                          bloc.state.birthTimeDisabled),
+                      onChanged: (value) => context
+                          .read<NewYearSajuMemberInfoBloc>()
+                          .add(MemberInfoBirthTimeDisabledChanged(
+                              value ?? false)),
+                    ),
+                    Text('시간 모름'),
+                  ],
+                ),
                 const SizedBox(height: 8),
                 PageNavigationButton(
                   page: NewYearSajuQuestionPage(),
                   theme: DarkPageNavigationButtonTheme(),
-                  text: "다음",
-                )
+                  text: "다음으로",
+                ),
               ],
             ),
           ),
@@ -48,46 +64,55 @@ class NewYearSajuMemberInfoForm extends StatelessWidget {
   }
 }
 
-class GenderSelectButton extends StatelessWidget {
-  const GenderSelectButton({super.key, required this.genderType});
+class _Label extends StatelessWidget {
+  const _Label({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _GenderSelectButton extends StatelessWidget {
+  const _GenderSelectButton({required this.genderType});
 
   final GenderType genderType;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          foregroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
-                      bloc.state.gender.value) ==
-                  genderType
-              ? Colors.white
-              : Colors.black,
-          backgroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
-                      bloc.state.gender.value) ==
-                  genderType
-              ? Colors.black
-              : Colors.grey),
-      onPressed: () => context
-          .read<NewYearSajuMemberInfoBloc>()
-          .add(MemberInfoGenderChanged(genderType)),
-      child: genderType == GenderType.unknown
-          ? const Text('성별')
-          : Text(genderType == GenderType.male ? '남자' : '여자'),
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            foregroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                        bloc.state.gender) ==
+                    genderType
+                ? ButtonColor.white
+                : ButtonColor.black,
+            backgroundColor: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                        bloc.state.gender) ==
+                    genderType
+                ? ButtonColor.black
+                : ButtonColor.white),
+        onPressed: () => context
+            .read<NewYearSajuMemberInfoBloc>()
+            .add(MemberInfoGenderChanged(genderType)),
+        child: Text(genderType == GenderType.male ? '남자' : '여자'),
+      ),
     );
-  }
-}
-
-class _MaleSelectButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GenderSelectButton(genderType: GenderType.male);
-  }
-}
-
-class _FemaleSelectButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GenderSelectButton(genderType: GenderType.female);
   }
 }
 
@@ -96,30 +121,66 @@ class _BirthDateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime? birthDate = context
         .select((NewYearSajuMemberInfoBloc bloc) => bloc.state.birthDate.value);
-    return ElevatedButton(
-        onPressed: () async {
-          final date = await showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime(2100),
-          ).then((value) => value ?? DateTime.now());
-          if (context.mounted) {
-            context
-                .read<NewYearSajuMemberInfoBloc>()
-                .add(MemberInfoBirthDateChanged(date));
-          }
-        },
-        child: birthDate == null
-            ? const Text('생년월일')
-            : Text('${birthDate.year}년 ${birthDate.month}월 ${birthDate.day}일'));
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                foregroundColor: ButtonColor.black,
+                backgroundColor: ButtonColor.white),
+            onPressed: () async {
+              final date = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1900),
+                lastDate: DateTime(2100),
+              ).then((value) => value ?? DateTime.now());
+              if (context.mounted) {
+                context
+                    .read<NewYearSajuMemberInfoBloc>()
+                    .add(MemberInfoBirthDateChanged(date));
+              }
+            },
+            child: birthDate == null
+                ? const Text('생년월일')
+                : Text(
+                    '${birthDate.year}년 ${birthDate.month}월 ${birthDate.day}일'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _TimeSelectButton<T> extends StatelessWidget {
+  const _TimeSelectButton({
+    required this.value,
+    required this.onChanged,
+    required this.items,
+  });
+
+  final T value;
+  final void Function(T?) onChanged;
+  final List<DropdownMenuItem<T>> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: CustomDropdownButton<T>(
+        value: value,
+        onChanged: onChanged,
+        items: items,
+        disabled: context.select(
+            (NewYearSajuMemberInfoBloc bloc) => bloc.state.birthTimeDisabled),
+      ),
+    );
   }
 }
 
 class _BirthHourButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<int>(
+    return _TimeSelectButton<int>(
       value: context.select(
           (NewYearSajuMemberInfoBloc bloc) => bloc.state.birthHour.value),
       onChanged: (value) => context
@@ -128,7 +189,9 @@ class _BirthHourButton extends StatelessWidget {
       items: List.generate(24, (index) => index)
           .map((hour) => DropdownMenuItem<int>(
                 value: hour,
-                child: Text('$hour시'),
+                child: Center(
+                  child: Text('$hour시', textAlign: TextAlign.center),
+                ),
               ))
           .toList(),
     );
@@ -138,7 +201,7 @@ class _BirthHourButton extends StatelessWidget {
 class _BirthMinuteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<int>(
+    return _TimeSelectButton<int>(
       value: context.select(
           (NewYearSajuMemberInfoBloc bloc) => bloc.state.birthMinute.value),
       onChanged: (value) => context
@@ -147,7 +210,9 @@ class _BirthMinuteButton extends StatelessWidget {
       items: List.generate(60, (index) => index)
           .map((minute) => DropdownMenuItem<int>(
                 value: minute,
-                child: Text('$minute분'),
+                child: Center(
+                  child: Text('$minute분', textAlign: TextAlign.center),
+                ),
               ))
           .toList(),
     );

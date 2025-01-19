@@ -8,7 +8,7 @@ class Wating extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/background.png"),
+          image: AssetImage("assets/images/wating_background.png"),
           fit: BoxFit.cover,
         ),
       ),

@@ -26,12 +26,16 @@ class NewYearSajuFormStorage {
   Future<void> updateFormWith({
     GenderType? gender,
     DateTime? birthDateTime,
+    bool? birthTimeDisabled,
     String? question,
+    bool? questionDisabled,
   }) async {
     _form = _form.copyWith(
       gender: gender,
       birthDateTime: birthDateTime,
+      birthTimeDisabled: birthTimeDisabled,
       question: question,
+      questionDisabled: questionDisabled,
     );
   }
 }

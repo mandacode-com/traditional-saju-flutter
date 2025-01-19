@@ -22,8 +22,33 @@ class NewYearSajuResultPage extends StatelessWidget {
         create: (context) => NewYearSajuResultBloc(
           newYearSajuRepository: context.read<NewYearSajuRepository>(),
         )..add(const ResultSubscriptionRequested()),
-        child: Text('sample'),
+        child: _ResultPageContent(),
       ),
+    );
+  }
+}
+
+class _ResultPageContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return context.select(
+      (NewYearSajuResultBloc bloc) =>
+          bloc.state.status == NewYearSajuResultStatus.success
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("success"),
+                      ElevatedButton(
+                        onPressed: () => context
+                            .read<NewYearSajuResultBloc>()
+                            .add(const ClearResultPressed()),
+                        child: const Text('Clear'),
+                      ),
+                    ],
+                  ),
+                )
+              : const Center(child: CircularProgressIndicator()),
     );
   }
 }

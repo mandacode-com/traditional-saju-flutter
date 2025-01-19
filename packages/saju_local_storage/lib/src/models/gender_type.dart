@@ -7,7 +7,4 @@ enum GenderType {
 
   /// female
   female,
-
-  /// unknown
-  unknown
 }

@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Add the INTERNET permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="byul_mobile"
         android:name="${applicationName}"

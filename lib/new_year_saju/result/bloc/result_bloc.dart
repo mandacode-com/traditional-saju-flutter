@@ -20,8 +20,22 @@ class NewYearSajuResultBloc
 
   void _onResultSubscriptionRequested(ResultSubscriptionRequested event,
       Emitter<NewYearSajuResultState> emit) async {
-    final result = Result(message: "");
-    emit(state.copyWith(result: result));
+    Result result = Result(message: "");
+
+    final bool submitResult = await _newYearSajuRepository.submitSajuForm();
+
+    if (submitResult) {
+      result = Result(message: "success");
+    } else {
+      result = Result(message: "failure");
+    }
+
+    emit(state.copyWith(
+      status: submitResult
+          ? NewYearSajuResultStatus.success
+          : NewYearSajuResultStatus.failed,
+      result: result,
+    ));
   }
 
   void _onResultClearPressed(

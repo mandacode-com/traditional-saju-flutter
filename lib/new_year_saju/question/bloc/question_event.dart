@@ -19,3 +19,12 @@ final class QuestionChanged extends NewYearSajuQuestionEvent {
   @override
   List<Object> get props => [question];
 }
+
+final class QuestionDisabledChanged extends NewYearSajuQuestionEvent {
+  const QuestionDisabledChanged(this.disabled);
+
+  final bool disabled;
+
+  @override
+  List<Object> get props => [disabled];
+}

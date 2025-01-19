@@ -18,6 +18,7 @@ class NewYearSajuMemberInfoBloc
     on<MemberInfoBirthDateChanged>(_onBirthDateChanged);
     on<MemberInfoBirthHourChanged>(_onBirthHourChanged);
     on<MemberInfoBirthMinuteChanged>(_onBirthMinuteChanged);
+    on<MemberInfoBirthTimeDisabledChanged>(_onBirthTimeDisabledChanged);
   }
 
   final NewYearSajuRepository _newYearSajuRepository;
@@ -27,7 +28,7 @@ class NewYearSajuMemberInfoBloc
     emit(state.copyWith(status: NewYearSajuMemberInfoStatus.loading));
     try {
       final newYearSajuForm = await _newYearSajuRepository.getSajuForm();
-      final gender = Gender.dirty(newYearSajuForm.gender ?? GenderType.unknown);
+      final gender = newYearSajuForm.gender;
 
       final birthDateTime = newYearSajuForm.birthDateTime ?? DateTime.now();
       final birthDate = BirthDate.dirty(
@@ -41,6 +42,7 @@ class NewYearSajuMemberInfoBloc
           birthDate: birthDate,
           birthHour: birthHour,
           birthMinute: birthMinute,
+          birthTimeDisabled: newYearSajuForm.birthTimeDisabled ?? false,
         ),
       );
     } catch (e) {
@@ -50,13 +52,12 @@ class NewYearSajuMemberInfoBloc
 
   void _onGenderChanged(MemberInfoGenderChanged event,
       Emitter<NewYearSajuMemberInfoState> emit) async {
-    final gender = Gender.dirty(event.gender);
 
     _newYearSajuRepository.updateSajuForm(gender: event.gender);
 
     emit(
       state.copyWith(
-        gender: gender,
+        gender: event.gender,
       ),
     );
   }
@@ -124,6 +125,20 @@ class NewYearSajuMemberInfoBloc
     emit(
       state.copyWith(
         birthMinute: birthMinute,
+      ),
+    );
+  }
+
+  void _onBirthTimeDisabledChanged(MemberInfoBirthTimeDisabledChanged event,
+      Emitter<NewYearSajuMemberInfoState> emit) async {
+
+    _newYearSajuRepository.updateSajuForm(
+      birthTimeDisabled: event.disabled,
+    );
+
+    emit(
+      state.copyWith(
+        birthTimeDisabled: event.disabled,
       ),
     );
   }

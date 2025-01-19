@@ -21,7 +21,7 @@ class DarkPageNavigationButtonTheme extends PageNavigationButtonTheme {
   const DarkPageNavigationButtonTheme();
 
   @override
-  Color get backgroundColor => ButtonColor.black;
+  Color get backgroundColor => ButtonColor.obsureBlack;
   @override
   Color get textColor => ButtonColor.whiteText;
 }

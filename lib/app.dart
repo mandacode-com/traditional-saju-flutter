@@ -26,12 +26,19 @@ class _AppState extends State<App> {
       child: MaterialApp(
         title: 'Byuljogak Saju',
         theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
           colorScheme: ColorScheme.light(
             primary: Colors.black,
             secondary: Colors.grey,
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadowColor: Colors.transparent,
               backgroundColor: Colors.grey,
               foregroundColor: Colors.black,
             ),
