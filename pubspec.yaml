@@ -83,3 +83,10 @@ flutter:
     - family: MapoFlowerIsland
       fonts:
         - asset: assets/fonts/MapoFlowerIsland.ttf
+    - family: NanumSquareNeo
+      fonts:
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-aLt.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-bRg.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-cBd.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-dEb.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-eHv.ttf
