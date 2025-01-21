@@ -3,64 +3,53 @@ part of 'member_info_page.dart';
 class NewYearSajuMemberInfoForm extends StatelessWidget {
   const NewYearSajuMemberInfoForm({super.key});
 
-  static final EdgeInsets padding =
-      const EdgeInsets.symmetric(vertical: 120, horizontal: 20);
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<NewYearSajuMemberInfoBloc, NewYearSajuMemberInfoState>(
-        listener: (context, state) {},
-        child: Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _Label(text: '성별'),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _GenderSelectButton(genderType: GenderType.male),
-                    _GenderSelectButton(genderType: GenderType.female),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                _Label(text: '생년월일(양력)'),
-                _BirthDateButton(),
-                const SizedBox(height: 8),
-                _Label(text: '태어난 시각'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _BirthHourButton(),
-                    _BirthMinuteButton(),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: context.select((NewYearSajuMemberInfoBloc bloc) =>
-                          bloc.state.birthTimeDisabled),
-                      onChanged: (value) => context
-                          .read<NewYearSajuMemberInfoBloc>()
-                          .add(MemberInfoBirthTimeDisabledChanged(
-                              value ?? false)),
-                    ),
-                    Text('시간 모름'),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                PageNavigationButton(
-                  page: NewYearSajuQuestionPage(),
-                  theme: DarkPageNavigationButtonTheme(),
-                  text: "다음으로",
+      listener: (context, state) {},
+      child: Align(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _Label(text: '성별'),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _GenderSelectButton(genderType: GenderType.male),
+                _GenderSelectButton(genderType: GenderType.female),
+              ],
+            ),
+            const SizedBox(height: 8),
+            _Label(text: '생년월일(양력)'),
+            _BirthDateButton(),
+            const SizedBox(height: 8),
+            _Label(text: '태어난 시각'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _BirthHourButton(),
+                _BirthMinuteButton(),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextCheckBox(
+                  text: "시간 모름",
+                  value: context.select((NewYearSajuMemberInfoBloc bloc) =>
+                      bloc.state.birthTimeDisabled),
+                  onChanged: (value) => context
+                      .read<NewYearSajuMemberInfoBloc>()
+                      .add(MemberInfoBirthTimeDisabledChanged(value ?? false)),
                 ),
               ],
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }
 
