@@ -1,4 +1,6 @@
 import 'package:byul_mobile/new_year_saju/result/bloc/result_bloc.dart';
+import 'package:byul_mobile/new_year_saju/result/view/result_view.dart';
+import 'package:byul_mobile/widgets/wating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_year_saju_repository/new_year_saju_repository.dart';
@@ -15,9 +17,6 @@ class NewYearSajuResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Byuljogak Saju'),
-      ),
       body: BlocProvider(
         create: (context) => NewYearSajuResultBloc(
           newYearSajuRepository: context.read<NewYearSajuRepository>(),
@@ -34,21 +33,43 @@ class _ResultPageContent extends StatelessWidget {
     return context.select(
       (NewYearSajuResultBloc bloc) =>
           bloc.state.status == NewYearSajuResultStatus.success
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("success"),
-                      ElevatedButton(
-                        onPressed: () => context
-                            .read<NewYearSajuResultBloc>()
-                            .add(const ClearResultPressed()),
-                        child: const Text('Clear'),
-                      ),
-                    ],
+              ? ResultView(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("success"),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                            },
+                            child: Text("홈으로")),
+                      ],
+                    ),
                   ),
                 )
-              : const Center(child: CircularProgressIndicator()),
+              : Wating(
+                  duration: Duration(milliseconds: 3000),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text(
+                      "운명을 해석중입나다...\n"
+                      "잠시만 기다려주세요. 자세한 풀이를 위해 노력중입니다.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 0.1
+                          ..color = Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'MapoFlowerIsland',
+                        height: 2.5,
+                      ),
+                    ),
+                  ),
+                ),
     );
   }
 }
