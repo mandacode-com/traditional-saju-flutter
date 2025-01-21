@@ -7,30 +7,25 @@ class QuestionForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<NewYearSajuQuestionBloc, NewYearSajuQuestionState>(
       listener: (context, state) {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 120, horizontal: 20),
-        child: Column(
-          children: [
-            _QuestionFormInput(),
-            Row(
-              children: [
-                Checkbox(
-                  value: context.select((NewYearSajuQuestionBloc bloc) =>
-                      bloc.state.questionDisabled),
-                  onChanged: (value) => context
-                      .read<NewYearSajuQuestionBloc>()
-                      .add(QuestionDisabledChanged(value ?? false)),
-                ),
-                Text('없음'),
-              ],
-            ),
-            PageNavigationButton(
-              theme: DarkPageNavigationButtonTheme(),
-              page: NewYearSajuResultPage(),
-              text: "완료",
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          _QuestionFormInput(),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextCheckBox(
+                text: "딱히 없음",
+                value: context.select((NewYearSajuQuestionBloc bloc) =>
+                    bloc.state.questionDisabled),
+                onChanged: (value) =>
+                    context.read<NewYearSajuQuestionBloc>().add(
+                          QuestionDisabledChanged(value ?? false),
+                        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
