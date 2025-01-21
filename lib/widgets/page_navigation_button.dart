@@ -12,7 +12,7 @@ class PageNavigationButton extends StatelessWidget {
 
   final Size buttonMinimumSize = const Size(double.infinity, 50);
 
-  final StatelessWidget page;
+  final Widget page;
   final PageNavigationButtonTheme theme;
   final String text;
   final Future<void> Function()? onPressed;
