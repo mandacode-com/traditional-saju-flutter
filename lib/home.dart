@@ -1,15 +1,11 @@
+import 'package:byul_mobile/config/config.dart';
 import 'package:byul_mobile/new_year_saju/member_info/view/member_info_page.dart';
 import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
 import 'package:byul_mobile/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key, required this.title});
-
-  final String title;
-
-  static final EdgeInsets padding =
-      const EdgeInsets.symmetric(vertical: 120, horizontal: 20);
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +26,7 @@ class Home extends StatelessWidget {
           child: const Icon(Icons.menu),
         );
       }),
-      endDrawer: const MainPageDrawer(),
+      endDrawer: _MainPageDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Container(
         decoration: BoxDecoration(
@@ -39,17 +35,28 @@ class Home extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: padding,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const MainPageTitle(
-                    title: '별조각', description: '오늘 당신의 별은 어떻게 움직일까요?'),
-                const Spacer(),
-                const MainPageNavigation(),
-              ],
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: MediaQuery.of(context).orientation ==
+                      Orientation.landscape
+                  ? Config.getLandScapeHorizontalPadding(context).copyWith(
+                      top: 40,
+                      bottom: 40,
+                    )
+                  : const EdgeInsets.symmetric(vertical: 120, horizontal: 20),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _MainPageTitle(
+                        title: '별조각', description: '오늘 당신의 별은 어떻게 움직일까요?'),
+                    Spacer(),
+                    _MainPageNavigation(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -58,9 +65,8 @@ class Home extends StatelessWidget {
   }
 }
 
-class MainPageTitle extends StatelessWidget {
-  const MainPageTitle(
-      {super.key, required this.title, required this.description});
+class _MainPageTitle extends StatelessWidget {
+  const _MainPageTitle({required this.title, required this.description});
 
   final String title;
   final String description;
@@ -79,10 +85,13 @@ class MainPageTitle extends StatelessWidget {
         Text(
           description,
           style: TextStyle(
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 0.1
+              ..color = Colors.black,
             fontFamily: 'MapoFlowerIsland',
             fontWeight: FontWeight.bold,
             fontSize: 14,
-            color: const Color.fromRGBO(0, 0, 0, 1),
           ),
         ),
       ],
@@ -90,9 +99,7 @@ class MainPageTitle extends StatelessWidget {
   }
 }
 
-class MainPageNavigation extends StatelessWidget {
-  const MainPageNavigation({super.key});
-
+class _MainPageNavigation extends StatelessWidget {
   final Color buttonBackgroundColor = const Color.fromRGBO(255, 255, 255, 0.8);
   final Size buttonMinimumSize = const Size(double.infinity, 50);
 
@@ -116,9 +123,7 @@ class MainPageNavigation extends StatelessWidget {
   }
 }
 
-class MainPageDrawer extends StatelessWidget {
-  const MainPageDrawer({super.key});
-
+class _MainPageDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
