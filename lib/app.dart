@@ -48,7 +48,7 @@ class _AppState extends State<App> {
             textTheme: ButtonTextTheme.normal,
           ),
         ),
-        home: const Home(title: 'Byuljogak Saju'),
+        home: Home(),
       ),
     );
   }
