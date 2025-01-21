@@ -1,0 +1,65 @@
+import 'package:byul_mobile/new_year_saju/question/bloc/question_state.dart';
+import 'package:byul_mobile/new_year_saju/question/model/question.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+
+part 'question_event.dart';
+
+class NewYearSajuQuestionBloc
+    extends Bloc<NewYearSajuQuestionEvent, NewYearSajuQuestionState> {
+  NewYearSajuQuestionBloc({
+    required NewYearSajuRepository newYearSajuRepository,
+  })  : _newYearSajuRepository = newYearSajuRepository,
+        super(const NewYearSajuQuestionState()) {
+    on<QuestionSubscriptionRequested>(_onSubscriptionRequested);
+    on<QuestionChanged>(_onQuestionChanged);
+    on<QuestionDisabledChanged>(_onQuestionDisabledChanged);
+  }
+
+  final NewYearSajuRepository _newYearSajuRepository;
+
+  void _onSubscriptionRequested(QuestionSubscriptionRequested event,
+      Emitter<NewYearSajuQuestionState> emit) async {
+    emit(state.copyWith(status: NewYearSajuQuestionStatus.loading));
+    try {
+      final newYearSajuForm = await _newYearSajuRepository.getSajuForm();
+
+      final question = Question.dirty(newYearSajuForm.question ?? '');
+
+      emit(
+        state.copyWith(
+          status: NewYearSajuQuestionStatus.success,
+          question: question,
+          questionDisabled: newYearSajuForm.questionDisabled ?? false,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: NewYearSajuQuestionStatus.failure));
+    }
+  }
+
+  void _onQuestionChanged(
+      QuestionChanged event, Emitter<NewYearSajuQuestionState> emit) async {
+    final question = Question.dirty(event.question);
+
+    _newYearSajuRepository.updateSajuForm(
+      question: event.question,
+    );
+
+    emit(
+      state.copyWith(question: question),
+    );
+  }
+
+  void _onQuestionDisabledChanged(
+      QuestionDisabledChanged event, Emitter<NewYearSajuQuestionState> emit) {
+    _newYearSajuRepository.updateSajuForm(
+      questionDisabled: event.disabled,
+    );
+
+    emit(
+      state.copyWith(questionDisabled: event.disabled),
+    );
+  }
+}
