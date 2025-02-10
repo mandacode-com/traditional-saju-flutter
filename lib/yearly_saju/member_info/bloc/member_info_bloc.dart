@@ -1,18 +1,19 @@
-import 'package:byul_mobile/new_year_saju/member_info/model/member_info.dart';
+import 'package:byul_mobile/yearly_saju/form_status.dart';
+import 'package:byul_mobile/yearly_saju/member_info/model/member_info.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 import 'package:saju_local_storage/saju_local_storage.dart';
+import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'member_info_state.dart';
 part 'member_info_event.dart';
 
-class NewYearSajuMemberInfoBloc
-    extends Bloc<NewYearSajuMemberInfoEvent, NewYearSajuMemberInfoState> {
-  NewYearSajuMemberInfoBloc({
-    required NewYearSajuRepository newYearSajuRepository,
-  })  : _newYearSajuRepository = newYearSajuRepository,
-        super(const NewYearSajuMemberInfoState()) {
+class YearlySajuMemberInfoBloc
+    extends Bloc<YearlySajuMemberInfoEvent, YearlySajuMemberInfoState> {
+  YearlySajuMemberInfoBloc({
+    required YearlySajuRepository yearlySajuRepository,
+  })  : _yearlySajuRepository = yearlySajuRepository,
+        super(const YearlySajuMemberInfoState()) {
     on<MemberInfoSubscriptionRequested>(_onSubscriptionRequested);
     on<MemberInfoGenderChanged>(_onGenderChanged);
     on<MemberInfoBirthDateChanged>(_onBirthDateChanged);
@@ -21,39 +22,39 @@ class NewYearSajuMemberInfoBloc
     on<MemberInfoBirthTimeDisabledChanged>(_onBirthTimeDisabledChanged);
   }
 
-  final NewYearSajuRepository _newYearSajuRepository;
+  final YearlySajuRepository _yearlySajuRepository;
 
   void _onSubscriptionRequested(MemberInfoSubscriptionRequested event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
-    emit(state.copyWith(status: NewYearSajuMemberInfoStatus.loading));
+      Emitter<YearlySajuMemberInfoState> emit) async {
+    emit(state.copyWith(status: FormStatus.loading));
     try {
-      final newYearSajuForm = await _newYearSajuRepository.getSajuForm();
-      final gender = newYearSajuForm.gender;
+      final yearlySajuForm = await _yearlySajuRepository.getSajuForm();
+      final gender = yearlySajuForm.gender;
 
-      final birthDateTime = newYearSajuForm.birthDateTime ?? DateTime.now();
+      final birthDateTime = yearlySajuForm.birthDateTime ?? DateTime.now();
       final birthDate = BirthDate.dirty(
           DateTime(birthDateTime.year, birthDateTime.month, birthDateTime.day));
       final birthHour = BirthHour.dirty(birthDateTime.hour);
       final birthMinute = BirthMinute.dirty(birthDateTime.minute);
       emit(
         state.copyWith(
-          status: NewYearSajuMemberInfoStatus.success,
+          status: FormStatus.success,
           gender: gender,
           birthDate: birthDate,
           birthHour: birthHour,
           birthMinute: birthMinute,
-          birthTimeDisabled: newYearSajuForm.birthTimeDisabled ?? false,
+          birthTimeDisabled: yearlySajuForm.birthTimeDisabled ?? false,
         ),
       );
     } catch (e) {
-      emit(state.copyWith(status: NewYearSajuMemberInfoStatus.failure));
+      emit(state.copyWith(status: FormStatus.failure));
     }
   }
 
   void _onGenderChanged(MemberInfoGenderChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
+      Emitter<YearlySajuMemberInfoState> emit) async {
 
-    _newYearSajuRepository.updateSajuForm(gender: event.gender);
+    _yearlySajuRepository.updateSajuForm(gender: event.gender);
 
     emit(
       state.copyWith(
@@ -63,10 +64,10 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthDateChanged(MemberInfoBirthDateChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
+      Emitter<YearlySajuMemberInfoState> emit) async {
     final birthDate = BirthDate.dirty(event.birthDate);
 
-    _newYearSajuRepository.updateSajuForm(
+    _yearlySajuRepository.updateSajuForm(
       birthDateTime: DateTime(
         event.birthDate.year,
         event.birthDate.month,
@@ -84,12 +85,12 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthHourChanged(MemberInfoBirthHourChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
+      Emitter<YearlySajuMemberInfoState> emit) async {
     final birthHour = BirthHour.dirty(event.birthHour);
 
     final currentBirthDateTime = DateTime.now();
 
-    _newYearSajuRepository.updateSajuForm(
+    _yearlySajuRepository.updateSajuForm(
       birthDateTime: DateTime(
         state.birthDate.value?.year ?? currentBirthDateTime.year,
         state.birthDate.value?.month ?? currentBirthDateTime.month,
@@ -107,12 +108,12 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthMinuteChanged(MemberInfoBirthMinuteChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
+      Emitter<YearlySajuMemberInfoState> emit) async {
     final birthMinute = BirthMinute.dirty(event.birthMinute);
 
     final currentBirthDateTime = DateTime.now();
 
-    _newYearSajuRepository.updateSajuForm(
+    _yearlySajuRepository.updateSajuForm(
       birthDateTime: DateTime(
         state.birthDate.value?.year ?? currentBirthDateTime.year,
         state.birthDate.value?.month ?? currentBirthDateTime.month,
@@ -130,9 +131,9 @@ class NewYearSajuMemberInfoBloc
   }
 
   void _onBirthTimeDisabledChanged(MemberInfoBirthTimeDisabledChanged event,
-      Emitter<NewYearSajuMemberInfoState> emit) async {
+      Emitter<YearlySajuMemberInfoState> emit) async {
 
-    _newYearSajuRepository.updateSajuForm(
+    _yearlySajuRepository.updateSajuForm(
       birthTimeDisabled: event.disabled,
     );
 

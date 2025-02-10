@@ -1,25 +1,24 @@
-import 'package:byul_mobile/new_year_saju/question/model/question.dart';
+import 'package:byul_mobile/yearly_saju/form_status.dart';
+import 'package:byul_mobile/yearly_saju/question/model/question.dart';
 import 'package:equatable/equatable.dart';
 
-enum NewYearSajuQuestionStatus { initial, loading, success, failure }
-
-final class NewYearSajuQuestionState extends Equatable {
-  const NewYearSajuQuestionState({
-    this.status = NewYearSajuQuestionStatus.initial,
+final class YearlySajuQuestionState extends Equatable {
+  const YearlySajuQuestionState({
+    this.status = FormStatus.initial,
     this.question = const Question.pure(),
     this.questionDisabled = false,
   });
 
-  final NewYearSajuQuestionStatus status;
+  final FormStatus status;
   final Question question;
   final bool questionDisabled;
 
-  NewYearSajuQuestionState copyWith({
-    NewYearSajuQuestionStatus? status,
+  YearlySajuQuestionState copyWith({
+    FormStatus? status,
     Question? question,
     bool? questionDisabled,
   }) {
-    return NewYearSajuQuestionState(
+    return YearlySajuQuestionState(
         status: status ?? this.status,
         question: question ?? this.question,
         questionDisabled: questionDisabled ?? this.questionDisabled);

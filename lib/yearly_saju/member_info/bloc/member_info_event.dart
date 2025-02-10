@@ -1,17 +1,17 @@
 part of 'member_info_bloc.dart';
 
-sealed class NewYearSajuMemberInfoEvent extends Equatable {
-  const NewYearSajuMemberInfoEvent();
+sealed class YearlySajuMemberInfoEvent extends Equatable {
+  const YearlySajuMemberInfoEvent();
 
   @override
   List<Object> get props => [];
 }
 
-final class MemberInfoSubscriptionRequested extends NewYearSajuMemberInfoEvent {
+final class MemberInfoSubscriptionRequested extends YearlySajuMemberInfoEvent {
   const MemberInfoSubscriptionRequested();
 }
 
-final class MemberInfoGenderChanged extends NewYearSajuMemberInfoEvent {
+final class MemberInfoGenderChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoGenderChanged(this.gender);
 
   final GenderType gender;
@@ -20,7 +20,7 @@ final class MemberInfoGenderChanged extends NewYearSajuMemberInfoEvent {
   List<Object> get props => [gender];
 }
 
-final class MemberInfoBirthDateChanged extends NewYearSajuMemberInfoEvent {
+final class MemberInfoBirthDateChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoBirthDateChanged(this.birthDate);
 
   final DateTime birthDate;
@@ -29,7 +29,7 @@ final class MemberInfoBirthDateChanged extends NewYearSajuMemberInfoEvent {
   List<Object> get props => [birthDate];
 }
 
-final class MemberInfoBirthHourChanged extends NewYearSajuMemberInfoEvent {
+final class MemberInfoBirthHourChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoBirthHourChanged(this.birthHour);
 
   final int birthHour;
@@ -38,7 +38,7 @@ final class MemberInfoBirthHourChanged extends NewYearSajuMemberInfoEvent {
   List<Object> get props => [birthHour];
 }
 
-final class MemberInfoBirthMinuteChanged extends NewYearSajuMemberInfoEvent {
+final class MemberInfoBirthMinuteChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoBirthMinuteChanged(this.birthMinute);
 
   final int birthMinute;
@@ -47,7 +47,7 @@ final class MemberInfoBirthMinuteChanged extends NewYearSajuMemberInfoEvent {
   List<Object> get props => [birthMinute];
 }
 
-final class MemberInfoBirthTimeDisabledChanged extends NewYearSajuMemberInfoEvent {
+final class MemberInfoBirthTimeDisabledChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoBirthTimeDisabledChanged(this.disabled);
 
   final bool disabled;

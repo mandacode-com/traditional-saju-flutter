@@ -24,8 +24,9 @@ class PageNavigationButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              minimumSize: buttonMinimumSize,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(26),
               ),
               backgroundColor: theme.backgroundColor,
               foregroundColor: theme.textColor,

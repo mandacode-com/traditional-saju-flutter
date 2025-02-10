@@ -1,16 +1,16 @@
-import 'package:byul_mobile/new_year_saju/result/bloc/result_bloc.dart';
-import 'package:byul_mobile/new_year_saju/result/view/result_view.dart';
+import 'package:byul_mobile/yearly_saju/result/bloc/result_bloc.dart';
+import 'package:byul_mobile/yearly_saju/result/view/result_view.dart';
 import 'package:byul_mobile/widgets/wating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
-class NewYearSajuResultPage extends StatelessWidget {
-  const NewYearSajuResultPage({super.key});
+class YearlySajuResultPage extends StatelessWidget {
+  const YearlySajuResultPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const NewYearSajuResultPage(),
+      builder: (_) => const YearlySajuResultPage(),
     );
   }
 
@@ -18,8 +18,8 @@ class NewYearSajuResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => NewYearSajuResultBloc(
-          newYearSajuRepository: context.read<NewYearSajuRepository>(),
+        create: (context) => YearlySajuResultBloc(
+          yearlySajuRepository: context.read<YearlySajuRepository>(),
         )..add(const ResultSubscriptionRequested()),
         child: _ResultPageContent(),
       ),
@@ -31,9 +31,9 @@ class _ResultPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.select(
-      (NewYearSajuResultBloc bloc) =>
-          bloc.state.status == NewYearSajuResultStatus.success
-              ? ResultView(
+      (YearlySajuResultBloc bloc) =>
+          bloc.state.status == YearlySajuResultStatus.success
+              ? YearlySajuResultView(
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

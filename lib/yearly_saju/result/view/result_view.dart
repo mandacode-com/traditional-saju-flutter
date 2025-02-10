@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ResultView extends StatelessWidget {
-  const ResultView({super.key, required this.child});
+class YearlySajuResultView extends StatelessWidget {
+  const YearlySajuResultView({super.key, required this.child});
 
   final Widget child;
 

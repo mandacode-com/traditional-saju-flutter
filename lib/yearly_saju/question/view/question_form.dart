@@ -1,11 +1,11 @@
 part of 'question_page.dart';
 
-class QuestionForm extends StatelessWidget {
-  const QuestionForm({super.key});
+class YearlySajuQuestionForm extends StatelessWidget {
+  const YearlySajuQuestionForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NewYearSajuQuestionBloc, NewYearSajuQuestionState>(
+    return BlocListener<YearlySajuQuestionBloc, YearlySajuQuestionState>(
       listener: (context, state) {},
       child: Column(
         children: [
@@ -16,10 +16,10 @@ class QuestionForm extends StatelessWidget {
             children: [
               TextCheckBox(
                 text: "딱히 없음",
-                value: context.select((NewYearSajuQuestionBloc bloc) =>
+                value: context.select((YearlySajuQuestionBloc bloc) =>
                     bloc.state.questionDisabled),
                 onChanged: (value) =>
-                    context.read<NewYearSajuQuestionBloc>().add(
+                    context.read<YearlySajuQuestionBloc>().add(
                           QuestionDisabledChanged(value ?? false),
                         ),
               ),
@@ -62,11 +62,11 @@ class _QuestionFormInput extends StatelessWidget {
 
       // disable the input field if the checkbox is checked
       readOnly: context.select(
-          (NewYearSajuQuestionBloc bloc) => bloc.state.questionDisabled),
+          (YearlySajuQuestionBloc bloc) => bloc.state.questionDisabled),
 
       // update the state when the input field changes
       onChanged: (value) =>
-          context.read<NewYearSajuQuestionBloc>().add(QuestionChanged(value)),
+          context.read<YearlySajuQuestionBloc>().add(QuestionChanged(value)),
     );
   }
 }

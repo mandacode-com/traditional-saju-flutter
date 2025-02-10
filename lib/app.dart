@@ -1,7 +1,7 @@
 import 'package:byul_mobile/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -11,18 +11,18 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  late final NewYearSajuRepository _newYearSajuRepository;
+  late final YearlySajuRepository _yearlySajuRepository;
 
   @override
   void initState() {
     super.initState();
-    _newYearSajuRepository = NewYearSajuRepository();
+    _yearlySajuRepository = YearlySajuRepository();
   }
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => _newYearSajuRepository,
+      create: (context) => _yearlySajuRepository,
       child: MaterialApp(
         title: 'Byuljogak Saju',
         theme: ThemeData(
@@ -35,6 +35,7 @@ class _AppState extends State<App> {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
+              minimumSize: Size(double.infinity, 45),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

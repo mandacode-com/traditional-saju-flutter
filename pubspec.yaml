@@ -39,8 +39,8 @@ dependencies:
   flutter_bloc: ^8.1.6
   formz: ^0.8.0
   equatable: ^2.0.0
-  new_year_saju_repository:
-    path: packages/new_year_saju_repository
+  yearly_saju_repository:
+    path: packages/yearly_saju_repository
   saju_local_storage:
     path: packages/saju_local_storage
 

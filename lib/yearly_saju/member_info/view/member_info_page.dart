@@ -1,6 +1,6 @@
 import 'package:byul_mobile/config/config.dart';
-import 'package:byul_mobile/new_year_saju/member_info/bloc/member_info_bloc.dart';
-import 'package:byul_mobile/new_year_saju/question/view/question_page.dart';
+import 'package:byul_mobile/yearly_saju/member_detail/view/member_detail_page.dart';
+import 'package:byul_mobile/yearly_saju/member_info/bloc/member_info_bloc.dart';
 import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
 import 'package:byul_mobile/widgets/bottom_page_navigation_button.dart';
 import 'package:byul_mobile/widgets/page_back_button.dart';
@@ -11,26 +11,26 @@ import 'package:byul_mobile/themes/button_color.dart';
 import 'package:byul_mobile/widgets/text_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
 import 'package:saju_local_storage/saju_local_storage.dart';
+import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'member_info_form.dart';
 
-class NewYearSajuMemberInfoPage extends StatefulWidget {
-  const NewYearSajuMemberInfoPage({super.key});
+class YearlySajuMemberInfoPage extends StatefulWidget {
+  const YearlySajuMemberInfoPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const NewYearSajuMemberInfoPage(),
+      builder: (_) => const YearlySajuMemberInfoPage(),
     );
   }
 
   @override
-  State<NewYearSajuMemberInfoPage> createState() =>
-      _NewYearSajuMemberInfoPageState();
+  State<YearlySajuMemberInfoPage> createState() =>
+      _YearlySajuMemberInfoPageState();
 }
 
-class _NewYearSajuMemberInfoPageState extends State<NewYearSajuMemberInfoPage> {
+class _YearlySajuMemberInfoPageState extends State<YearlySajuMemberInfoPage> {
   final ScrollController _scrollController = ScrollController();
 
   bool isBottom = false;
@@ -77,8 +77,8 @@ class _NewYearSajuMemberInfoPageState extends State<NewYearSajuMemberInfoPage> {
         ),
       ),
       body: BlocProvider(
-        create: (context) => NewYearSajuMemberInfoBloc(
-          newYearSajuRepository: context.read<NewYearSajuRepository>(),
+        create: (context) => YearlySajuMemberInfoBloc(
+          yearlySajuRepository: context.read<YearlySajuRepository>(),
         )..add(const MemberInfoSubscriptionRequested()),
         child: SingleChildScrollView(
           controller: _scrollController,
@@ -97,7 +97,7 @@ class _NewYearSajuMemberInfoPageState extends State<NewYearSajuMemberInfoPage> {
                       title: "정보를 입력해주세요",
                       description: "당신의 운명을 알기 위한 첫 단계입니다."),
                 ),
-                NewYearSajuMemberInfoForm(),
+                YearlySajuMemberInfoForm(),
               ],
             ),
           ),
@@ -133,8 +133,8 @@ class _BottomNavigationBar extends StatelessWidget {
           : const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: PageNavigationButton(
         theme: DarkPageNavigationButtonTheme(),
-        page: NewYearSajuQuestionPage(),
-        text: "다음",
+        page: YearlySajuMemberDetailPage(),
+        text: "다음으로",
       ),
     );
   }
