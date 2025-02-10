@@ -2,4 +2,4 @@
 library saju_local_storage;
 
 export 'src/models/models.dart';
-export 'src/storages/new_year_saju_form_storage.dart';
+export 'src/storages/yearly_saju_form_storage.dart';

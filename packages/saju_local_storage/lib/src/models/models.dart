@@ -1,3 +1,5 @@
 part 'gender_type.dart';
+part 'dating_status.dart';
+part 'job_status.dart';
 
-part 'new_year_saju_form.dart';
+part 'yearly_saju_form.dart';

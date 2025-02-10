@@ -1,24 +1,24 @@
 import 'package:saju_local_storage/saju_local_storage.dart';
 
 /// Application local form storage
-class NewYearSajuFormStorage {
-  NewYearSajuForm _form = const NewYearSajuForm();
+class YearlySajuFormStorage {
+  YearlySajuForm _form = const YearlySajuForm();
 
   /// Returns the current form
-  NewYearSajuForm get form => _form;
+  YearlySajuForm get form => _form;
 
   /// Updates the form with the given fields
-  Future<void> updateForm({NewYearSajuForm? form}) async {
+  Future<void> updateForm({YearlySajuForm? form}) async {
     _form = form ?? _form;
   }
 
   /// Resets the form
   Future<void> resetForm() async {
-    _form = const NewYearSajuForm();
+    _form = const YearlySajuForm();
   }
 
   /// Returns a copy of the current form
-  Future<NewYearSajuForm> copyForm() async {
+  Future<YearlySajuForm> copyForm() async {
     return _form.copyWith();
   }
 
@@ -27,6 +27,9 @@ class NewYearSajuFormStorage {
     GenderType? gender,
     DateTime? birthDateTime,
     bool? birthTimeDisabled,
+    DatingStatus? datingStatus,
+    JobStatus? jobStatus,
+    bool? saveInfo,
     String? question,
     bool? questionDisabled,
   }) async {
@@ -34,6 +37,9 @@ class NewYearSajuFormStorage {
       gender: gender,
       birthDateTime: birthDateTime,
       birthTimeDisabled: birthTimeDisabled,
+      datingType: datingStatus,
+      jobStatus: jobStatus,
+      saveInfo: saveInfo,
       question: question,
       questionDisabled: questionDisabled,
     );

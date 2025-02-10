@@ -13,7 +13,7 @@ A Very Good Project created by Very Good CLI.
 Install via `flutter pub add`:
 
 ```sh
-dart pub add new_year_saju_repository
+dart pub add yearly_saju_repository
 ```
 
 ---
