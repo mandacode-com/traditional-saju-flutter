@@ -1,6 +1,6 @@
-import 'package:byul_mobile/yearly_saju/form_status.dart';
-import 'package:byul_mobile/yearly_saju/question/bloc/question_state.dart';
-import 'package:byul_mobile/yearly_saju/question/model/question.dart';
+import 'package:saju/yearly_saju/form_status.dart';
+import 'package:saju/yearly_saju/question/bloc/question_state.dart';
+import 'package:saju/yearly_saju/question/model/question.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yearly_saju_repository/yearly_saju_repository.dart';

@@ -1,7 +1,7 @@
-import 'package:byul_mobile/config/config.dart';
-import 'package:byul_mobile/yearly_saju/member_info/view/member_info_page.dart';
-import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
-import 'package:byul_mobile/widgets/page_navigation_button.dart';
+import 'package:saju/config/config.dart';
+import 'package:saju/yearly_saju/member_info/view/member_info_page.dart';
+import 'package:saju/themes/page_navigation_button_theme.dart';
+import 'package:saju/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {

@@ -1,4 +1,4 @@
-package com.example.byul_mobile
+package com.mandacode.saju
 
 import io.flutter.embedding.android.FlutterActivity
 

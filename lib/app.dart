@@ -1,4 +1,4 @@
-import 'package:byul_mobile/home.dart';
+import 'package:saju/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yearly_saju_repository/yearly_saju_repository.dart';
@@ -24,7 +24,7 @@ class _AppState extends State<App> {
     return RepositoryProvider(
       create: (context) => _yearlySajuRepository,
       child: MaterialApp(
-        title: 'Byuljogak Saju',
+        title: 'Saju',
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(color: Colors.black),

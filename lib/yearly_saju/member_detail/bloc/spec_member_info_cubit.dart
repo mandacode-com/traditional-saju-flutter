@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saju_local_storage/saju_local_storage.dart';
-import 'package:byul_mobile/yearly_saju/form_status.dart';
+import 'package:saju/yearly_saju/form_status.dart';
 import 'package:equatable/equatable.dart';
 import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 

@@ -1,4 +1,4 @@
-import 'package:byul_mobile/yearly_saju/result/model/result.dart';
+import 'package:saju/yearly_saju/result/model/result.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yearly_saju_repository/yearly_saju_repository.dart';

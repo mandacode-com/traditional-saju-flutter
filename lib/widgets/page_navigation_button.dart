@@ -1,4 +1,4 @@
-import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
+import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:flutter/material.dart';
 
 class PageNavigationButton extends StatelessWidget {

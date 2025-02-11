@@ -1,4 +1,4 @@
-import 'package:byul_mobile/app.dart';
+import 'package:saju/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
