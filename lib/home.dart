@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
           focusColor: Colors.transparent,
           splashColor: Colors.transparent,
           backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
           child: const Icon(Icons.menu),
         );
       }),
@@ -133,28 +134,50 @@ class _MainPageDrawer extends StatelessWidget {
           bottomLeft: Radius.circular(20),
         ),
       ),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.grey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              title: const _ListTitleText(text: '구매내역'),
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
-            child: Text('별조각 사주'),
-          ),
-          ListTile(
-            title: const Text('오늘의 운세'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('🐍 2025년 신년운세 🐍'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+            ListTile(
+              title: const _ListTitleText(text: '문의하기'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const _ListTitleText(text: '다른 운세가 궁금하면?'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ListTitleText extends StatelessWidget {
+  const _ListTitleText({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        fontFamily: 'MapoFlowerIsland',
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
       ),
     );
   }
