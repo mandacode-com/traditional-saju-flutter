@@ -12,39 +12,50 @@ class YearlySajuMemberDetailForm extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: Config.formSpacing,
           children: <Widget>[
-            _Label(text: '연애상태'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              spacing: Config.formFieldSpacing,
               children: [
-                _DatingStatusSelectionButton(datingStatus: DatingStatus.single),
-                _DatingStatusSelectionButton(datingStatus: DatingStatus.dating),
-                _DatingStatusSelectionButton(
-                    datingStatus: DatingStatus.married),
+                _Label(text: '연애상태'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _DatingStatusSelectionButton(
+                        datingStatus: DatingStatus.single),
+                    _DatingStatusSelectionButton(
+                        datingStatus: DatingStatus.dating),
+                    _DatingStatusSelectionButton(
+                        datingStatus: DatingStatus.married),
+                  ],
+                ),
               ],
             ),
-            const SizedBox(height: 8),
-            _Label(text: '직업'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              spacing: Config.formFieldSpacing,
               children: [
-                _JobStatusSelectButton(jobStatus: JobStatus.student),
-                _JobStatusSelectButton(jobStatus: JobStatus.unemployed),
-                _JobStatusSelectButton(jobStatus: JobStatus.employed),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextCheckBox(
-                  text: "이 정보를 항상 기억",
-                  value: context.select((YearlySajuMemberDetailCubit cubit) =>
-                      cubit.state.saveInfo),
-                  onChanged: (value) => context
-                      .read<YearlySajuMemberDetailCubit>()
-                      .changeSaveInfo(value ?? false),
+                _Label(text: '구직상태'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _JobStatusSelectButton(jobStatus: JobStatus.student),
+                    _JobStatusSelectButton(jobStatus: JobStatus.unemployed),
+                    _JobStatusSelectButton(jobStatus: JobStatus.employed),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextCheckBox(
+                      text: "이 정보를 항상 기억",
+                      value: context.select(
+                          (YearlySajuMemberDetailCubit cubit) =>
+                              cubit.state.saveInfo),
+                      onChanged: (value) => context
+                          .read<YearlySajuMemberDetailCubit>()
+                          .changeSaveInfo(value ?? false),
+                    ),
+                  ],
                 ),
               ],
             ),

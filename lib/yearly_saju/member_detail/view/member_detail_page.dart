@@ -30,8 +30,7 @@ class YearlySajuMemberDetailPage extends StatefulWidget {
       _YearlySajuMemberInfoPageState();
 }
 
-class _YearlySajuMemberInfoPageState
-    extends State<YearlySajuMemberDetailPage> {
+class _YearlySajuMemberInfoPageState extends State<YearlySajuMemberDetailPage> {
   final ScrollController _scrollController = ScrollController();
 
   bool isBottom = false;
@@ -86,18 +85,18 @@ class _YearlySajuMemberInfoPageState
           child: Padding(
             padding: MediaQuery.of(context).orientation == Orientation.landscape
                 ? Config.getLandScapeHorizontalPadding(context).copyWith(
-                    top: 40,
-                    bottom: 40,
+                    top: Config.horizontalPagePadding.top,
+                    bottom: Config.horizontalPagePadding.bottom,
                   )
-                : const EdgeInsets.all(20),
+                : Config.verticalPagePadding,
             child: Column(
+              spacing:
+                  MediaQuery.of(context).orientation == Orientation.landscape
+                      ? Config.pageInfoTextSpacingHorizontal
+                      : Config.pageInfoTextSpacingVertical,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: const PageInfoText(
-                      title: "정보를 입력해주세요",
-                      description: "당신의 운명을 알기 위한 첫 단계입니다."),
-                ),
+                const PageInfoText(
+                    title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
                 YearlySajuMemberDetailForm(),
               ],
             ),

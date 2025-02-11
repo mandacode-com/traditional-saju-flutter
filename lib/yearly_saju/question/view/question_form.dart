@@ -8,9 +8,9 @@ class YearlySajuQuestionForm extends StatelessWidget {
     return BlocListener<YearlySajuQuestionBloc, YearlySajuQuestionState>(
       listener: (context, state) {},
       child: Column(
+        spacing: Config.formFieldSpacing,
         children: [
           _QuestionFormInput(),
-          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -61,8 +61,8 @@ class _QuestionFormInput extends StatelessWidget {
       ),
 
       // disable the input field if the checkbox is checked
-      readOnly: context.select(
-          (YearlySajuQuestionBloc bloc) => bloc.state.questionDisabled),
+      readOnly: context
+          .select((YearlySajuQuestionBloc bloc) => bloc.state.questionDisabled),
 
       // update the state when the input field changes
       onChanged: (value) =>

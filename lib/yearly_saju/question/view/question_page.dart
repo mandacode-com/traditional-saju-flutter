@@ -25,8 +25,7 @@ class YearlySajuQuestionPage extends StatefulWidget {
   }
 
   @override
-  State<YearlySajuQuestionPage> createState() =>
-      _YearlySajuQuestionPageState();
+  State<YearlySajuQuestionPage> createState() => _YearlySajuQuestionPageState();
 }
 
 class _YearlySajuQuestionPageState extends State<YearlySajuQuestionPage> {
@@ -84,18 +83,19 @@ class _YearlySajuQuestionPageState extends State<YearlySajuQuestionPage> {
           child: Padding(
             padding: MediaQuery.of(context).orientation == Orientation.landscape
                 ? Config.getLandScapeHorizontalPadding(context).copyWith(
-                    top: 40,
-                    bottom: 40,
+                    top: Config.horizontalPagePadding.top,
+                    bottom: Config.horizontalPagePadding.bottom,
                   )
-                : const EdgeInsets.all(20),
+                : Config.verticalPagePadding,
             child: Column(
+              spacing:
+                  MediaQuery.of(context).orientation == Orientation.landscape
+                      ? Config.pageInfoTextSpacingHorizontal
+                      : Config.pageInfoTextSpacingVertical,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: const PageInfoText(
-                      title: "특히 궁금한 내용이 있나요?",
-                      description: "당신의 고민에 대한 명쾌한 해답을 드립니다."),
-                ),
+                const PageInfoText(
+                    title: "특히 궁금한 내용이 있나요?",
+                    description: "당신의 고민에 대한 명쾌한 해답을 드립니다."),
                 const YearlySajuQuestionForm(),
               ],
             ),

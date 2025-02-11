@@ -4,7 +4,7 @@ class YearlySajuMemberDetailState extends Equatable {
   const YearlySajuMemberDetailState({
     this.status = FormStatus.initial,
     this.datingStatus = DatingStatus.single,
-    this.jobStatus = JobStatus.employed,
+    this.jobStatus = JobStatus.student,
     this.saveInfo = false,
   });
 

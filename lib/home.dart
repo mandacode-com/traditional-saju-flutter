@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
                       top: 40,
                       bottom: 40,
                     )
-                  : const EdgeInsets.symmetric(vertical: 120, horizontal: 20),
+                    : Config.verticalHomePadding,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

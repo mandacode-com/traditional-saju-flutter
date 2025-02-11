@@ -3,6 +3,8 @@ part of 'member_info_page.dart';
 class YearlySajuMemberInfoForm extends StatelessWidget {
   const YearlySajuMemberInfoForm({super.key});
 
+  static const double _fieldItemSpacing = 8;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<YearlySajuMemberInfoBloc, YearlySajuMemberInfoState>(
@@ -11,38 +13,54 @@ class YearlySajuMemberInfoForm extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: Config.formSpacing,
           children: <Widget>[
-            _Label(text: '성별'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              spacing: Config.formFieldSpacing,
               children: [
-                _GenderSelectButton(genderType: GenderType.male),
-                _GenderSelectButton(genderType: GenderType.female),
+                _Label(text: '성별'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: _fieldItemSpacing,
+                  children: [
+                    _GenderSelectButton(genderType: GenderType.male),
+                    _GenderSelectButton(genderType: GenderType.female),
+                  ],
+                ),
               ],
             ),
-            const SizedBox(height: 8),
-            _Label(text: '생년월일(양력)'),
-            _BirthDateButton(),
-            const SizedBox(height: 8),
-            _Label(text: '태어난 시각'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              spacing: Config.formFieldSpacing,
               children: [
-                _BirthHourButton(),
-                _BirthMinuteButton(),
+                _Label(text: '생년월일(양력)'),
+                _BirthDateButton(),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Column(
+              spacing: Config.formFieldSpacing,
               children: [
-                TextCheckBox(
-                  text: "시간 모름",
-                  value: context.select((YearlySajuMemberInfoBloc bloc) =>
-                      bloc.state.birthTimeDisabled),
-                  onChanged: (value) => context
-                      .read<YearlySajuMemberInfoBloc>()
-                      .add(MemberInfoBirthTimeDisabledChanged(value ?? false)),
+                _Label(text: '태어난 시각'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: _fieldItemSpacing,
+                  children: [
+                    _BirthHourButton(),
+                    _BirthMinuteButton(),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextCheckBox(
+                      text: "시간 모름",
+                      value: context.select((YearlySajuMemberInfoBloc bloc) =>
+                          bloc.state.birthTimeDisabled),
+                      onChanged: (value) => context
+                          .read<YearlySajuMemberInfoBloc>()
+                          .add(MemberInfoBirthTimeDisabledChanged(
+                              value ?? false)),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -86,13 +104,13 @@ class _GenderSelectButton extends StatelessWidget {
     return Expanded(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            foregroundColor: context.select((YearlySajuMemberInfoBloc bloc) =>
-                        bloc.state.gender) ==
+            foregroundColor: context.select(
+                        (YearlySajuMemberInfoBloc bloc) => bloc.state.gender) ==
                     genderType
                 ? ButtonColor.white
                 : ButtonColor.black,
-            backgroundColor: context.select((YearlySajuMemberInfoBloc bloc) =>
-                        bloc.state.gender) ==
+            backgroundColor: context.select(
+                        (YearlySajuMemberInfoBloc bloc) => bloc.state.gender) ==
                     genderType
                 ? ButtonColor.black
                 : ButtonColor.white),
