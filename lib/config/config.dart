@@ -23,10 +23,11 @@ class Config {
   static const EdgeInsets horizontalPagePadding = EdgeInsets.symmetric(
     vertical: 40,
   );
+  static const EdgeInsets bottomNavigationPadding =
+      EdgeInsets.only(left: 20, right: 20, bottom: 40);
 
   static const double pageInfoTextSpacingVertical = 80;
   static const double pageInfoTextSpacingHorizontal = 40;
-
 
   static const double formSpacing = 30;
   static const double formFieldSpacing = 10;

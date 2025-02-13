@@ -40,19 +40,19 @@ class Home extends StatelessWidget {
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Padding(
-              padding: MediaQuery.of(context).orientation ==
-                      Orientation.landscape
-                  ? Config.getLandScapeHorizontalPadding(context).copyWith(
-                      top: 40,
-                      bottom: 40,
-                    )
-                    : Config.verticalHomePadding,
+              padding:
+                  MediaQuery.of(context).orientation == Orientation.landscape
+                      ? Config.getLandScapeHorizontalPadding(context).copyWith(
+                          top: 40,
+                          bottom: 40,
+                        )
+                      : Config.verticalHomePadding,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _MainPageTitle(
-                        title: '별조각', description: '오늘 당신의 별은 어떻게 움직일까요?'),
+                        title: '정통사주', description: '정확하게 들어맞는 정통사주풀이'),
                     Spacer(),
                     _MainPageNavigation(),
                   ],
@@ -75,6 +75,7 @@ class _MainPageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 10,
       children: <Widget>[
         Text(title,
             style: TextStyle(
@@ -82,17 +83,12 @@ class _MainPageTitle extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
                 color: const Color.fromRGBO(0, 0, 0, 1))),
-        const SizedBox(height: 20),
         Text(
           description,
           style: TextStyle(
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 0.1
-              ..color = Colors.black,
             fontFamily: 'MapoFlowerIsland',
             fontWeight: FontWeight.bold,
-            fontSize: 14,
+            fontSize: 16,
           ),
         ),
       ],
