@@ -14,23 +14,23 @@ class YearlySajuForm {
     bool? saveInfo,
     String? question,
     bool? questionDisabled,
-  })  : _gender = gender,
+  })  : _gender = gender ?? GenderType.male,
         _birthDateTime = birthDateTime,
-        _birthTimeDisabled = birthTimeDisabled,
-        _datingType = datingType,
-        _jobStatus = jobStatus,
-        _saveInfo = saveInfo,
-        _question = question,
-        _questionDisabled = questionDisabled;
+        _birthTimeDisabled = birthTimeDisabled ?? false,
+        _datingType = datingType ?? DatingStatus.single,
+        _jobStatus = jobStatus ?? JobStatus.student,
+        _saveInfo = saveInfo ?? false,
+        _question = question ?? '',
+        _questionDisabled = questionDisabled ?? false;
 
-  final GenderType? _gender;
+  final GenderType _gender;
   final DateTime? _birthDateTime;
-  final bool? _birthTimeDisabled;
-  final DatingStatus? _datingType;
-  final JobStatus? _jobStatus;
-  final bool? _saveInfo;
-  final String? _question;
-  final bool? _questionDisabled;
+  final bool _birthTimeDisabled;
+  final DatingStatus _datingType;
+  final JobStatus _jobStatus;
+  final bool _saveInfo;
+  final String _question;
+  final bool _questionDisabled;
 
   /// Returns gender
   GenderType? get gender => _gender;
