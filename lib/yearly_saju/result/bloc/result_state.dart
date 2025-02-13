@@ -4,19 +4,20 @@ enum YearlySajuResultStatus { initial, loading, success, failed }
 
 final class YearlySajuResultState extends Equatable {
   const YearlySajuResultState(
-      {this.status = YearlySajuResultStatus.initial, this.result});
+      {this.status = YearlySajuResultStatus.initial, this.yearlySajuResult});
 
   final YearlySajuResultStatus status;
-  final Result? result;
+  final YearlySajuResult? yearlySajuResult;
 
   YearlySajuResultState copyWith({
     YearlySajuResultStatus? status,
-    Result? result,
+    YearlySajuResult? result,
   }) {
     return YearlySajuResultState(
-        status: status ?? this.status, result: result ?? this.result);
+        status: status ?? this.status,
+        yearlySajuResult: result ?? yearlySajuResult);
   }
 
   @override
-  List<Object?> get props => [status, result];
+  List<Object?> get props => [status, yearlySajuResult];
 }

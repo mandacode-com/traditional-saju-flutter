@@ -32,23 +32,9 @@ class _ResultPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.select(
       (YearlySajuResultBloc bloc) =>
-          bloc.state.status == YearlySajuResultStatus.success
-              ? YearlySajuResultView(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("success"),
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
-                            },
-                            child: Text("홈으로")),
-                      ],
-                    ),
-                  ),
-                )
+          (bloc.state.status != YearlySajuResultStatus.loading) &&
+                  (bloc.state.status != YearlySajuResultStatus.initial)
+              ? YearlySajuResultView()
               : Wating(
                   duration: Duration(milliseconds: 3000),
                   child: Padding(

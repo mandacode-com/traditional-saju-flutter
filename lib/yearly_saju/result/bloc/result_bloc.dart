@@ -1,6 +1,6 @@
-import 'package:saju/yearly_saju/result/model/result.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saju_api/saju_api.dart';
 import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'result_event.dart';
@@ -20,27 +20,24 @@ class YearlySajuResultBloc
 
   void _onResultSubscriptionRequested(ResultSubscriptionRequested event,
       Emitter<YearlySajuResultState> emit) async {
-    Result result = Result(message: "");
+    emit(state.copyWith(status: YearlySajuResultStatus.loading));
+    try {
+      final YearlySajuResult result =
+          await _yearlySajuRepository.submitSajuForm();
 
-    final bool submitResult = await _yearlySajuRepository.submitSajuForm();
-
-    if (submitResult) {
-      result = Result(message: "success");
-    } else {
-      result = Result(message: "failure");
+      emit(state.copyWith(
+        status: YearlySajuResultStatus.success,
+        result: result,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: YearlySajuResultStatus.failed,
+      ));
     }
-
-    emit(state.copyWith(
-      status: submitResult
-          ? YearlySajuResultStatus.success
-          : YearlySajuResultStatus.failed,
-      result: result,
-    ));
   }
 
   void _onResultClearPressed(
       ClearResultPressed envet, Emitter<YearlySajuResultState> emit) async {
-    final result = Result(message: "");
-    emit(state.copyWith(result: result));
+    emit(state.copyWith(status: YearlySajuResultStatus.initial, result: null));
   }
 }
