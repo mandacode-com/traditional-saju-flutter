@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:saju/home.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,11 @@ class _AppState extends State<App> {
   @override
   void initState() {
     Client client = Client();
+
     super.initState();
     _yearlySajuRepository = YearlySajuRepository(
       yearlySajuApiClient: SajuApi(
-        yearlySajuApi: YearlySajuApi(client: client),
+        yearlySajuApi: YearlySajuApi(client: client, apiBaseUrl: dotenv.env["API_BASE_URL"]!),
       ),
     );
   }
