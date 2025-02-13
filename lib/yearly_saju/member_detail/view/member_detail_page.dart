@@ -4,7 +4,6 @@ import 'package:saju/themes/button_color.dart';
 import 'package:saju/yearly_saju/question/view/question_page.dart';
 import 'package:saju/yearly_saju/member_detail/bloc/spec_member_info_cubit.dart';
 import 'package:saju/themes/page_navigation_button_theme.dart';
-import 'package:saju/widgets/bottom_page_navigation_button.dart';
 import 'package:saju/widgets/page_back_button.dart';
 import 'package:saju/widgets/page_info_text.dart';
 import 'package:saju/widgets/page_navigation_button.dart';
@@ -16,7 +15,7 @@ import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'member_detail_form.dart';
 
-class YearlySajuMemberDetailPage extends StatefulWidget {
+class YearlySajuMemberDetailPage extends StatelessWidget {
   const YearlySajuMemberDetailPage({super.key});
 
   static Route<void> route() {
@@ -26,46 +25,27 @@ class YearlySajuMemberDetailPage extends StatefulWidget {
   }
 
   @override
-  State<YearlySajuMemberDetailPage> createState() =>
-      _YearlySajuMemberInfoPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => YearlySajuMemberDetailCubit(
+          yearlySajuRepository: context.read<YearlySajuRepository>(),
+        ),
+        child: OrientationBuilder(
+          builder: (context, orientation) {
+            if (orientation == Orientation.portrait) {
+              return _PortraitLayout();
+            } else {
+              return _LandscapeLayout();
+            }
+          },
+        ),
+      ),
+    );
+  }
 }
 
-class _YearlySajuMemberInfoPageState extends State<YearlySajuMemberDetailPage> {
-  final ScrollController _scrollController = ScrollController();
-
-  bool isBottom = false;
-
-  _scrollListener() {
-    if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent - 40 &&
-        !_scrollController.position.outOfRange) {
-      setState(() {
-        isBottom = true;
-      });
-    } else {
-      setState(() {
-        isBottom = false;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    _scrollController.addListener(_scrollListener);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        isBottom = _scrollController.position.maxScrollExtent <= 0;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
+class _PortraitLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,66 +56,64 @@ class _YearlySajuMemberInfoPageState extends State<YearlySajuMemberDetailPage> {
           },
         ),
       ),
-      body: BlocProvider(
-        create: (context) => YearlySajuMemberDetailCubit(
-          yearlySajuRepository: context.read<YearlySajuRepository>(),
-        ),
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Padding(
-            padding: MediaQuery.of(context).orientation == Orientation.landscape
-                ? Config.getLandScapeHorizontalPadding(context).copyWith(
-                    top: Config.horizontalPagePadding.top,
-                    bottom: Config.horizontalPagePadding.bottom,
-                  )
-                : Config.verticalPagePadding,
-            child: Column(
-              spacing:
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? Config.pageInfoTextSpacingHorizontal
-                      : Config.pageInfoTextSpacingVertical,
-              children: [
-                const PageInfoText(
-                    title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
-                YearlySajuMemberDetailForm(),
-              ],
-            ),
-          ),
+      body: Padding(
+        padding: Config.verticalPagePadding,
+        child: Column(
+          spacing: Config.pageInfoTextSpacingVertical,
+          children: [
+            const PageInfoText(
+                title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
+            YearlySajuMemberDetailForm(),
+          ],
         ),
       ),
-      bottomNavigationBar: AnimatedBuilder(
-        animation: _scrollController,
-        builder: (context, child) {
-          return BottomPageNavigationButton(
-            opacity: MediaQuery.of(context).orientation == Orientation.portrait
-                ? 1
-                : isBottom
-                    ? 1
-                    : 0,
-            child: child,
-          );
-        },
-        child: _BottomNavigationBar(),
+      bottomNavigationBar: Padding(
+        padding: Config.bottomNavigationPadding,
+        child: _NextPageNavigationButton(),
       ),
     );
   }
 }
 
-class _BottomNavigationBar extends StatelessWidget {
+class _LandscapeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).orientation == Orientation.landscape
-          ? Config.getLandScapeHorizontalPadding(context).copyWith(
-              top: 20,
-              bottom: 20,
-            )
-          : const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: PageNavigationButton(
-        theme: DarkPageNavigationButtonTheme(),
-        page: YearlySajuQuestionPage(),
-        text: "다음으로",
+    return Scaffold(
+      appBar: AppBar(
+        leading: PageBackButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Config.getLandScapeHorizontalPadding(context).copyWith(
+            top: Config.horizontalPagePadding.top,
+            bottom: Config.horizontalPagePadding.bottom,
+          ),
+          child: Column(
+            spacing: Config.pageInfoTextSpacingHorizontal,
+            children: [
+              const PageInfoText(
+                  title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
+              YearlySajuMemberDetailForm(),
+              _NextPageNavigationButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NextPageNavigationButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PageNavigationButton(
+      theme: DarkPageNavigationButtonTheme(),
+      page: YearlySajuQuestionPage(),
+      text: "다음으로",
     );
   }
 }
