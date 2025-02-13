@@ -1,3 +1,4 @@
+import 'package:saju_api/saju_api.dart';
 import 'package:saju_local_storage/saju_local_storage.dart';
 
 /// {@template yearly_saju_repository}
@@ -5,10 +6,11 @@ import 'package:saju_local_storage/saju_local_storage.dart';
 /// {@endtemplate}
 class YearlySajuRepository {
   /// {@macro _yearly_saju_repository}
-  YearlySajuRepository();
+  YearlySajuRepository({required this.yearlySajuApiClient});
 
-  final YearlySajuFormStorage _yearlySajuFormStorage =
-      YearlySajuFormStorage();
+  final YearlySajuFormStorage _yearlySajuFormStorage = YearlySajuFormStorage();
+
+  final SajuApi yearlySajuApiClient;
 
   /// Get the [YearlySajuForm] from the local storage.
   Future<YearlySajuForm> getSajuForm() async {
@@ -54,13 +56,62 @@ class YearlySajuRepository {
   }
 
   /// Submit the [YearlySajuForm] to the server.
-  Future<bool> submitSajuForm() async {
+  Future<YearlySajuResult> submitSajuForm() async {
     final form = await _yearlySajuFormStorage.copyForm();
-    // Submit the form to the server and receive the response.
 
-    // wait for 2 seconds to simulate the server response time.
-    await Future.delayed(const Duration(seconds: 4));
+    final ApiGenderType gender;
+    switch (form.gender) {
+      case GenderType.male:
+        gender = ApiGenderType.male;
+        break;
+      case GenderType.female:
+        gender = ApiGenderType.female;
+        break;
+      default:
+        throw Exception('Invalid gender');
+    }
 
-    return true;
+    if (form.birthDateTime == null) {
+      throw Exception('Birth date time is required');
+    }
+
+    final ApiDatingStatus datingStatus;
+    switch (form.datingType) {
+      case DatingStatus.single:
+        datingStatus = ApiDatingStatus.single;
+        break;
+      case DatingStatus.married:
+        datingStatus = ApiDatingStatus.married;
+        break;
+      case DatingStatus.dating:
+        datingStatus = ApiDatingStatus.dating;
+        break;
+      default:
+        throw Exception('Invalid dating status');
+    }
+
+    final ApiJobStatus jobStatus;
+    switch (form.jobStatus) {
+      case JobStatus.employed:
+        jobStatus = ApiJobStatus.employed;
+        break;
+      case JobStatus.unemployed:
+        jobStatus = ApiJobStatus.unemployed;
+        break;
+      case JobStatus.student:
+        jobStatus = ApiJobStatus.student;
+        break;
+      default:
+        throw Exception('Invalid job status');
+    }
+
+    final request = YearlySajuRequest(
+      gender: gender,
+      birthDateTime: form.birthDateTime ?? DateTime.now(),
+      datingStatus: datingStatus,
+      jobStatus: jobStatus,
+    );
+
+    return yearlySajuApiClient.yearlySajuApi.fetchYearlySaju(request);
   }
 }
