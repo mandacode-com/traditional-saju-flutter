@@ -32,6 +32,14 @@ class YearlySajuMemberInfoBloc
       final gender = yearlySajuForm.gender;
 
       final birthDateTime = yearlySajuForm.birthDateTime ?? DateTime.now();
+
+      // If the birthDateTime is null, update the birthDateTime with the current date time.
+      if (yearlySajuForm.birthDateTime == null) {
+        _yearlySajuRepository.updateSajuForm(
+          birthDateTime: birthDateTime,
+        );
+      }
+
       final birthDate = BirthDate.dirty(
           DateTime(birthDateTime.year, birthDateTime.month, birthDateTime.day));
       final birthHour = BirthHour.dirty(birthDateTime.hour);
@@ -53,7 +61,6 @@ class YearlySajuMemberInfoBloc
 
   void _onGenderChanged(MemberInfoGenderChanged event,
       Emitter<YearlySajuMemberInfoState> emit) async {
-
     _yearlySajuRepository.updateSajuForm(gender: event.gender);
 
     emit(
@@ -132,7 +139,6 @@ class YearlySajuMemberInfoBloc
 
   void _onBirthTimeDisabledChanged(MemberInfoBirthTimeDisabledChanged event,
       Emitter<YearlySajuMemberInfoState> emit) async {
-
     _yearlySajuRepository.updateSajuForm(
       birthTimeDisabled: event.disabled,
     );
