@@ -89,6 +89,9 @@ flutter:
     - family: MapoFlowerIsland
       fonts:
         - asset: assets/fonts/MapoFlowerIsland.ttf
+    - family: SSRock
+      fonts:
+        - asset: assets/fonts/SSRockRegular.ttf
     - family: NanumSquareNeo
       fonts:
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-aLt.ttf

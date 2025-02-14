@@ -79,9 +79,9 @@ class _MainPageTitle extends StatelessWidget {
       children: <Widget>[
         Text(title,
             style: TextStyle(
-                fontFamily: 'Hakgyoansim',
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontFamily: 'SSRock',
+                fontWeight: FontWeight.normal,
+                fontSize: 40,
                 color: const Color.fromRGBO(0, 0, 0, 1))),
         Text(
           description,
@@ -171,8 +171,8 @@ class _ListTitleText extends StatelessWidget {
       text,
       textAlign: TextAlign.right,
       style: TextStyle(
-        fontFamily: 'MapoFlowerIsland',
-        fontWeight: FontWeight.bold,
+        fontFamily: 'NanumSquareNeo',
+        fontWeight: FontWeight.w800,
         fontSize: 14,
       ),
     );
