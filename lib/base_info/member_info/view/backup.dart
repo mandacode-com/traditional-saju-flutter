@@ -1,6 +1,6 @@
 import 'package:saju/config/config.dart';
-import 'package:saju/yearly_saju/member_detail/view/member_detail_page.dart';
-import 'package:saju/yearly_saju/member_info/bloc/member_info_bloc.dart';
+import 'package:saju/base_info/member_detail/view/member_detail_page.dart';
+import 'package:saju/base_info/member_info/bloc/member_info_bloc.dart';
 import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:saju/widgets/bottom_page_navigation_button.dart';
 import 'package:saju/widgets/page_back_button.dart';

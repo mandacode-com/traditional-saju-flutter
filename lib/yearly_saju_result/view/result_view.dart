@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:saju/config/config.dart';
-import 'package:saju/yearly_saju/result/bloc/result_bloc.dart';
-import 'package:saju/yearly_saju/result/view/chart_view.dart';
+import 'package:saju/yearly_saju_result/bloc/result_bloc.dart';
+import 'package:saju/yearly_saju_result/view/chart_view.dart';
 import 'package:saju_api/saju_api.dart';
 
 class YearlySajuResultView extends StatelessWidget {

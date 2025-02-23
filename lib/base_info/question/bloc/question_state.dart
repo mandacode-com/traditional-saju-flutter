@@ -1,5 +1,5 @@
-import 'package:saju/yearly_saju/form_status.dart';
-import 'package:saju/yearly_saju/question/model/question.dart';
+import 'package:saju/base_info/form_status.dart';
+import 'package:saju/base_info/question/model/question.dart';
 import 'package:equatable/equatable.dart';
 
 final class YearlySajuQuestionState extends Equatable {

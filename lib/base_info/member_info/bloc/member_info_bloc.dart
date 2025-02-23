@@ -1,5 +1,5 @@
-import 'package:saju/yearly_saju/form_status.dart';
-import 'package:saju/yearly_saju/member_info/model/member_info.dart';
+import 'package:saju/base_info/form_status.dart';
+import 'package:saju/base_info/member_info/model/member_info.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saju_local_storage/saju_local_storage.dart';

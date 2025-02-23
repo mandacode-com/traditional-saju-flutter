@@ -1,6 +1,6 @@
 import 'package:saju/config/config.dart';
-import 'package:saju/yearly_saju/member_detail/view/member_detail_page.dart';
-import 'package:saju/yearly_saju/member_info/bloc/member_info_bloc.dart';
+import 'package:saju/base_info/member_detail/view/member_detail_page.dart';
+import 'package:saju/base_info/member_info/bloc/member_info_bloc.dart';
 import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:saju/widgets/page_back_button.dart';
 import 'package:saju/widgets/custom_dropdown_button.dart';
@@ -16,11 +16,17 @@ import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 part 'member_info_form.dart';
 
 class YearlySajuMemberInfoPage extends StatelessWidget {
-  const YearlySajuMemberInfoPage({super.key});
+  const YearlySajuMemberInfoPage({super.key, required this.targetPage});
 
-  static Route<void> route() {
+  final Widget targetPage;
+
+  static Route<void> route({
+    required Widget targetPage,
+  }) {
     return MaterialPageRoute<void>(
-      builder: (_) => const YearlySajuMemberInfoPage(),
+      builder: (_) => YearlySajuMemberInfoPage(
+        targetPage: targetPage,
+      ),
     );
   }
 
@@ -34,9 +40,9 @@ class YearlySajuMemberInfoPage extends StatelessWidget {
         child: OrientationBuilder(
           builder: (context, orientation) {
             if (orientation == Orientation.portrait) {
-              return _PortraitLayout();
+              return _PortraitLayout(targetPage: targetPage);
             } else {
-              return _LandscapeLayout();
+              return _LandscapeLayout(targetPage: targetPage);
             }
           },
         ),
@@ -46,6 +52,9 @@ class YearlySajuMemberInfoPage extends StatelessWidget {
 }
 
 class _PortraitLayout extends StatelessWidget {
+  final Widget targetPage;
+
+  const _PortraitLayout({required this.targetPage});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,13 +78,16 @@ class _PortraitLayout extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: Config.bottomNavigationPadding,
-        child: _NextPageNavigationButton(),
+        child: _NextPageNavigationButton(targetPage: targetPage),
       ),
     );
   }
 }
 
 class _LandscapeLayout extends StatelessWidget {
+  final Widget targetPage;
+
+  const _LandscapeLayout({required this.targetPage});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +110,7 @@ class _LandscapeLayout extends StatelessWidget {
               const PageInfoText(
                   title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
               YearlySajuMemberInfoForm(),
-              _NextPageNavigationButton(),
+              _NextPageNavigationButton(targetPage: targetPage),
             ],
           ),
         ),
@@ -108,11 +120,14 @@ class _LandscapeLayout extends StatelessWidget {
 }
 
 class _NextPageNavigationButton extends StatelessWidget {
+  final Widget targetPage;
+
+  const _NextPageNavigationButton({required this.targetPage});
   @override
   Widget build(BuildContext context) {
     return PageNavigationButton(
       theme: DarkPageNavigationButtonTheme(),
-      page: YearlySajuMemberDetailPage(),
+      page: YearlySajuMemberDetailPage(targetPage: targetPage),
       text: "다음으로",
     );
   }

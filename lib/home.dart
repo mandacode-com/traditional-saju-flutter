@@ -1,8 +1,9 @@
 import 'package:saju/config/config.dart';
-import 'package:saju/yearly_saju/member_info/view/member_info_page.dart';
+import 'package:saju/base_info/member_info/view/member_info_page.dart';
 import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:saju/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
+import 'package:saju/yearly_saju_result/view/result_page.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -105,13 +106,13 @@ class _MainPageNavigation extends StatelessWidget {
     return Column(
       children: <Widget>[
         PageNavigationButton(
-          page: YearlySajuMemberInfoPage(),
+          page: YearlySajuMemberInfoPage(targetPage: YearlySajuResultPage()),
           text: '오늘의 운세',
           theme: ObscurePageNavigationButtonTheme(),
         ),
         const SizedBox(height: 20),
         PageNavigationButton(
-          page: YearlySajuMemberInfoPage(),
+          page: YearlySajuMemberInfoPage(targetPage: YearlySajuResultPage()),
           text: '🐍 2025년 신년운세 🐍',
           theme: ObscurePageNavigationButtonTheme(),
         ),
