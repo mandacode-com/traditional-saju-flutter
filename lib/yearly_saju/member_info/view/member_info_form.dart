@@ -3,7 +3,7 @@ part of 'member_info_page.dart';
 class YearlySajuMemberInfoForm extends StatelessWidget {
   const YearlySajuMemberInfoForm({super.key});
 
-  static const double _fieldItemSpacing = 8;
+  static const double _fieldItemSpacing = 20;
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,8 @@ part of 'member_detail_page.dart';
 class YearlySajuMemberDetailForm extends StatelessWidget {
   const YearlySajuMemberDetailForm({super.key});
 
+  static const double _fieldItemSpacing = 8;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<YearlySajuMemberDetailCubit,
@@ -20,6 +22,7 @@ class YearlySajuMemberDetailForm extends StatelessWidget {
                 _Label(text: '연애상태'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: _fieldItemSpacing,
                   children: [
                     _DatingStatusSelectionButton(
                         datingStatus: DatingStatus.single),
@@ -37,6 +40,7 @@ class YearlySajuMemberDetailForm extends StatelessWidget {
                 _Label(text: '구직상태'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: _fieldItemSpacing,
                   children: [
                     _JobStatusSelectButton(jobStatus: JobStatus.student),
                     _JobStatusSelectButton(jobStatus: JobStatus.unemployed),
