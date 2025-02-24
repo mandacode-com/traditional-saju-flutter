@@ -15,8 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'member_detail_form.dart';
 
-class YearlySajuMemberDetailPage extends StatelessWidget {
-  const YearlySajuMemberDetailPage({super.key, required this.targetPage});
+class UserDetailPage extends StatelessWidget {
+  const UserDetailPage({super.key, required this.targetPage});
 
   final Widget targetPage;
 
@@ -24,7 +24,7 @@ class YearlySajuMemberDetailPage extends StatelessWidget {
     required Widget targetPage,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => YearlySajuMemberDetailPage(
+      builder: (_) => UserDetailPage(
         targetPage: targetPage,
       ),
     );
@@ -34,7 +34,7 @@ class YearlySajuMemberDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => YearlySajuMemberDetailCubit(
+        create: (context) => UserDetailCubit(
           userInfoRepository: context.read<UserInfoRepository>(),
         ),
         child: OrientationBuilder(
@@ -73,7 +73,7 @@ class _PortraitLayout extends StatelessWidget {
           children: [
             const PageInfoText(
                 title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
-            YearlySajuMemberDetailForm(),
+            UserDetailForm(),
           ],
         ),
       ),
@@ -111,7 +111,7 @@ class _LandscapeLayout extends StatelessWidget {
             children: [
               const PageInfoText(
                   title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
-              YearlySajuMemberDetailForm(),
+              UserDetailForm(),
               _NextPageNavigationButton(targetPage: targetPage),
             ],
           ),
@@ -130,7 +130,7 @@ class _NextPageNavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageNavigationButton(
       theme: DarkPageNavigationButtonTheme(),
-      page: YearlySajuQuestionPage(targetPage: targetPage),
+      page: QuestionPage(targetPage: targetPage),
       text: "다음으로",
     );
   }

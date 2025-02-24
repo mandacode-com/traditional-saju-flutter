@@ -1,5 +1,5 @@
 import 'package:api/src/models/daily_saju_request.dart';
-import 'package:api/src/models/daily_saju_resonse.dart';
+import 'package:api/src/models/daily_saju_response.dart';
 import 'package:dio/dio.dart';
 
 class DailySajuApi {
@@ -7,7 +7,7 @@ class DailySajuApi {
 
   final Dio _client;
 
-  Future<DailySajuResonse> generateDailySaju(DailySajuRequest request) async {
+  Future<DailySajuResponse> generateDailySaju(DailySajuRequest request) async {
     final response = await _client
         .post(
           '/daily',
@@ -26,6 +26,6 @@ class DailySajuApi {
 
     final Map<String, dynamic> json = response.data;
 
-    return DailySajuResonse.fromJson(json);
+    return DailySajuResponse.fromJson(json);
   }
 }

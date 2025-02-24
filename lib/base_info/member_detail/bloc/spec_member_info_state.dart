@@ -1,7 +1,7 @@
 part of 'spec_member_info_cubit.dart';
 
-class YearlySajuMemberDetailState extends Equatable {
-  const YearlySajuMemberDetailState({
+class UserDetailState extends Equatable {
+  const UserDetailState({
     this.status = FormStatus.initial,
     this.datingStatus = DatingStatus.single,
     this.jobStatus = JobStatus.student,
@@ -13,13 +13,13 @@ class YearlySajuMemberDetailState extends Equatable {
   final JobStatus jobStatus;
   final bool saveInfo;
 
-  YearlySajuMemberDetailState copyWith({
+  UserDetailState copyWith({
     FormStatus? status,
     DatingStatus? datingStatus,
     JobStatus? jobStatus,
     bool? saveInfo,
   }) {
-    return YearlySajuMemberDetailState(
+    return UserDetailState(
       status: status ?? this.status,
       datingStatus: datingStatus ?? this.datingStatus,
       jobStatus: jobStatus ?? this.jobStatus,

@@ -13,8 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'question_form.dart';
 
-class YearlySajuQuestionPage extends StatelessWidget {
-  const YearlySajuQuestionPage({super.key, required this.targetPage});
+class QuestionPage extends StatelessWidget {
+  const QuestionPage({super.key, required this.targetPage});
 
   final Widget targetPage;
 
@@ -22,7 +22,7 @@ class YearlySajuQuestionPage extends StatelessWidget {
     required Widget targetPage,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => YearlySajuQuestionPage(targetPage: targetPage),
+      builder: (_) => QuestionPage(targetPage: targetPage),
     );
   }
 
@@ -30,7 +30,7 @@ class YearlySajuQuestionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => YearlySajuQuestionBloc(
+        create: (context) => QuestionBloc(
           userInfoRepository: context.read<UserInfoRepository>(),
         )..add(const QuestionSubscriptionRequested()),
         child: OrientationBuilder(
@@ -70,7 +70,7 @@ class _PortraitLayout extends StatelessWidget {
             const PageInfoText(
                 title: "특히 궁금한 내용이 있나요?",
                 description: "당신의 고민에 대한 명쾌한 해답을 드립니다."),
-            const YearlySajuQuestionForm(),
+            const QuestionForm(),
           ],
         ),
       ),
@@ -109,7 +109,7 @@ class _LandscapeLayout extends StatelessWidget {
               const PageInfoText(
                   title: "특히 궁금한 내용이 있나요?",
                   description: "당신의 고민에 대한 명쾌한 해답을 드립니다."),
-              const YearlySajuQuestionForm(),
+              const QuestionForm(),
               _NextPageNavigationButton(targetPage: targetPage),
             ],
           ),

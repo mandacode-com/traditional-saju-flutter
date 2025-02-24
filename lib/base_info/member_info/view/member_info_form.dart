@@ -1,13 +1,13 @@
 part of 'member_info_page.dart';
 
-class YearlySajuMemberInfoForm extends StatelessWidget {
-  const YearlySajuMemberInfoForm({super.key});
+class UserInfoForm extends StatelessWidget {
+  const UserInfoForm({super.key});
 
   static const double _fieldItemSpacing = 20;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<YearlySajuMemberInfoBloc, YearlySajuMemberInfoState>(
+    return BlocListener<UserInfoBloc, UserInfoState>(
       listener: (context, state) {},
       child: Align(
         alignment: Alignment.center,
@@ -53,10 +53,10 @@ class YearlySajuMemberInfoForm extends StatelessWidget {
                   children: [
                     TextCheckBox(
                       text: "시간 모름",
-                      value: context.select((YearlySajuMemberInfoBloc bloc) =>
+                      value: context.select((UserInfoBloc bloc) =>
                           bloc.state.birthTimeDisabled),
                       onChanged: (value) => context
-                          .read<YearlySajuMemberInfoBloc>()
+                          .read<UserInfoBloc>()
                           .add(MemberInfoBirthTimeDisabledChanged(
                               value ?? false)),
                     ),
@@ -105,17 +105,17 @@ class _GenderSelectButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             foregroundColor: context.select(
-                        (YearlySajuMemberInfoBloc bloc) => bloc.state.gender) ==
+                        (UserInfoBloc bloc) => bloc.state.gender) ==
                     genderType
                 ? ButtonColor.white
                 : ButtonColor.black,
             backgroundColor: context.select(
-                        (YearlySajuMemberInfoBloc bloc) => bloc.state.gender) ==
+                        (UserInfoBloc bloc) => bloc.state.gender) ==
                     genderType
                 ? ButtonColor.black
                 : ButtonColor.white),
         onPressed: () => context
-            .read<YearlySajuMemberInfoBloc>()
+            .read<UserInfoBloc>()
             .add(MemberInfoGenderChanged(genderType)),
         child: Text(genderType == Gender.male ? '남자' : '여자'),
       ),
@@ -127,7 +127,7 @@ class _BirthDateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime? birthDate = context
-        .select((YearlySajuMemberInfoBloc bloc) => bloc.state.birthDate.value);
+        .select((UserInfoBloc bloc) => bloc.state.birthDate.value);
     return Row(
       children: [
         Expanded(
@@ -144,7 +144,7 @@ class _BirthDateButton extends StatelessWidget {
               ).then((value) => value ?? DateTime.now());
               if (context.mounted) {
                 context
-                    .read<YearlySajuMemberInfoBloc>()
+                    .read<UserInfoBloc>()
                     .add(MemberInfoBirthDateChanged(date));
               }
             },
@@ -178,7 +178,7 @@ class _TimeSelectButton<T> extends StatelessWidget {
         onChanged: onChanged,
         items: items,
         disabled: context.select(
-            (YearlySajuMemberInfoBloc bloc) => bloc.state.birthTimeDisabled),
+            (UserInfoBloc bloc) => bloc.state.birthTimeDisabled),
       ),
     );
   }
@@ -189,9 +189,9 @@ class _BirthHourButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return _TimeSelectButton<int>(
       value: context.select(
-          (YearlySajuMemberInfoBloc bloc) => bloc.state.birthHour.value),
+          (UserInfoBloc bloc) => bloc.state.birthHour.value),
       onChanged: (value) => context
-          .read<YearlySajuMemberInfoBloc>()
+          .read<UserInfoBloc>()
           .add(MemberInfoBirthHourChanged(value ?? 0)),
       items: List.generate(24, (index) => index)
           .map((hour) => DropdownMenuItem<int>(
@@ -210,9 +210,9 @@ class _BirthMinuteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return _TimeSelectButton<int>(
       value: context.select(
-          (YearlySajuMemberInfoBloc bloc) => bloc.state.birthMinute.value),
+          (UserInfoBloc bloc) => bloc.state.birthMinute.value),
       onChanged: (value) => context
-          .read<YearlySajuMemberInfoBloc>()
+          .read<UserInfoBloc>()
           .add(MemberInfoBirthMinuteChanged(value ?? 0)),
       items: List.generate(60, (index) => index)
           .map((minute) => DropdownMenuItem<int>(

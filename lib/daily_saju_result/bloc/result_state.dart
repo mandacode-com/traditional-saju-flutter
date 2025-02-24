@@ -4,20 +4,20 @@ enum DailySajuResultStatus { initial, loading, success, failed }
 
 final class DailySajuResultState extends Equatable {
   const DailySajuResultState(
-      {this.status = DailySajuResultStatus.initial, this.yearlySajuResult});
+      {this.status = DailySajuResultStatus.initial, this.dailySajuResult});
 
   final DailySajuResultStatus status;
-  final DailySajuResult? yearlySajuResult;
+  final DailySajuResponse? dailySajuResult;
 
   DailySajuResultState copyWith({
     DailySajuResultStatus? status,
-    DailySajuResult? result,
+    DailySajuResponse? result,
   }) {
     return DailySajuResultState(
         status: status ?? this.status,
-        yearlySajuResult: result ?? yearlySajuResult);
+        dailySajuResult: result ?? dailySajuResult);
   }
 
   @override
-  List<Object?> get props => [status, yearlySajuResult];
+  List<Object?> get props => [status, dailySajuResult];
 }

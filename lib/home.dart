@@ -1,5 +1,6 @@
 import 'package:saju/config/config.dart';
 import 'package:saju/base_info/member_info/view/member_info_page.dart';
+import 'package:saju/daily_saju_result/view/result_page.dart';
 import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:saju/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
@@ -106,13 +107,13 @@ class _MainPageNavigation extends StatelessWidget {
     return Column(
       children: <Widget>[
         PageNavigationButton(
-          page: YearlySajuMemberInfoPage(targetPage: YearlySajuResultPage()),
+          page: UserInfoPage(targetPage: DailySajuResultPage()),
           text: '오늘의 운세',
           theme: ObscurePageNavigationButtonTheme(),
         ),
         const SizedBox(height: 20),
         PageNavigationButton(
-          page: YearlySajuMemberInfoPage(targetPage: YearlySajuResultPage()),
+          page: UserInfoPage(targetPage: YearlySajuResultPage()),
           text: '🐍 2025년 신년운세 🐍',
           theme: ObscurePageNavigationButtonTheme(),
         ),

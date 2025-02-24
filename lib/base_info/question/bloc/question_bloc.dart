@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'question_event.dart';
 
-class YearlySajuQuestionBloc
-    extends Bloc<YearlySajuQuestionEvent, YearlySajuQuestionState> {
-  YearlySajuQuestionBloc({
+class QuestionBloc
+    extends Bloc<QuestionEvent, QuestionState> {
+  QuestionBloc({
     required UserInfoRepository userInfoRepository,
   })  : _userInfoRepository = userInfoRepository,
-        super(const YearlySajuQuestionState()) {
+        super(const QuestionState()) {
     on<QuestionSubscriptionRequested>(_onSubscriptionRequested);
     on<QuestionChanged>(_onQuestionChanged);
     on<QuestionDisabledChanged>(_onQuestionDisabledChanged);
@@ -21,7 +21,7 @@ class YearlySajuQuestionBloc
   final UserInfoRepository _userInfoRepository;
 
   void _onSubscriptionRequested(QuestionSubscriptionRequested event,
-      Emitter<YearlySajuQuestionState> emit) async {
+      Emitter<QuestionState> emit) async {
     emit(state.copyWith(status: FormStatus.loading));
     try {
       final yearlySajuForm = await _userInfoRepository.getUserInfo();
@@ -41,7 +41,7 @@ class YearlySajuQuestionBloc
   }
 
   void _onQuestionChanged(
-      QuestionChanged event, Emitter<YearlySajuQuestionState> emit) async {
+      QuestionChanged event, Emitter<QuestionState> emit) async {
     final question = Question.dirty(event.question);
 
     _userInfoRepository.updateUserInfoWith(
@@ -54,7 +54,7 @@ class YearlySajuQuestionBloc
   }
 
   void _onQuestionDisabledChanged(
-      QuestionDisabledChanged event, Emitter<YearlySajuQuestionState> emit) {
+      QuestionDisabledChanged event, Emitter<QuestionState> emit) {
     _userInfoRepository.updateUserInfoWith(
       questionDisabled: event.disabled,
     );

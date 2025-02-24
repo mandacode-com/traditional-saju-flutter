@@ -8,12 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'member_info_state.dart';
 part 'member_info_event.dart';
 
-class YearlySajuMemberInfoBloc
-    extends Bloc<YearlySajuMemberInfoEvent, YearlySajuMemberInfoState> {
-  YearlySajuMemberInfoBloc({
+class UserInfoBloc
+    extends Bloc<UserInfoEvent, UserInfoState> {
+  UserInfoBloc({
     required UserInfoRepository userInfoRepository,
   })  : _userInfoRepository = userInfoRepository,
-        super(const YearlySajuMemberInfoState()) {
+        super(const UserInfoState()) {
     on<MemberInfoSubscriptionRequested>(_onSubscriptionRequested);
     on<MemberInfoGenderChanged>(_onGenderChanged);
     on<MemberInfoBirthDateChanged>(_onBirthDateChanged);
@@ -25,7 +25,7 @@ class YearlySajuMemberInfoBloc
   final UserInfoRepository _userInfoRepository;
 
   void _onSubscriptionRequested(MemberInfoSubscriptionRequested event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     emit(state.copyWith(status: FormStatus.loading));
     try {
       final localStorageUserInfo = await _userInfoRepository.getUserInfo();
@@ -60,7 +60,7 @@ class YearlySajuMemberInfoBloc
   }
 
   void _onGenderChanged(MemberInfoGenderChanged event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     _userInfoRepository.updateUserInfoWith(gender: event.gender);
 
     emit(
@@ -71,7 +71,7 @@ class YearlySajuMemberInfoBloc
   }
 
   void _onBirthDateChanged(MemberInfoBirthDateChanged event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     final birthDate = BirthDate.dirty(event.birthDate);
 
     _userInfoRepository.updateUserInfoWith(
@@ -92,7 +92,7 @@ class YearlySajuMemberInfoBloc
   }
 
   void _onBirthHourChanged(MemberInfoBirthHourChanged event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     final birthHour = BirthHour.dirty(event.birthHour);
 
     final currentBirthDateTime = DateTime.now();
@@ -115,7 +115,7 @@ class YearlySajuMemberInfoBloc
   }
 
   void _onBirthMinuteChanged(MemberInfoBirthMinuteChanged event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     final birthMinute = BirthMinute.dirty(event.birthMinute);
 
     final currentBirthDateTime = DateTime.now();
@@ -138,7 +138,7 @@ class YearlySajuMemberInfoBloc
   }
 
   void _onBirthTimeDisabledChanged(MemberInfoBirthTimeDisabledChanged event,
-      Emitter<YearlySajuMemberInfoState> emit) async {
+      Emitter<UserInfoState> emit) async {
     _userInfoRepository.updateUserInfoWith(
       birthTimeDisabled: event.disabled,
     );

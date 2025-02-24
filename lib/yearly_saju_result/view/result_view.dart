@@ -46,9 +46,10 @@ class _ResultTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 140,
+      padding: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/saju_result_top.png'),
+          image: AssetImage('assets/images/yearly_top.png'),
           fit: BoxFit.cover,
           alignment: Alignment(0.0, 0.0),
         ),
@@ -59,7 +60,7 @@ class _ResultTitle extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w800,
           ),
         ),
       ),
@@ -148,9 +149,17 @@ class _SuccessResultContent extends StatelessWidget {
         _ResultField(
           title: '🚨 올해의 주의사항',
           child: Text(
-            result!.description.waysToAvoidBadLuck,
+            result!.description.caution,
           ),
         ),
+        result!.description.questionAnswer.isNotEmpty
+            ? _ResultField(
+                title: '❓ (질문사항)',
+                child: Text(
+                  result!.description.questionAnswer,
+                ),
+              )
+            : Container(),
         Row(
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,10 +1,11 @@
+import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:models/models.dart';
 import 'package:saju/config/config.dart';
-import 'package:saju/yearly_saju_result/bloc/result_bloc.dart';
-import 'package:saju/yearly_saju_result/view/chart_view.dart';
-import 'package:saju_api/saju_api.dart';
+import 'package:saju/daily_saju_result/bloc/result_bloc.dart';
+import 'package:saju/widgets/circle_with_text.dart';
 
 class DailySajuResultView extends StatelessWidget {
   const DailySajuResultView({super.key});
@@ -15,7 +16,12 @@ class DailySajuResultView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _ResultTitle(title: '2025 신년운세'),
+            _ResultTitle(
+              title: '오늘의 운세',
+              subtitle: DateFormat('yyyy.MM.dd (E)', 'ko_KR').format(
+                DateTime.now(),
+              ),
+            ),
             Padding(
               padding:
                   MediaQuery.of(context).orientation == Orientation.landscape
@@ -37,29 +43,46 @@ class DailySajuResultView extends StatelessWidget {
 }
 
 class _ResultTitle extends StatelessWidget {
-  const _ResultTitle({required this.title});
+  const _ResultTitle({required this.title, required this.subtitle});
 
   final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 140,
+      padding: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/saju_result_top.png'),
+          image: AssetImage('assets/images/daily_top.jpeg'),
           fit: BoxFit.cover,
           alignment: Alignment(0.0, 0.0),
         ),
       ),
       child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 14,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'MapoFlowerIsland',
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -72,7 +95,7 @@ class _ResultContent extends StatelessWidget {
     return context.select((DailySajuResultBloc bloc) =>
             bloc.state.status == DailySajuResultStatus.success)
         ? _SuccessResultContent(
-            result: context.read<DailySajuResultBloc>().state.yearlySajuResult)
+            result: context.read<DailySajuResultBloc>().state.dailySajuResult)
         : _FailureResultContent(error: '운세를 불러오는데 실패했습니다.');
   }
 }
@@ -80,7 +103,7 @@ class _ResultContent extends StatelessWidget {
 class _SuccessResultContent extends StatelessWidget {
   const _SuccessResultContent({required this.result});
 
-  final DailySajuResult? result;
+  final DailySajuResponse? result;
 
   @override
   Widget build(BuildContext context) {
@@ -95,61 +118,68 @@ class _SuccessResultContent extends StatelessWidget {
               gender: result!.gender,
             )),
         _ResultField(
-          title: '🔍 사주원국표 / 오행분석',
-          child: Center(
-            child: ChartView(
-              chart: result!.chart,
-            ),
-          ),
+          title: '📝 오늘의 한마디',
+          child: _TodayShortMessage(
+              todayShortMessage: '"${result!.todayShortMessage}"'),
         ),
         _ResultField(
-          title: '🌟 신년운세 총운',
-          child: Text(
-            result!.description.general,
+          title: '🌟 오늘의 총운',
+          //child: Text(
+          //  result!.totalFortuneMessage,
+          //),
+          //child: CircleWithText(number: result!.fortuneScore),
+          child: Column(
+            spacing: 20,
+            children: [
+              Center(
+                child: CircleWithText(
+                  number: result!.fortuneScore,
+                ),
+              ),
+              Text(
+                result!.totalFortuneMessage,
+              ),
+            ],
           ),
         ),
         _ResultField(
           title: '🤝 대인관계운',
           child: Text(
-            result!.description.relationship,
+            result!.relationship,
           ),
         ),
         _ResultField(
           title: '💎 재물운',
           child: Text(
-            result!.description.career,
+            result!.wealth,
           ),
         ),
         _ResultField(
-          title: '❤️ 연애운',
+          title: '❤️  연애운',
           child: Text(
-            result!.description.romantic,
+            result!.romantic,
           ),
         ),
         _ResultField(
           title: '💊 건강운',
           child: Text(
-            result!.description.health,
+            result!.health,
           ),
         ),
         _ResultField(
-          title: '🏢 직장운',
+          title: '🚨 주의사항',
           child: Text(
-            result!.description.career,
+            result!.caution,
           ),
         ),
-        _ResultField(
-          title: '🍀 운을 높이는 법',
-          child: Text(
-            result!.description.waysToImprove,
-          ),
-        ),
-        _ResultField(
-          title: '🚨 올해의 주의사항',
-          child: Text(
-            result!.description.waysToAvoidBadLuck,
-          ),
-        ),
+        result!.questionAnswer.isNotEmpty
+            ? _ResultField(
+                title: '❓ (질문사항)',
+                child: Text(
+                  result!.questionAnswer,
+                ),
+              )
+            : Container(),
         Row(
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,17 +227,10 @@ class _ResultField extends StatelessWidget {
   }
 }
 
-class _MemberInfoItem extends StatelessWidget {
-  const _MemberInfoItem(
-      {required this.name, required this.birthDateTime, required this.gender});
+class _ShadowContainer extends StatelessWidget {
+  const _ShadowContainer({required this.child});
 
-  final String name;
-  final DateTime birthDateTime;
-  final ApiGenderType gender;
-
-  static const textStyle = TextStyle(
-    fontSize: 14,
-  );
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -218,24 +241,54 @@ class _MemberInfoItem extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
-        child: Row(
-          spacing: 10,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              name,
-              style: textStyle,
-            ),
-            Text(
-              DateFormat('yyyy/MM/dd HH:mm').format(birthDateTime),
-              style: textStyle,
-            ),
-            Text(
-              gender == ApiGenderType.male ? '남자' : '여자',
-              style: textStyle,
-            ),
-          ],
+        child: child,
+      ),
+    );
+  }
+}
+
+class _TodayShortMessage extends StatelessWidget {
+  const _TodayShortMessage({required this.todayShortMessage});
+
+  final String todayShortMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return _ShadowContainer(
+      child: Center(
+        child: Text(
+          todayShortMessage,
         ),
+      ),
+    );
+  }
+}
+
+class _MemberInfoItem extends StatelessWidget {
+  const _MemberInfoItem(
+      {required this.name, required this.birthDateTime, required this.gender});
+
+  final String name;
+  final DateTime birthDateTime;
+  final Gender gender;
+
+  @override
+  Widget build(BuildContext context) {
+    return _ShadowContainer(
+      child: Row(
+        spacing: 10,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            name,
+          ),
+          Text(
+            DateFormat('yyyy/MM/dd HH:mm').format(birthDateTime),
+          ),
+          Text(
+            gender == Gender.male ? '남자' : '여자',
+          ),
+        ],
       ),
     );
   }

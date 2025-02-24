@@ -15,8 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'member_info_form.dart';
 
-class YearlySajuMemberInfoPage extends StatelessWidget {
-  const YearlySajuMemberInfoPage({super.key, required this.targetPage});
+class UserInfoPage extends StatelessWidget {
+  const UserInfoPage({super.key, required this.targetPage});
 
   final Widget targetPage;
 
@@ -24,7 +24,7 @@ class YearlySajuMemberInfoPage extends StatelessWidget {
     required Widget targetPage,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => YearlySajuMemberInfoPage(
+      builder: (_) => UserInfoPage(
         targetPage: targetPage,
       ),
     );
@@ -34,7 +34,7 @@ class YearlySajuMemberInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => YearlySajuMemberInfoBloc(
+        create: (context) => UserInfoBloc(
           userInfoRepository: context.read<UserInfoRepository>(),
         )..add(const MemberInfoSubscriptionRequested()),
         child: OrientationBuilder(
@@ -72,7 +72,7 @@ class _PortraitLayout extends StatelessWidget {
           children: [
             const PageInfoText(
                 title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
-            YearlySajuMemberInfoForm(),
+            UserInfoForm(),
           ],
         ),
       ),
@@ -109,7 +109,7 @@ class _LandscapeLayout extends StatelessWidget {
             children: [
               const PageInfoText(
                   title: "정보를 입력해주세요", description: "당신의 운명을 알기 위한 첫 단계입니다."),
-              YearlySajuMemberInfoForm(),
+              UserInfoForm(),
               _NextPageNavigationButton(targetPage: targetPage),
             ],
           ),
@@ -127,7 +127,7 @@ class _NextPageNavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageNavigationButton(
       theme: DarkPageNavigationButtonTheme(),
-      page: YearlySajuMemberDetailPage(targetPage: targetPage),
+      page: UserDetailPage(targetPage: targetPage),
       text: "다음으로",
     );
   }

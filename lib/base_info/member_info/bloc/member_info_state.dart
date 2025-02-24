@@ -1,7 +1,7 @@
 part of 'member_info_bloc.dart';
 
-final class YearlySajuMemberInfoState extends Equatable {
-  const YearlySajuMemberInfoState({
+final class UserInfoState extends Equatable {
+  const UserInfoState({
     this.status = FormStatus.initial,
     this.gender = Gender.male,
     this.birthDate = const BirthDate.pure(),
@@ -17,7 +17,7 @@ final class YearlySajuMemberInfoState extends Equatable {
   final BirthMinute birthMinute;
   final bool birthTimeDisabled;
 
-  YearlySajuMemberInfoState copyWith({
+  UserInfoState copyWith({
     FormStatus? status,
     Gender? gender,
     BirthDate? birthDate,
@@ -25,7 +25,7 @@ final class YearlySajuMemberInfoState extends Equatable {
     BirthMinute? birthMinute,
     bool? birthTimeDisabled,
   }) {
-    return YearlySajuMemberInfoState(
+    return UserInfoState(
       status: status ?? this.status,
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,

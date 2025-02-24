@@ -17,6 +17,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final UserInfoStorage _userInfoStorage = UserInfoStorage();
   late final UserInfoRepository _userInfoRepository;
+  late final DailySajuRepository _dailySajuRepository;
   late final YearlySajuRepository _yearlySajuRepository;
 
   @override
@@ -27,6 +28,8 @@ class _AppState extends State<App> {
 
     super.initState();
     _userInfoRepository = UserInfoRepository(userInfoStorage: _userInfoStorage);
+    _dailySajuRepository = DailySajuRepository(
+        api: DailySajuApi(client: client), userInfoStorage: _userInfoStorage);
     _yearlySajuRepository = YearlySajuRepository(
         api: YearlySajuApi(client: client), userInfoStorage: _userInfoStorage);
   }
@@ -36,6 +39,7 @@ class _AppState extends State<App> {
     return MultiProvider(
       providers: [
         Provider<UserInfoRepository>.value(value: _userInfoRepository),
+        Provider<DailySajuRepository>.value(value: _dailySajuRepository),
         Provider<YearlySajuRepository>.value(value: _yearlySajuRepository),
       ],
       child: MaterialApp(

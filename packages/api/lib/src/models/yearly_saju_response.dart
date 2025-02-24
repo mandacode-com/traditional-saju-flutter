@@ -55,7 +55,8 @@ class YearlySajuDescription {
     required this.health,
     required this.career,
     required this.waysToImprove,
-    required this.waysToAvoidBadLuck,
+    required this.caution,
+    required this.questionAnswer,
   });
 
   /// Yearly Saju description from JSON
@@ -68,7 +69,8 @@ class YearlySajuDescription {
       health: json['health'] as String,
       career: json['career'] as String,
       waysToImprove: json['waysToImprove'] as String,
-      waysToAvoidBadLuck: json['waysToAvoidBadLuck'] as String,
+      caution: json['caution'] as String,
+      questionAnswer: json['questionAnswer'] as String,
     );
   }
 
@@ -93,6 +95,9 @@ class YearlySajuDescription {
   /// Ways to improve
   final String waysToImprove;
 
-  /// Ways to avoid bad luck
-  final String waysToAvoidBadLuck;
+  /// Caution
+  final String caution;
+
+  /// Question answer
+  final String questionAnswer;
 }

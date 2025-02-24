@@ -1,14 +1,14 @@
 part of 'member_detail_page.dart';
 
-class YearlySajuMemberDetailForm extends StatelessWidget {
-  const YearlySajuMemberDetailForm({super.key});
+class UserDetailForm extends StatelessWidget {
+  const UserDetailForm({super.key});
 
   static const double _fieldItemSpacing = 8;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<YearlySajuMemberDetailCubit,
-        YearlySajuMemberDetailState>(
+    return BlocListener<UserDetailCubit,
+        UserDetailState>(
       listener: (context, state) {},
       child: Align(
         alignment: Alignment.center,
@@ -53,10 +53,10 @@ class YearlySajuMemberDetailForm extends StatelessWidget {
                     TextCheckBox(
                       text: "이 정보를 항상 기억",
                       value: context.select(
-                          (YearlySajuMemberDetailCubit cubit) =>
+                          (UserDetailCubit cubit) =>
                               cubit.state.saveInfo),
                       onChanged: (value) => context
-                          .read<YearlySajuMemberDetailCubit>()
+                          .read<UserDetailCubit>()
                           .changeSaveInfo(value ?? false),
                     ),
                   ],
@@ -114,17 +114,17 @@ class _DatingStatusSelectionButton extends StatelessWidget {
     return Expanded(
       child: ElevatedButton(
           onPressed: () => context
-              .read<YearlySajuMemberDetailCubit>()
+              .read<UserDetailCubit>()
               .changeDatingStatus(datingStatus),
           style: ElevatedButton.styleFrom(
             foregroundColor: context.select(
-              (YearlySajuMemberDetailCubit cubit) =>
+              (UserDetailCubit cubit) =>
                   cubit.state.datingStatus == datingStatus
                       ? ButtonColor.white
                       : ButtonColor.black,
             ),
             backgroundColor: context.select(
-              (YearlySajuMemberDetailCubit cubit) =>
+              (UserDetailCubit cubit) =>
                   cubit.state.datingStatus == datingStatus
                       ? ButtonColor.black
                       : ButtonColor.white,
@@ -157,19 +157,19 @@ class _JobStatusSelectButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             foregroundColor: context.select(
-                        (YearlySajuMemberDetailCubit cubit) =>
+                        (UserDetailCubit cubit) =>
                             cubit.state.jobStatus) ==
                     jobStatus
                 ? ButtonColor.white
                 : ButtonColor.black,
             backgroundColor: context.select(
-                        (YearlySajuMemberDetailCubit cubit) =>
+                        (UserDetailCubit cubit) =>
                             cubit.state.jobStatus) ==
                     jobStatus
                 ? ButtonColor.black
                 : ButtonColor.white),
         onPressed: () => context
-            .read<YearlySajuMemberDetailCubit>()
+            .read<UserDetailCubit>()
             .changeJobStatus(jobStatus),
         child: Text(getJobStatusText(jobStatus)),
       ),

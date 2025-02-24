@@ -6,11 +6,11 @@ import 'package:equatable/equatable.dart';
 
 part 'spec_member_info_state.dart';
 
-class YearlySajuMemberDetailCubit
-    extends Cubit<YearlySajuMemberDetailState> {
-  YearlySajuMemberDetailCubit({
+class UserDetailCubit
+    extends Cubit<UserDetailState> {
+  UserDetailCubit({
     required this.userInfoRepository,
-  }) : super(const YearlySajuMemberDetailState()) {
+  }) : super(const UserDetailState()) {
     _init();
   }
 
