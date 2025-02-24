@@ -3,7 +3,7 @@ part of 'member_info_bloc.dart';
 final class YearlySajuMemberInfoState extends Equatable {
   const YearlySajuMemberInfoState({
     this.status = FormStatus.initial,
-    this.gender = GenderType.male,
+    this.gender = Gender.male,
     this.birthDate = const BirthDate.pure(),
     this.birthHour = const BirthHour.pure(),
     this.birthMinute = const BirthMinute.pure(),
@@ -11,7 +11,7 @@ final class YearlySajuMemberInfoState extends Equatable {
   });
 
   final FormStatus status;
-  final GenderType gender;
+  final Gender gender;
   final BirthDate birthDate;
   final BirthHour birthHour;
   final BirthMinute birthMinute;
@@ -19,7 +19,7 @@ final class YearlySajuMemberInfoState extends Equatable {
 
   YearlySajuMemberInfoState copyWith({
     FormStatus? status,
-    GenderType? gender,
+    Gender? gender,
     BirthDate? birthDate,
     BirthHour? birthHour,
     BirthMinute? birthMinute,

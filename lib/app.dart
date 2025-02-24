@@ -1,10 +1,11 @@
+import 'package:api/api.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import 'package:repository/repository.dart';
 import 'package:saju/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saju_api/saju_api.dart';
-import 'package:yearly_saju_repository/yearly_saju_repository.dart';
+import 'package:storage/storage.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -14,24 +15,33 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final UserInfoStorage _userInfoStorage = UserInfoStorage();
+  late final UserInfoRepository _userInfoRepository;
   late final YearlySajuRepository _yearlySajuRepository;
 
   @override
   void initState() {
-    Client client = Client();
+    Dio client = Dio(BaseOptions(
+      baseUrl: dotenv.env['API_BASE_URL']!,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    ));
 
     super.initState();
+    _userInfoRepository = UserInfoRepository(userInfoStorage: _userInfoStorage);
     _yearlySajuRepository = YearlySajuRepository(
-      yearlySajuApiClient: SajuApi(
-        yearlySajuApi: YearlySajuApi(client: client, apiBaseUrl: dotenv.env["API_BASE_URL"]!),
-      ),
-    );
+        api: YearlySajuApi(client: client), userInfoStorage: _userInfoStorage);
   }
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => _yearlySajuRepository,
+    return MultiProvider(
+      providers: [
+        Provider<UserInfoRepository>.value(value: _userInfoRepository),
+        Provider<YearlySajuRepository>.value(value: _yearlySajuRepository),
+      ],
       child: MaterialApp(
         title: 'Saju',
         theme: ThemeData(

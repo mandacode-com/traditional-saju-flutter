@@ -14,7 +14,7 @@ final class MemberInfoSubscriptionRequested extends YearlySajuMemberInfoEvent {
 final class MemberInfoGenderChanged extends YearlySajuMemberInfoEvent {
   const MemberInfoGenderChanged(this.gender);
 
-  final GenderType gender;
+  final Gender gender;
 
   @override
   List<Object> get props => [gender];

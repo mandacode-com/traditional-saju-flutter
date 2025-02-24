@@ -1,7 +1,7 @@
+import 'package:api/api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saju_api/saju_api.dart';
-import 'package:yearly_saju_repository/yearly_saju_repository.dart';
+import 'package:repository/repository.dart';
 
 part 'result_event.dart';
 part 'result_state.dart';
@@ -22,8 +22,8 @@ class YearlySajuResultBloc
       Emitter<YearlySajuResultState> emit) async {
     emit(state.copyWith(status: YearlySajuResultStatus.loading));
     try {
-      final YearlySajuResult result =
-          await _yearlySajuRepository.submitSajuForm();
+      final YearlySajuResponse result =
+          await _yearlySajuRepository.generateYearlySaju();
 
       emit(state.copyWith(
         status: YearlySajuResultStatus.success,

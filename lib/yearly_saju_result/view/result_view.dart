@@ -1,10 +1,11 @@
+import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:models/user/user_info.dart';
 import 'package:saju/config/config.dart';
 import 'package:saju/yearly_saju_result/bloc/result_bloc.dart';
 import 'package:saju/yearly_saju_result/view/chart_view.dart';
-import 'package:saju_api/saju_api.dart';
 
 class YearlySajuResultView extends StatelessWidget {
   const YearlySajuResultView({super.key});
@@ -80,7 +81,7 @@ class _ResultContent extends StatelessWidget {
 class _SuccessResultContent extends StatelessWidget {
   const _SuccessResultContent({required this.result});
 
-  final YearlySajuResult? result;
+  final YearlySajuResponse? result;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +204,7 @@ class _MemberInfoItem extends StatelessWidget {
 
   final String name;
   final DateTime birthDateTime;
-  final ApiGenderType gender;
+  final Gender gender;
 
   static const textStyle = TextStyle(
     fontSize: 14,
@@ -231,7 +232,7 @@ class _MemberInfoItem extends StatelessWidget {
               style: textStyle,
             ),
             Text(
-              gender == ApiGenderType.male ? '남자' : '여자',
+              gender == Gender.male ? '남자' : '여자',
               style: textStyle,
             ),
           ],

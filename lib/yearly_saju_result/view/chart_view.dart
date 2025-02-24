@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saju_api/saju_api.dart';
+import 'package:models/saju/chart/chart.dart';
+import 'package:models/saju/saju_model.dart';
 
 class ChartView extends StatelessWidget {
   const ChartView({super.key, required this.chart});

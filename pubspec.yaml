@@ -39,14 +39,17 @@ dependencies:
   flutter_bloc: ^9.0.0
   formz: ^0.8.0
   equatable: ^2.0.0
-  yearly_saju_repository:
-    path: packages/yearly_saju_repository
-  saju_api:
-    path: packages/saju_api
-  saju_local_storage:
-    path: packages/saju_local_storage
   intl: ^0.20.2
   flutter_dotenv: ^5.2.1
+  dio: ^5.0.0
+  models:
+    path: packages/models
+  api:
+    path: packages/api
+  storage:
+    path: packages/storage
+  repository:
+    path: packages/repository
 
 dev_dependencies:
   flutter_test:

@@ -1,28 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saju_local_storage/saju_local_storage.dart';
+import 'package:models/user/user_info.dart';
+import 'package:repository/repository.dart';
 import 'package:saju/base_info/form_status.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'spec_member_info_state.dart';
 
 class YearlySajuMemberDetailCubit
     extends Cubit<YearlySajuMemberDetailState> {
   YearlySajuMemberDetailCubit({
-    required this.yearlySajuRepository,
+    required this.userInfoRepository,
   }) : super(const YearlySajuMemberDetailState()) {
     _init();
   }
 
-  final YearlySajuRepository yearlySajuRepository;
+  final UserInfoRepository userInfoRepository;
 
   void _init() async {
     emit(state.copyWith(status: FormStatus.loading));
     try {
-      final memberInfo = await yearlySajuRepository.getSajuForm();
-      final datingStatus = memberInfo.datingType;
-      final jobStatus = memberInfo.jobStatus;
-      final saveInfo = memberInfo.saveInfo;
+      final userInfo = await userInfoRepository.getUserInfo();
+      final datingStatus = userInfo.datingType;
+      final jobStatus = userInfo.jobStatus;
+      final saveInfo = userInfo.saveInfo;
       emit(
         state.copyWith(
           status: FormStatus.success,
@@ -37,7 +37,7 @@ class YearlySajuMemberDetailCubit
   }
 
   void changeDatingStatus(DatingStatus datingStatus) {
-    yearlySajuRepository.updateSajuForm(datingStatus: datingStatus);
+    userInfoRepository.updateUserInfoWith(datingStatus: datingStatus);
     emit(
       state.copyWith(
         datingStatus: datingStatus,
@@ -46,7 +46,7 @@ class YearlySajuMemberDetailCubit
   }
 
   void changeJobStatus(JobStatus jobStatus) {
-    yearlySajuRepository.updateSajuForm(jobStatus: jobStatus);
+    userInfoRepository.updateUserInfoWith(jobStatus: jobStatus);
     emit(
       state.copyWith(
         jobStatus: jobStatus,
@@ -55,7 +55,7 @@ class YearlySajuMemberDetailCubit
   }
 
   void changeSaveInfo(bool saveInfo) {
-    yearlySajuRepository.updateSajuForm(saveInfo: saveInfo);
+    userInfoRepository.updateUserInfoWith(saveInfo: saveInfo);
     emit(
       state.copyWith(
         saveInfo: saveInfo,

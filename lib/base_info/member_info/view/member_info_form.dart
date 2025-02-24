@@ -23,8 +23,8 @@ class YearlySajuMemberInfoForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: _fieldItemSpacing,
                   children: [
-                    _GenderSelectButton(genderType: GenderType.male),
-                    _GenderSelectButton(genderType: GenderType.female),
+                    _GenderSelectButton(genderType: Gender.male),
+                    _GenderSelectButton(genderType: Gender.female),
                   ],
                 ),
               ],
@@ -97,7 +97,7 @@ class _Label extends StatelessWidget {
 class _GenderSelectButton extends StatelessWidget {
   const _GenderSelectButton({required this.genderType});
 
-  final GenderType genderType;
+  final Gender genderType;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +117,7 @@ class _GenderSelectButton extends StatelessWidget {
         onPressed: () => context
             .read<YearlySajuMemberInfoBloc>()
             .add(MemberInfoGenderChanged(genderType)),
-        child: Text(genderType == GenderType.male ? '남자' : '여자'),
+        child: Text(genderType == Gender.male ? '남자' : '여자'),
       ),
     );
   }

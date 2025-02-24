@@ -1,9 +1,0 @@
-part 'heavenly_stem.dart';
-part 'five_elements.dart';
-part 'api_job_status.dart';
-part 'eartyly_branch.dart';
-part 'api_gender_type.dart';
-part 'api_dating_status.dart';
-part 'chart/chart.dart';
-part 'chart/chart_earthly.dart';
-part 'chart/chart_heavenly.dart';

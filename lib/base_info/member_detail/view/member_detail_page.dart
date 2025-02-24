@@ -1,3 +1,5 @@
+import 'package:models/user/user_info.dart';
+import 'package:repository/repository.dart';
 import 'package:saju/config/config.dart';
 import 'package:saju/themes/button_color.dart';
 
@@ -10,8 +12,6 @@ import 'package:saju/widgets/page_navigation_button.dart';
 import 'package:saju/widgets/text_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saju_local_storage/saju_local_storage.dart';
-import 'package:yearly_saju_repository/yearly_saju_repository.dart';
 
 part 'member_detail_form.dart';
 
@@ -35,7 +35,7 @@ class YearlySajuMemberDetailPage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => YearlySajuMemberDetailCubit(
-          yearlySajuRepository: context.read<YearlySajuRepository>(),
+          userInfoRepository: context.read<UserInfoRepository>(),
         ),
         child: OrientationBuilder(
           builder: (context, orientation) {

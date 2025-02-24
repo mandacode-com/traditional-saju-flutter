@@ -7,11 +7,11 @@ final class YearlySajuResultState extends Equatable {
       {this.status = YearlySajuResultStatus.initial, this.yearlySajuResult});
 
   final YearlySajuResultStatus status;
-  final YearlySajuResult? yearlySajuResult;
+  final YearlySajuResponse? yearlySajuResult;
 
   YearlySajuResultState copyWith({
     YearlySajuResultStatus? status,
-    YearlySajuResult? result,
+    YearlySajuResponse? result,
   }) {
     return YearlySajuResultState(
         status: status ?? this.status,
