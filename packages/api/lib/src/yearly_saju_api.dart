@@ -7,30 +7,26 @@ import 'package:dio/dio.dart';
 /// {@endtemplate}
 class YearlySajuApi {
   /// {@macro yearly_saju_api}
-  YearlySajuApi({required this.client});
+  YearlySajuApi({required Dio client}) : _client = client;
 
   /// The [Client] used to make requests.
-  final Dio client;
+  final Dio _client;
 
   /// {@macro yearly_saju_api}
   /// Fetch yearly saju for the given [request]
-  Future<YearlySajuResponse> generateYearlySaju(YearlySajuRequest request) async {
-    print(request.gender.toString().toLowerCase().split('.').last);
-    final response = await client.post(
-      '/yearly',
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ),
-      data: {
-        'gender': request.gender.toString().toLowerCase().split('.').last,
-        'birthDateTime': request.birthDateTime.toIso8601String(),
-        'datingStatus':
-            request.datingStatus.toString().toLowerCase().split('.').last,
-        'jobStatus': request.jobStatus.toString().toLowerCase().split('.').last,
-      },
-    ).timeout(const Duration(seconds: 30));
+  Future<YearlySajuResponse> generateYearlySaju(
+      YearlySajuRequest request) async {
+    final response = await _client
+        .post(
+          '/yearly',
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ),
+          data: request.toJson(),
+        )
+        .timeout(const Duration(seconds: 30));
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load yearly saju');

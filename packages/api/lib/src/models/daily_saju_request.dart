@@ -20,4 +20,13 @@ class DailySajuRequest {
 
   /// Job status
   final JobStatus jobStatus;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'gender': gender.toString().split('.').last,
+      'birthDateTime': birthDateTime.toIso8601String(),
+      'datingStatus': datingStatus.toString().split('.').last,
+      'jobStatus': jobStatus.toString().split('.').last,
+    };
+  }
 }

@@ -23,10 +23,6 @@ class _AppState extends State<App> {
   void initState() {
     Dio client = Dio(BaseOptions(
       baseUrl: dotenv.env['API_BASE_URL']!,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
     ));
 
     super.initState();
