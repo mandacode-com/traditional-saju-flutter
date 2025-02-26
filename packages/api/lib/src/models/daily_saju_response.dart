@@ -27,7 +27,7 @@ class DailySajuResponse {
   final String romantic;
   final String health;
   final String caution;
-  final String questionAnswer;
+  final String? questionAnswer;
 
   factory DailySajuResponse.fromJson(Map<String, dynamic> json) {
     return DailySajuResponse(
@@ -44,7 +44,9 @@ class DailySajuResponse {
       romantic: json['romantic'] as String,
       health: json['health'] as String,
       caution: json['caution'] as String,
-      questionAnswer: json['questionAnswer'] as String,
+      questionAnswer: json.containsKey('questionAnswer')
+          ? json['questionAnswer'] as String
+          : null,
     );
   }
 }

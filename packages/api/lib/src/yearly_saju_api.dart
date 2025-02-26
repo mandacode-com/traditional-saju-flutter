@@ -26,11 +26,13 @@ class YearlySajuApi {
           ),
           data: request.toJson(),
         )
-        .timeout(const Duration(seconds: 30));
+        .timeout(const Duration(seconds: 120));
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load yearly saju');
     }
+
+    print(response.statusCode);
 
     final Map<String, dynamic> json = response.data;
 

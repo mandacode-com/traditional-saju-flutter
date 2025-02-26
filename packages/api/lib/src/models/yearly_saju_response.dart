@@ -70,7 +70,9 @@ class YearlySajuDescription {
       career: json['career'] as String,
       waysToImprove: json['waysToImprove'] as String,
       caution: json['caution'] as String,
-      questionAnswer: json['questionAnswer'] as String,
+      questionAnswer: json.containsKey('questionAnswer')
+          ? json['questionAnswer'] as String
+          : null,
     );
   }
 
@@ -99,5 +101,5 @@ class YearlySajuDescription {
   final String caution;
 
   /// Question answer
-  final String questionAnswer;
+  final String? questionAnswer;
 }

@@ -21,8 +21,10 @@ class YearlySajuRepository {
     final YearlySajuRequest request = YearlySajuRequest(
       gender: userInfo.gender,
       birthDateTime: userInfo.birthDateTime!,
+      birthTimeDisabled: userInfo.birthTimeDisabled,
       datingStatus: userInfo.datingType,
       jobStatus: userInfo.jobStatus,
+      question: userInfo.question,
     );
 
     return _api.generateYearlySaju(request);

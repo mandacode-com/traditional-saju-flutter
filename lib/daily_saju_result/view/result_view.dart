@@ -172,11 +172,11 @@ class _SuccessResultContent extends StatelessWidget {
             result!.caution,
           ),
         ),
-        result!.questionAnswer.isNotEmpty
+        result!.questionAnswer != null && result!.questionAnswer!.isNotEmpty
             ? _ResultField(
                 title: '❓ (질문사항)',
                 child: Text(
-                  result!.questionAnswer,
+                  result!.questionAnswer!,
                 ),
               )
             : Container(),

@@ -84,28 +84,10 @@ class ChartView extends StatelessWidget {
     }
   }
 
+  static String undefinedHour = '없음';
+
   @override
   Widget build(BuildContext context) {
-    final List<String> heavenlyStems = chart.heavenly.stems
-        .map(
-          (e) => convertHevenlyStem(e),
-        )
-        .toList();
-    final List<String> heavenlyFiveElements = chart.heavenly.fiveElements
-        .map(
-          (e) => convertFiveElement(e),
-        )
-        .toList();
-    final List<String> earthlyBranches = chart.earthly.branches
-        .map(
-          (e) => convertEarthlyBranch(e),
-        )
-        .toList();
-    final List<String> earthlyFiveElements = chart.earthly.fiveElements
-        .map(
-          (e) => convertFiveElement(e),
-        )
-        .toList();
     return DataTable(
       headingTextStyle: TextStyle(
         fontWeight: FontWeight.w600,
@@ -129,19 +111,55 @@ class ChartView extends StatelessWidget {
       rows: [
         DataRow(cells: [
           DataCell(_DataCellTitle(text: '천간')),
-          ...heavenlyStems.map((e) => DataCell(_DataCellItem(text: e))),
+          DataCell(_DataCellItem(
+              text: convertHevenlyStem(chart.heavenly.stems.year))),
+          DataCell(_DataCellItem(
+              text: convertHevenlyStem(chart.heavenly.stems.month))),
+          DataCell(_DataCellItem(
+              text: convertHevenlyStem(chart.heavenly.stems.day))),
+          DataCell(_DataCellItem(
+              text: chart.heavenly.stems.hour == null
+                  ? undefinedHour
+                  : convertHevenlyStem(chart.heavenly.stems.hour!))),
         ]),
         DataRow(cells: [
           DataCell(_DataCellTitle(text: '오행')),
-          ...heavenlyFiveElements.map((e) => DataCell(_DataCellItem(text: e))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.heavenly.fiveElements.year))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.heavenly.fiveElements.month))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.heavenly.fiveElements.day))),
+          DataCell(_DataCellItem(
+              text: chart.heavenly.fiveElements.hour == null
+                  ? undefinedHour
+                  : convertFiveElement(chart.heavenly.fiveElements.hour!))),
         ]),
         DataRow(cells: [
           DataCell(_DataCellTitle(text: '지지')),
-          ...earthlyBranches.map((e) => DataCell(_DataCellItem(text: e))),
+          DataCell(_DataCellItem(
+              text: convertEarthlyBranch(chart.earthly.branches.year))),
+          DataCell(_DataCellItem(
+              text: convertEarthlyBranch(chart.earthly.branches.month))),
+          DataCell(_DataCellItem(
+              text: convertEarthlyBranch(chart.earthly.branches.day))),
+          DataCell(_DataCellItem(
+              text: chart.earthly.branches.hour == null
+                  ? undefinedHour
+                  : convertEarthlyBranch(chart.earthly.branches.hour!))),
         ]),
         DataRow(cells: [
           DataCell(_DataCellTitle(text: '오행')),
-          ...earthlyFiveElements.map((e) => DataCell(_DataCellItem(text: e))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.earthly.fiveElements.year))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.earthly.fiveElements.month))),
+          DataCell(_DataCellItem(
+              text: convertFiveElement(chart.earthly.fiveElements.day))),
+          DataCell(_DataCellItem(
+              text: chart.earthly.fiveElements.hour == null
+                  ? undefinedHour
+                  : convertFiveElement(chart.earthly.fiveElements.hour!))),
         ]),
       ],
     );
