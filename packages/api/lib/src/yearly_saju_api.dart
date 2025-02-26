@@ -32,8 +32,6 @@ class YearlySajuApi {
       throw Exception('Failed to load yearly saju');
     }
 
-    print(response.statusCode);
-
     final Map<String, dynamic> json = response.data;
 
     return YearlySajuResponse.fromJson(json);

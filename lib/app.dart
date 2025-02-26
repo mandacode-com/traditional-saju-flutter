@@ -24,6 +24,8 @@ class _AppState extends State<App> {
   void initState() {
     Dio client = Dio(BaseOptions(
       baseUrl: dotenv.env['API_BASE_URL']!,
+      connectTimeout: Duration(minutes: 5),
+      receiveTimeout: Duration(minutes: 5),
     ));
 
     super.initState();

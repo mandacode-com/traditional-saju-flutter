@@ -8,17 +8,15 @@ class DailySajuApi {
   final Dio _client;
 
   Future<DailySajuResponse> generateDailySaju(DailySajuRequest request) async {
-    final response = await _client
-        .post(
-          '/daily',
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-          data: request.toJson(),
-        )
-        .timeout(const Duration(seconds: 30));
+    final response = await _client.post(
+      '/daily',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+      data: request.toJson(),
+    );
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load daily saju');
