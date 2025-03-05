@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ButtonColor {
-  const ButtonColor();
-
   static Color get white => const Color(0xFFFAFAFA);
   static Color get black => const Color(0xFF1D1D1D);
   static Color get whiteText => Colors.white;

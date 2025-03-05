@@ -1,4 +1,4 @@
-import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
+import 'package:saju/themes/page_navigation_button_theme.dart';
 import 'package:flutter/material.dart';
 
 class PageNavigationButton extends StatelessWidget {
@@ -24,8 +24,9 @@ class PageNavigationButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              minimumSize: buttonMinimumSize,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(26),
               ),
               backgroundColor: theme.backgroundColor,
               foregroundColor: theme.textColor,

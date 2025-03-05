@@ -1,4 +1,4 @@
-import 'package:byul_mobile/themes/button_color.dart';
+import 'package:saju/themes/button_color.dart';
 import 'package:flutter/material.dart';
 
 class PageNavigationButtonTheme {

@@ -1,7 +1,11 @@
-import 'package:byul_mobile/home.dart';
+import 'package:api/api.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import 'package:repository/repository.dart';
+import 'package:saju/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_year_saju_repository/new_year_saju_repository.dart';
+import 'package:storage/storage.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -11,30 +15,60 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  late final NewYearSajuRepository _newYearSajuRepository;
+  final UserInfoStorage _userInfoStorage = UserInfoStorage();
+  late final UserInfoRepository _userInfoRepository;
+  late final DailySajuRepository _dailySajuRepository;
+  late final YearlySajuRepository _yearlySajuRepository;
 
   @override
   void initState() {
+    Dio client = Dio(BaseOptions(
+      baseUrl: dotenv.env['API_BASE_URL']!,
+      connectTimeout: Duration(minutes: 5),
+      receiveTimeout: Duration(minutes: 5),
+    ));
+
     super.initState();
-    _newYearSajuRepository = NewYearSajuRepository();
+    _userInfoRepository = UserInfoRepository(userInfoStorage: _userInfoStorage);
+    _dailySajuRepository = DailySajuRepository(
+        api: DailySajuApi(client: client), userInfoStorage: _userInfoStorage);
+    _yearlySajuRepository = YearlySajuRepository(
+        api: YearlySajuApi(client: client), userInfoStorage: _userInfoStorage);
   }
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => _newYearSajuRepository,
+    return MultiProvider(
+      providers: [
+        Provider<UserInfoRepository>.value(value: _userInfoRepository),
+        Provider<DailySajuRepository>.value(value: _dailySajuRepository),
+        Provider<YearlySajuRepository>.value(value: _yearlySajuRepository),
+      ],
       child: MaterialApp(
-        title: 'Byuljogak Saju',
+        title: 'Saju',
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(color: Colors.black),
+          ),
+          dividerTheme: DividerThemeData(
+            color: Colors.transparent,
+            space: 0,
+            thickness: 0,
           ),
           colorScheme: ColorScheme.light(
             primary: Colors.black,
             secondary: Colors.grey,
           ),
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(
+              fontSize: 12,
+              fontFamily: "NanumSquareNeo",
+            ),
+          ),
+          primaryTextTheme: TextTheme(),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
+              minimumSize: Size(double.infinity, 45),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

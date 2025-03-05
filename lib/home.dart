@@ -1,8 +1,10 @@
-import 'package:byul_mobile/config/config.dart';
-import 'package:byul_mobile/new_year_saju/member_info/view/member_info_page.dart';
-import 'package:byul_mobile/themes/page_navigation_button_theme.dart';
-import 'package:byul_mobile/widgets/page_navigation_button.dart';
+import 'package:saju/config/config.dart';
+import 'package:saju/base_info/member_info/view/member_info_page.dart';
+import 'package:saju/daily_saju_result/view/result_page.dart';
+import 'package:saju/themes/page_navigation_button_theme.dart';
+import 'package:saju/widgets/page_navigation_button.dart';
 import 'package:flutter/material.dart';
+import 'package:saju/yearly_saju_result/view/result_page.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,6 +25,7 @@ class Home extends StatelessWidget {
           focusColor: Colors.transparent,
           splashColor: Colors.transparent,
           backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
           child: const Icon(Icons.menu),
         );
       }),
@@ -39,19 +42,19 @@ class Home extends StatelessWidget {
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Padding(
-              padding: MediaQuery.of(context).orientation ==
-                      Orientation.landscape
-                  ? Config.getLandScapeHorizontalPadding(context).copyWith(
-                      top: 40,
-                      bottom: 40,
-                    )
-                  : const EdgeInsets.symmetric(vertical: 120, horizontal: 20),
+              padding:
+                  MediaQuery.of(context).orientation == Orientation.landscape
+                      ? Config.getLandScapeHorizontalPadding(context).copyWith(
+                          top: 40,
+                          bottom: 40,
+                        )
+                      : Config.verticalHomePadding,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     _MainPageTitle(
-                        title: '별조각', description: '오늘 당신의 별은 어떻게 움직일까요?'),
+                        title: '정통사주', description: '정확하게 들어맞는 정통사주풀이'),
                     Spacer(),
                     _MainPageNavigation(),
                   ],
@@ -74,24 +77,20 @@ class _MainPageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 10,
       children: <Widget>[
         Text(title,
             style: TextStyle(
-                fontFamily: 'Hakgyoansim',
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontFamily: 'SSRock',
+                fontWeight: FontWeight.normal,
+                fontSize: 40,
                 color: const Color.fromRGBO(0, 0, 0, 1))),
-        const SizedBox(height: 20),
         Text(
           description,
           style: TextStyle(
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 0.1
-              ..color = Colors.black,
             fontFamily: 'MapoFlowerIsland',
             fontWeight: FontWeight.bold,
-            fontSize: 14,
+            fontSize: 16,
           ),
         ),
       ],
@@ -108,13 +107,13 @@ class _MainPageNavigation extends StatelessWidget {
     return Column(
       children: <Widget>[
         PageNavigationButton(
-          page: NewYearSajuMemberInfoPage(),
+          page: UserInfoPage(targetPage: DailySajuResultPage()),
           text: '오늘의 운세',
           theme: ObscurePageNavigationButtonTheme(),
         ),
         const SizedBox(height: 20),
         PageNavigationButton(
-          page: NewYearSajuMemberInfoPage(),
+          page: UserInfoPage(targetPage: YearlySajuResultPage()),
           text: '🐍 2025년 신년운세 🐍',
           theme: ObscurePageNavigationButtonTheme(),
         ),
@@ -133,28 +132,50 @@ class _MainPageDrawer extends StatelessWidget {
           bottomLeft: Radius.circular(20),
         ),
       ),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.grey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              title: const _ListTitleText(text: '구매내역'),
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
-            child: Text('별조각 사주'),
-          ),
-          ListTile(
-            title: const Text('오늘의 운세'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('🐍 2025년 신년운세 🐍'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+            ListTile(
+              title: const _ListTitleText(text: '문의하기'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const _ListTitleText(text: '다른 운세가 궁금하면?'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ListTitleText extends StatelessWidget {
+  const _ListTitleText({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        fontFamily: 'NanumSquareNeo',
+        fontWeight: FontWeight.w800,
+        fontSize: 14,
       ),
     );
   }
