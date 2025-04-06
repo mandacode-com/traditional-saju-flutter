@@ -1,4 +1,4 @@
 /// repository for tarot application
 library;
 
-export 'src/saju_repository.dart';
+export 'src/auth_repository.dart';

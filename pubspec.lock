@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "7.3.0"
   api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/api"
       relative: true
@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "0.4.1"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       sha256: "253a18bbd4851fecba42f7343a1df3a9a4c1d31a2c1b37e221086b4fa8c8dbc9"
@@ -261,7 +261,7 @@ packages:
     source: hosted
     version: "0.3.3"
   google_sign_in:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_sign_in
       sha256: d0a2c3bcb06e607bb11e4daca48bd4b6120f0bbc4015ccebbe757d24ea60ed2a
