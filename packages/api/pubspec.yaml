@@ -12,5 +12,6 @@ dev_dependencies:
   very_good_analysis: ^6.0.0
 dependencies:
   dio: ^5.8.0+1
+  google_sign_in: ^6.3.0
   models:
     path: ../models

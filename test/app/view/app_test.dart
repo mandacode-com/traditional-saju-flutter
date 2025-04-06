@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:saju/app/app.dart';
-import 'package:saju/counter/counter.dart';
+import 'package:saju_mobile_v1/app/app.dart';
+import 'package:saju_mobile_v1/counter/counter.dart';
 
 void main() {
   group('App', () {

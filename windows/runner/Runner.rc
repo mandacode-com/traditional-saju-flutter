@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example.verygoodcore.saju" "\0"
-            VALUE "FileDescription", "saju" "\0"
+            VALUE "CompanyName", "com.mandacode.saju-mobile-v1" "\0"
+            VALUE "FileDescription", "saju_mobile_v1" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "saju" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example.verygoodcore.saju. All rights reserved." "\0"
-            VALUE "OriginalFilename", "saju.exe" "\0"
-            VALUE "ProductName", "Saju" "\0"
+            VALUE "InternalName", "saju_mobile_v1" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.mandacode.saju-mobile-v1. All rights reserved." "\0"
+            VALUE "OriginalFilename", "saju_mobile_v1.exe" "\0"
+            VALUE "ProductName", "Saju Mobile V1" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:saju/counter/counter.dart';
+import 'package:saju_mobile_v1/counter/counter.dart';
 
 import '../../helpers/helpers.dart';
 
