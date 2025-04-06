@@ -6,6 +6,14 @@ class AuthResponse {
     required this.refreshToken,
   });
 
+  /// [AuthResponse.fromJson] Factory method to create an instance from JSON
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
+    );
+  }
+
   /// [accessToken] Access token
   final String accessToken;
 
