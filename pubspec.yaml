@@ -46,3 +46,21 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/.env
+
+  fonts:
+    - family: Hakgyoansim
+      fonts:
+        - asset: assets/fonts/Hakgyoansim.ttf
+    - family: MapoFlowerIsland
+      fonts:
+        - asset: assets/fonts/MapoFlowerIsland.ttf
+    - family: SSRock
+      fonts:
+        - asset: assets/fonts/SSRockRegular.ttf
+    - family: NanumSquareNeo
+      fonts:
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-aLt.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-bRg.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-cBd.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-dEb.ttf
+        - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-eHv.ttf
