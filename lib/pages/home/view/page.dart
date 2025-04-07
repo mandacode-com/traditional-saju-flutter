@@ -28,38 +28,33 @@ class HomePage extends StatelessWidget {
       ),
       endDrawer: _MainPageDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFDFBF3),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: AdaptiveColumn(
-            spacing: 60,
-            children: [
-              const _HomePageTitle(
-                title: '정통사주',
-                description: '정확하게 들어맞는 정통사주풀이',
-              ),
-              Column(
-                spacing: 40,
-                children: [
-                  ItemButton(
-                    title: '🐍 2025년 신년운세 🐍',
-                    onPressed: () {},
-                    image:
-                        const AssetImage('assets/images/item_logo/yearly.png'),
-                    price: 4900,
-                  ),
-                  ItemButton(
-                    title: '오늘의 운세',
-                    onPressed: () {},
-                    image:
-                        const AssetImage('assets/images/item_logo/daily.png'),
-                    price: 0,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        child: AdaptiveColumn(
+          spacing: 60,
+          children: [
+            const _HomePageTitle(
+              title: '정통사주',
+              description: '정확하게 들어맞는 정통사주풀이',
+            ),
+            Column(
+              spacing: 40,
+              children: [
+                ItemButton(
+                  title: '🐍 2025년 신년운세 🐍',
+                  onPressed: () {},
+                  image: const AssetImage('assets/images/item_logo/yearly.png'),
+                  price: 4900,
+                ),
+                ItemButton(
+                  title: '오늘의 운세',
+                  onPressed: () {},
+                  image: const AssetImage('assets/images/item_logo/daily.png'),
+                  price: 0,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -100,7 +95,7 @@ class _HomePageTitle extends StatelessWidget {
 }
 
 class ItemButton extends StatelessWidget {
-  const ItemButton({
+  ItemButton({
     required this.title,
     required this.onPressed,
     required this.price,
@@ -113,36 +108,60 @@ class ItemButton extends StatelessWidget {
   final int price;
   final AssetImage image;
 
+  final BorderRadius _borderRadius = BorderRadius.circular(10);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 20,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image(
-            image: image,
-            fit: BoxFit.fitWidth,
-            width: double.infinity,
-            height: 200,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 20,
+              children: [
+                ClipRRect(
+                  borderRadius: _borderRadius,
+                  child: Image(
+                    image: image,
+                    fit: BoxFit.fitWidth,
+                    width: double.infinity,
+                    height: 200,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'NanumSquareNeo',
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    _PriceTag(price: price),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 15,
-                fontFamily: 'NanumSquareNeo',
-                fontWeight: FontWeight.w800,
+          Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              borderRadius: _borderRadius,
+              child: InkWell(
+                borderRadius: _borderRadius,
+                splashColor: Colors.white.withValues(alpha: 0.2),
+                highlightColor: Colors.black.withValues(alpha: 0.2),
+                onTap: onPressed,
               ),
             ),
-            _PriceTag(price: price),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -234,7 +253,7 @@ class _ListTitleText extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.right,
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'NanumSquareNeo',
         fontWeight: FontWeight.w800,
         fontSize: 14,
