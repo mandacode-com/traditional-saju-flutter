@@ -1,5 +1,5 @@
-/// [SajuStorage] AppStorage interface
-abstract class SajuStorage {
+/// [QuestionStorage] Question storage interface
+abstract class QuestionStorage {
   /// [saveQuestion] Save question
   Future<void> saveQuestion(String question);
 
