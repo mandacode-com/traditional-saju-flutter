@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:models/models.dart';
 import 'package:saju_mobile_v1/storage/user/user_info_hive.dart';
 import 'package:storage/storage.dart';
@@ -9,8 +9,15 @@ class UserHiveStorage implements UserStorage {
 
   late final Box<UserHiveModel> _userBox;
 
-  Future<void> init() async {
-    _userBox = await Hive.openBox<UserHiveModel>(_boxName);
+  static Future<void> init() async {
+    // _userBox = await Hive.openBox<UserHiveModel>(_boxName);
+    await Hive.initFlutter();
+
+    _RegisterAdapters.register();
+
+    if (!Hive.isBoxOpen(_boxName)) {
+      await Hive.openBox<UserInfo?>(_boxName);
+    }
   }
 
   @override
@@ -38,4 +45,8 @@ class UserHiveStorage implements UserStorage {
     final userHiveModel = UserHiveModel.fromUserInfo(userInfo);
     await _userBox.put(_userKey, userHiveModel);
   }
+}
+
+class _RegisterAdapters {
+  static void register() {}
 }

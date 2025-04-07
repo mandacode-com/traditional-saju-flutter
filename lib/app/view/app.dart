@@ -41,7 +41,6 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    userHiveStorage.init();
     final googleOauthClientId = const String.fromEnvironment(
       googleClientEnvKey,
     ).isNotEmpty

@@ -19,7 +19,7 @@ class UserHiveModel extends HiveObject {
       jobStatus: user.jobStatus,
       datingStatus: user.datingStatus,
       birthdate: user.birthdate,
-      saved: user.saved,
+      saved: user.permanent,
     );
   }
 
@@ -45,7 +45,7 @@ class UserHiveModel extends HiveObject {
       jobStatus: jobStatus,
       datingStatus: datingStatus,
       birthdate: birthdate,
-      saved: saved,
+      permanent: saved,
     );
   }
 }
