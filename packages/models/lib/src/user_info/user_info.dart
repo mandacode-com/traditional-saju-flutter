@@ -9,13 +9,15 @@ class UserInfo {
     Gender? gender,
     JobStatus? jobStatus,
     DatingStatus? datingStatus,
+    bool? timeDisabled,
     DateTime? birthdate,
-    bool? saved,
+    bool? permanent,
   })  : gender = gender ?? Gender.male,
         jobStatus = jobStatus ?? JobStatus.employed,
         datingStatus = datingStatus ?? DatingStatus.single,
         birthdate = birthdate ?? DateTime.now(),
-        saved = saved ?? false;
+        timeDisabled = timeDisabled ?? false,
+        permanent = permanent ?? false;
 
   /// [gender]
   final Gender gender;
@@ -29,6 +31,9 @@ class UserInfo {
   /// [birthdate]
   final DateTime birthdate;
 
-  /// [saved]
-  final bool saved;
+  /// [timeDisabled]
+  final bool timeDisabled;
+
+  /// [permanent]
+  final bool permanent;
 }
