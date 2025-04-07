@@ -8,4 +8,13 @@ abstract class QuestionStorage {
 
   /// [deleteQuestion] Delete question
   Future<void> deleteQuestion();
+
+  /// [enableQuestion] Enable question
+  void enableQuestion();
+
+  /// [disableQuestion] Disable question
+  void disableQuestion();
+
+  /// [isQuestionEnabled] Check if question is enabled
+  bool isQuestionEnabled();
 }
