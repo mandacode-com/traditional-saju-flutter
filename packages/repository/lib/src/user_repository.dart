@@ -13,6 +13,20 @@ class UserRepository {
   final UserStorage _userMemoryStorage;
   final UserStorage _userHiveStorage;
 
+  /// [saveUser] Save user information
+  /// If userInfo.permanent is true, 
+  /// save user information to both memory and hive storage
+  Future<void> saveUser(UserInfo userInfo) async {
+    if (userInfo.permanent) {
+      await Future.wait([
+        _userMemoryStorage.saveUser(userInfo),
+        _userHiveStorage.saveUser(userInfo),
+      ]);
+    } else {
+      await _userMemoryStorage.saveUser(userInfo);
+    }
+  }
+
   /// [saveUserToMemory] Save user information
   Future<void> saveUserToMemory(UserInfo userInfo) async {
     await _userMemoryStorage.saveUser(userInfo);
