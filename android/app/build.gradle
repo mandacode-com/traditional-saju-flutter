@@ -47,6 +47,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+
+    def kakaoApiKey = keystoreProperties.getProperty('kakaoApiKey')
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mandacode.saju_mobile_v1"
@@ -87,17 +89,26 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Saju Mobile V1"]
+            manifestPlaceholders = [
+              appName: "Saju Mobile V1", 
+              kakaoApiKey: kakaoApiKey, 
+            ]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Saju Mobile V1"]
+            manifestPlaceholders = [
+              appName: "[STG] Saju Mobile V1",
+              kakaoApiKey: kakaoApiKey, 
+            ]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Saju Mobile V1"]
+            manifestPlaceholders = [
+              appName: "[DEV] Saju Mobile V1",
+              kakaoApiKey: kakaoApiKey, 
+            ]
         }
     }
 
