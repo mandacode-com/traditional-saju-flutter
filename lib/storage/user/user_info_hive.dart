@@ -1,7 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:models/models.dart';
 
+part 'user_info_hive.g.dart';
+
 /// [UserHiveModel] User info hive model
+@HiveType(typeId: 0)
 class UserHiveModel extends HiveObject {
   /// [UserHiveModel] User info constructor
   UserHiveModel({

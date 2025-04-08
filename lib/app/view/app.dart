@@ -41,6 +41,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+
     final googleOauthClientId = const String.fromEnvironment(
       googleClientEnvKey,
     ).isNotEmpty

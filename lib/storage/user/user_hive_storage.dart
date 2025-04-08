@@ -9,16 +9,7 @@ class UserHiveStorage implements UserStorage {
 
   late final Box<UserHiveModel> _userBox;
 
-  static Future<void> init() async {
-    // _userBox = await Hive.openBox<UserHiveModel>(_boxName);
-    await Hive.initFlutter();
-
-    _RegisterAdapters.register();
-
-    if (!Hive.isBoxOpen(_boxName)) {
-      await Hive.openBox<UserInfo?>(_boxName);
-    }
-  }
+  String get boxName => _boxName;
 
   @override
   Future<void> deleteUser() async {
@@ -45,8 +36,4 @@ class UserHiveStorage implements UserStorage {
     final userHiveModel = UserHiveModel.fromUserInfo(userInfo);
     await _userBox.put(_userKey, userHiveModel);
   }
-}
-
-class _RegisterAdapters {
-  static void register() {}
 }
