@@ -26,12 +26,12 @@ class AppRepository {
   }
 
   /// [setTargetRoute] Set target route
-  Future<void> setTargetRoute(TargetRoute route) async {
+  Future<void> setTargetRoute(AppRoutes route) async {
     await _appStorage.setTargetRoute(route);
   }
 
   /// [getTargetRoute] Get target route
-  Future<TargetRoute?> getTargetRoute() async {
+  Future<AppRoutes?> getTargetRoute() async {
     return _appStorage.getTargetRoute();
   }
 }
