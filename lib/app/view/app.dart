@@ -35,6 +35,7 @@ class _AppState extends State<App> {
   UserHiveStorage userHiveStorage = UserHiveStorage();
 
   late final AuthRepository _authRepository;
+  late final AppRepository _appRepository;
 
   static const googleClientEnvKey = 'GOOGLE_OAUTH_CLIENT_ID';
 
@@ -65,6 +66,9 @@ class _AppState extends State<App> {
       ],
     );
 
+    _appRepository = AppRepository(
+      appStorage: appMemoryStorage,
+    );
     _authRepository = AuthRepository(
       authApi: AuthApi(
         apiClient: ApiClient(dio: authDio),
@@ -82,6 +86,9 @@ class _AppState extends State<App> {
         RepositoryProvider<AuthRepository>(
           create: (context) => _authRepository,
         ),
+        RepositoryProvider<AppRepository>(
+          create: (context) => _appRepository,
+        ),
       ],
       child: MaterialApp(
         title: 'Saju Mobile',
@@ -90,7 +97,7 @@ class _AppState extends State<App> {
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }
