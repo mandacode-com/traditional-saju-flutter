@@ -12,8 +12,8 @@ abstract class AppStorage {
   Future<void> deleteQuestion();
 
   /// [setTargetRoute] Set target route
-  Future<void> setTargetRoute(TargetRoute route);
+  Future<void> setTargetRoute(AppRoutes route);
 
   /// [getTargetRoute] Get target route
-  Future<TargetRoute?> getTargetRoute();
+  Future<AppRoutes?> getTargetRoute();
 }
