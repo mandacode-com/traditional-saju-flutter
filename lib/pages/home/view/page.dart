@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:models/models.dart';
+import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,7 +45,14 @@ class HomePage extends StatelessWidget {
               children: [
                 ItemButton(
                   title: '🐍 2025년 신년운세 🐍',
-                  onPressed: () {},
+                  onPressed: () {
+                    context
+                        .read<AppRepository>()
+                        .setTargetRoute(AppRoutes.yearlyResult);
+                    Navigator.of(context).pushNamed(
+                          '/yearly',
+                        );
+                  },
                   image: const AssetImage('assets/images/item_logo/yearly.png'),
                   price: 4900,
                 ),

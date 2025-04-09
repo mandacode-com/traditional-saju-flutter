@@ -5,9 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:models/models.dart';
 import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/l10n/l10n.dart';
 import 'package:saju_mobile_v1/pages/home/view/page.dart';
+import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
+import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
 import 'package:saju_mobile_v1/storage/app/app_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/token/access_token_storage.dart';
 import 'package:saju_mobile_v1/storage/token/refresh_token_storage.dart';
@@ -98,6 +101,13 @@ class _AppState extends State<App> {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: const HomePage(),
+        routes: <String, WidgetBuilder>{
+          AppRoutes.home.toString(): (context) => const HomePage(),
+          AppRoutes.userInfoBase.toString(): (context) =>
+              const UserInfoBasePage(),
+          AppRoutes.yearlyResult.toString(): (context) =>
+              const YearlyResultPage(),
+        },
       ),
     );
   }

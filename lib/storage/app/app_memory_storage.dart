@@ -3,7 +3,7 @@ import 'package:storage/storage.dart';
 
 class AppMemoryStorage implements AppStorage {
   String? _qeustion;
-  TargetRoute? _targetRoute;
+  AppRoutes? _targetRoute;
 
   @override
   Future<void> deleteQuestion() async {
@@ -21,12 +21,12 @@ class AppMemoryStorage implements AppStorage {
   }
 
   @override
-  Future<void> setTargetRoute(TargetRoute route) async {
+  Future<void> setTargetRoute(AppRoutes route) async {
     _targetRoute = route;
   }
 
   @override
-  Future<TargetRoute?> getTargetRoute() async {
+  Future<AppRoutes?> getTargetRoute() async {
     return _targetRoute;
   }
 }
