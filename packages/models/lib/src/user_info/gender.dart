@@ -9,6 +9,18 @@ enum Gender {
   female,
   ;
 
+  /// [Gender.fromString] Convert from string
+  factory Gender.fromString(String value) {
+    switch (value) {
+      case 'male':
+        return Gender.male;
+      case 'female':
+        return Gender.female;
+      default:
+        throw Exception('Invalid value');
+    }
+  }
+
   /// [text] text getter
   String get text {
     switch (this) {

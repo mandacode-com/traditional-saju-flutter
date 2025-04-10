@@ -9,7 +9,7 @@ class YearlySajuRequest {
     required this.birthTimeDisabled,
     required this.datingStatus,
     required this.jobStatus,
-    this.question,
+    required this.question,
   });
 
   /// [gender]
@@ -28,7 +28,7 @@ class YearlySajuRequest {
   final JobStatus jobStatus;
 
   /// [question]
-  final String? question;
+  final String question;
 
   /// [toJson] Convert to JSON
   Map<String, dynamic> toJson() {

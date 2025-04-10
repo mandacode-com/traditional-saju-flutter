@@ -34,7 +34,7 @@ class SajuRepository {
       birthTimeDisabled: false, // Not implemented yet
       datingStatus: user.datingStatus,
       jobStatus: user.jobStatus,
-      question: question,
+      question: question ?? '',
     );
     return _sajuApi.yearlySaju(request);
   }

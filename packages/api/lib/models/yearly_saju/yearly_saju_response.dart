@@ -13,16 +13,17 @@ class YearlySajuResponse {
 
   /// Yearly Saju result from JSON
   factory YearlySajuResponse.fromJson(Map<String, dynamic> json) {
+    final name = json['name'] as String;
+    final gender = Gender.fromString(json['gender'] as String);
+    final birthDateTime = DateTime.parse(json['birthDateTime'] as String);
     final chart = Chart.fromJson(json['chart'] as Map<String, dynamic>);
     final description = YearlySajuDescription.fromJson(
       json['description'] as Map<String, dynamic>,
     );
     return YearlySajuResponse(
-      name: json['name'] as String,
-      birthDateTime: DateTime.parse(json['birthDateTime'] as String),
-      gender: Gender.values.firstWhere(
-        (element) => element.toString() == json['gender'],
-      ),
+      name: name,
+      gender: gender,
+      birthDateTime: birthDateTime,
       chart: chart,
       description: description,
     );
