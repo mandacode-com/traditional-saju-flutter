@@ -7,18 +7,23 @@ import 'package:api/src/api_client.dart';
 /// [SajuApi] Saju API class
 class SajuApi {
   /// [SajuApi] constructor
-  SajuApi(this._apiClient);
+  const SajuApi({
+    required ApiClient apiClient,
+  }) : _apiClient = apiClient;
 
   final ApiClient _apiClient;
 
   /// [dailySaju] method
   Future<DailySajuResponse> dailySaju(DailySajuRequest request) async {
     final response = await _apiClient.post<Map<String, dynamic>>(
-      '/saju/daily',
+      '/daily',
       data: request.toJson(),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to load daily saju');
+    }
+    if (response.data == null) {
+      throw Exception('Response data is null');
     }
     return DailySajuResponse.fromJson(response.data!);
   }
@@ -28,11 +33,14 @@ class SajuApi {
     YearlySajuRequest request,
   ) async {
     final response = await _apiClient.post<Map<String, dynamic>>(
-      '/saju/yearly',
+      '/yearly',
       data: request.toJson(),
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to load yearly saju');
+    }
+    if (response.data == null) {
+      throw Exception('Response data is null');
     }
     return YearlySajuResponse.fromJson(response.data!);
   }
