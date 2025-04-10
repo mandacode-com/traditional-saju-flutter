@@ -70,26 +70,18 @@ class UserRepository {
     DatingStatus? datingStatus,
     DateTime? birthdate,
     bool? timeDisabled,
+    bool? permanent,
   }) async {
-    final user = await _userMemoryStorage.getUser();
-    if (user == null) {
-      final newUser = UserInfo(
-        gender: gender,
-        jobStatus: jobStatus,
-        datingStatus: datingStatus,
-        birthdate: birthdate,
-        timeDisabled: timeDisabled,
-      );
-      await saveUser(newUser);
-      return;
-    }
+    final user = await _userMemoryStorage.getUser() ?? UserInfo();
     final newUser = user.copyWith(
       gender: gender,
       jobStatus: jobStatus,
       datingStatus: datingStatus,
       birthdate: birthdate,
       timeDisabled: timeDisabled,
+      permanent: permanent,
     );
-    await saveUser(newUser);
+
+    await _userMemoryStorage.saveUser(newUser);
   }
 }
