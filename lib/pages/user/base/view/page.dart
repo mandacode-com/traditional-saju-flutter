@@ -41,8 +41,6 @@ class UserInfoBasePage extends StatelessWidget {
                 PageDiscription(
                   title: '정보를 입력해주세요.',
                   subtitle: '당신의 운명을 알기 위한 첫 단계입니다.',
-                  titleFontSize: 20,
-                  subtitleFontSize: 13,
                 ),
                 UserInfoBaseForm(),
                 _NextPageButton(),

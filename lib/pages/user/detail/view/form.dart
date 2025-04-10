@@ -16,7 +16,7 @@ class UserInfoDetailForm extends StatelessWidget {
     return BlocListener<UserInfoDetailBloc, UserInfoDetailState>(
       listener: (context, state) {},
       child: Column(
-        spacing: 20,
+        spacing: 40,
         children: [
           const _FormItem(
             label: '연애상태',

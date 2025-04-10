@@ -28,11 +28,11 @@ enum DatingStatus {
   String get textKor {
     switch (this) {
       case DatingStatus.single:
-        return '미혼';
+        return '솔로';
       case DatingStatus.dating:
-        return '연애중';
+        return '커플';
       case DatingStatus.married:
-        return '기혼';
+        return '결혼';
     }
   }
 }

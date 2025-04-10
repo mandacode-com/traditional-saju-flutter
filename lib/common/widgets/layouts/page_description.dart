@@ -4,15 +4,15 @@ class PageDiscription extends StatelessWidget {
   const PageDiscription({
     required this.title,
     required this.subtitle,
-    required this.titleFontSize,
-    required this.subtitleFontSize,
+    this.titleFontSize,
+    this.subtitleFontSize,
     super.key,
   });
 
   final String title;
   final String subtitle;
-  final double titleFontSize;
-  final double subtitleFontSize;
+  final double? titleFontSize;
+  final double? subtitleFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,17 @@ class PageDiscription extends StatelessWidget {
           title,
           style: Theme.of(
             context,
-          ).textTheme.headlineLarge?.copyWith(fontSize: titleFontSize),
+          ).textTheme.headlineLarge?.copyWith(
+                fontSize: titleFontSize,
+              ),
         ),
         Text(
           subtitle,
           style: Theme.of(
             context,
-          ).textTheme.headlineMedium?.copyWith(fontSize: subtitleFontSize),
+          ).textTheme.headlineMedium?.copyWith(
+                fontSize: subtitleFontSize,
+              ),
         ),
       ],
     );

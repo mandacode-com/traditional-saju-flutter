@@ -18,7 +18,7 @@ enum JobStatus {
       case JobStatus.unemployed:
         return 'unemployed';
       case JobStatus.employed:
-        return 'employed';
+        return 'working';
       case JobStatus.student:
         return 'student';
     }
@@ -28,9 +28,9 @@ enum JobStatus {
   String get textKor {
     switch (this) {
       case JobStatus.unemployed:
-        return '실업';
+        return '쉬는중';
       case JobStatus.employed:
-        return '취업';
+        return '직장인';
       case JobStatus.student:
         return '학생';
     }

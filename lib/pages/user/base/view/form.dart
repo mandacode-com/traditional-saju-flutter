@@ -17,7 +17,7 @@ class UserInfoBaseForm extends StatelessWidget {
     return BlocListener<UserInfoBaseBloc, UserInfoBaseState>(
       listener: (context, state) {},
       child: Column(
-        spacing: 20,
+        spacing: 30,
         children: [
           const _FormItem(
             label: '성별',
@@ -140,8 +140,8 @@ class _BirthDateSelector extends StatelessWidget {
                   ),
             )
           : Text(
-              '${birthDateTime.value!.year}년'
-              '${birthDateTime.value!.month}월'
+              '${birthDateTime.value!.year}년 '
+              '${birthDateTime.value!.month}월 '
               '${birthDateTime.value!.day}일',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,

@@ -130,12 +130,18 @@ class _AppState extends State<App> {
             checkColor: WidgetStatePropertyAll(
               Colors.white,
             ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(3),
+              ),
+            ),
             fillColor: WidgetStateProperty.fromMap(
               <WidgetStatesConstraint, Color?>{
                 WidgetState.selected: Colors.black,
                 WidgetState.focused: Colors.black,
                 WidgetState.error: Colors.black,
-                WidgetState.disabled: Colors.grey,
+                WidgetState.disabled: Colors.black12,
+                WidgetState.any: Colors.transparent,
               },
             ),
             overlayColor: WidgetStatePropertyAll(
@@ -144,13 +150,29 @@ class _AppState extends State<App> {
           ),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
+            shadowColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
           ),
           scaffoldBackgroundColor: const Color(0xFFFFFFFF),
           colorScheme: const ColorScheme.light(),
           textTheme: ThemeData.light().textTheme.copyWith(
+                headlineLarge: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'NanumSquareNeo',
+                  fontSize: 20,
+                ),
+                headlineMedium: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'MapoFlowerIsland',
+                  fontSize: 13,
+                ),
                 bodyMedium: const TextStyle(
                   color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'NanumSquareNeo',
+                  fontSize: 13,
                 ),
                 bodyLarge: const TextStyle(
                   color: Colors.black,

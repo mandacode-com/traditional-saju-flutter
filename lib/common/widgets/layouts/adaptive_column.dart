@@ -5,7 +5,7 @@ class AdaptiveColumn extends StatelessWidget {
     required this.children,
     super.key,
     this.portraitPadding = const EdgeInsets.symmetric(
-      vertical: 100,
+      vertical: 120,
       horizontal: 20,
     ),
     this.landscapePadding = const EdgeInsets.symmetric(

@@ -20,29 +20,35 @@ class CustomDropdownButton<T> extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: ButtonTheme(
         alignedDropdown: true,
-        child: DropdownButton<T>(
-          alignment: Alignment.center,
-          borderRadius: BorderRadius.circular(8),
-          menuMaxHeight: 200,
-          focusColor: Colors.black,
-          icon: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Transform.rotate(
-              angle: 90 * math.pi / 180,
-              child: const Icon(
-                Icons.arrow_forward_ios,
-                size: 13,
-                color: Colors.black,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFFFAFAFA),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          child: DropdownButton<T>(
+            alignment: Alignment.center,
+            borderRadius: BorderRadius.circular(8),
+            menuMaxHeight: 200,
+            focusColor: Colors.black,
+            icon: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Transform.rotate(
+                angle: 90 * math.pi / 180,
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 13,
+                  color: Colors.black,
+                ),
               ),
             ),
+            isExpanded: true,
+            items: items,
+            onChanged: disabled ? null : onChanged,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.black,
+                ),
+            value: value,
           ),
-          isExpanded: true,
-          items: items,
-          onChanged: disabled ? null : onChanged,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
-              ),
-          value: value,
         ),
       ),
     );

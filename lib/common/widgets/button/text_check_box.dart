@@ -21,11 +21,12 @@ class TextCheckBox extends StatelessWidget {
         Checkbox(value: value, onChanged: onChanged),
         Text(
           text,
-          style:
-              textStyle ??
+          style: textStyle ??
               Theme.of(
                 context,
-              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+              ).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
         ),
       ],
     );
