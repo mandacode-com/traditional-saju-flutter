@@ -10,14 +10,14 @@ class YearlySajuResultBloc
     required SajuRepository sajuRepository,
   })  : _sajuRepository = sajuRepository,
         super(const YearlySajuResultState()) {
-    on<ResultSubscriptionRequested>(_onResultSubscriptionRequested);
-    on<ClearResultPressed>(_onResultClearPressed);
+    on<YearlyResultSubscriptionRequested>(_onResultSubscriptionRequested);
+    on<ClearYearlyResultPressed>(_onResultClearPressed);
   }
 
   final SajuRepository _sajuRepository;
 
   Future<void> _onResultSubscriptionRequested(
-    ResultSubscriptionRequested event,
+    YearlyResultSubscriptionRequested event,
     Emitter<YearlySajuResultState> emit,
   ) async {
     emit(state.copyWith(formStatus: FormStatus.loading));
@@ -40,7 +40,7 @@ class YearlySajuResultBloc
   }
 
   Future<void> _onResultClearPressed(
-    ClearResultPressed envet,
+    ClearYearlyResultPressed envet,
     Emitter<YearlySajuResultState> emit,
   ) async {
     emit(

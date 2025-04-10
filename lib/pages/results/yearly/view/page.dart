@@ -22,7 +22,7 @@ class YearlySajuResultPage extends StatelessWidget {
       body: BlocProvider(
         create: (context) => YearlySajuResultBloc(
           sajuRepository: context.read<SajuRepository>(),
-        )..add(const ResultSubscriptionRequested()),
+        )..add(const YearlyResultSubscriptionRequested()),
         child: _ResultPageContent(),
       ),
     );

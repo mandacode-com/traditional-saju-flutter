@@ -7,10 +7,10 @@ sealed class YearlySajuResultEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class ResultSubscriptionRequested extends YearlySajuResultEvent {
-  const ResultSubscriptionRequested();
+final class YearlyResultSubscriptionRequested extends YearlySajuResultEvent {
+  const YearlyResultSubscriptionRequested();
 }
 
-final class ClearResultPressed extends YearlySajuResultEvent {
-  const ClearResultPressed();
+final class ClearYearlyResultPressed extends YearlySajuResultEvent {
+  const ClearYearlyResultPressed();
 }
