@@ -23,8 +23,8 @@ class DailySajuResponse {
     return DailySajuResponse(
       name: json['name'] as String,
       birthDateTime: DateTime.parse(json['birthDateTime'] as String),
-      gender: Gender.values.firstWhere(
-        (element) => element.toString() == json['gender'],
+      gender: Gender.fromString(
+        json['gender'] as String,
       ),
       todayShortMessage: json['todayShortMessage'] as String,
       fortuneScore: json['fortuneScore'] as int,

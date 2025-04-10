@@ -9,6 +9,7 @@ import 'package:models/models.dart';
 import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/l10n/l10n.dart';
 import 'package:saju_mobile_v1/pages/home/view/page.dart';
+import 'package:saju_mobile_v1/pages/results/daily/view/page.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/detail/view/page.dart';
@@ -167,6 +168,8 @@ class _AppState extends State<App> {
               const UserInfoDetailPage(),
           AppRoutes.yearlyResult.toString(): (context) =>
               const YearlySajuResultPage(),
+          AppRoutes.dailyResult.toString(): (context) =>
+              const DailySajuResultPage(),
         },
       ),
     );

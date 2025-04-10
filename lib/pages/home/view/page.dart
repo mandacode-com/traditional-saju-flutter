@@ -58,7 +58,14 @@ class HomePage extends StatelessWidget {
                 ),
                 ItemButton(
                   title: '오늘의 운세',
-                  onPressed: () {},
+                  onPressed: () {
+                    context
+                        .read<AppRepository>()
+                        .setTargetRoute(AppRoutes.dailyResult);
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.userInfoBase.toString(),
+                    );
+                  },
                   image: const AssetImage('assets/images/item_logo/daily.png'),
                   price: 0,
                 ),
