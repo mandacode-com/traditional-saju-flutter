@@ -11,6 +11,7 @@ import 'package:saju_mobile_v1/l10n/l10n.dart';
 import 'package:saju_mobile_v1/pages/home/view/page.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
+import 'package:saju_mobile_v1/pages/user/detail/view/page.dart';
 import 'package:saju_mobile_v1/storage/app/app_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/token/access_token_storage.dart';
 import 'package:saju_mobile_v1/storage/token/refresh_token_storage.dart';
@@ -141,6 +142,8 @@ class _AppState extends State<App> {
           AppRoutes.home.toString(): (context) => const HomePage(),
           AppRoutes.userInfoBase.toString(): (context) =>
               const UserInfoBasePage(),
+          AppRoutes.userInfoDetail.toString(): (context) =>
+              const UserInfoDetailPage(),
           AppRoutes.yearlyResult.toString(): (context) =>
               const YearlyResultPage(),
         },
