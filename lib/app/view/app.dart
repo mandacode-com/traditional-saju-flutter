@@ -13,10 +13,12 @@ import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/detail/view/page.dart';
 import 'package:saju_mobile_v1/storage/app/app_memory_storage.dart';
+import 'package:saju_mobile_v1/storage/question/question_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/token/access_token_storage.dart';
 import 'package:saju_mobile_v1/storage/token/refresh_token_storage.dart';
 import 'package:saju_mobile_v1/storage/user/user_hive_storage.dart';
 import 'package:saju_mobile_v1/storage/user/user_memory_storage.dart';
+import 'package:storage/storage.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -37,9 +39,11 @@ class _AppState extends State<App> {
   );
   UserMemoryStorage userMemoryStorage = UserMemoryStorage();
   UserHiveStorage userHiveStorage = UserHiveStorage();
+  QuestionStorage questionMemoryStorage = QuestionMemoryStorage();
 
   late final AuthRepository _authRepository;
   late final AppRepository _appRepository;
+  late final SajuRepository _sajuRepository;
 
   static const googleClientEnvKey = 'GOOGLE_OAUTH_CLIENT_ID';
 
@@ -62,6 +66,13 @@ class _AppState extends State<App> {
         receiveTimeout: const Duration(seconds: 5),
       ),
     );
+    final sajuDio = Dio(
+      BaseOptions(
+        baseUrl: 'https://saju.mandacode.com/api/core',
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(minutes: 1),
+      ),
+    );
     final googleSignIn = GoogleSignIn(
       serverClientId: googleOauthClientId,
       scopes: [
@@ -81,6 +92,13 @@ class _AppState extends State<App> {
       accessTokenStorage: accessTokenStorage,
       refreshTokenStorage: refreshTokenStorage,
     );
+    _sajuRepository = SajuRepository(
+      sajuApi: SajuApi(
+        apiClient: ApiClient(dio: sajuDio),
+      ),
+      userMemoryStorage: userMemoryStorage,
+      questionMemoryStorage: questionMemoryStorage,
+    );
   }
 
   @override
@@ -98,6 +116,9 @@ class _AppState extends State<App> {
             userMemoryStorage: userMemoryStorage,
             userHiveStorage: userHiveStorage,
           ),
+        ),
+        RepositoryProvider<SajuRepository>(
+          create: (context) => _sajuRepository,
         ),
       ],
       child: MaterialApp(
@@ -145,7 +166,7 @@ class _AppState extends State<App> {
           AppRoutes.userInfoDetail.toString(): (context) =>
               const UserInfoDetailPage(),
           AppRoutes.yearlyResult.toString(): (context) =>
-              const YearlyResultPage(),
+              const YearlySajuResultPage(),
         },
       ),
     );
