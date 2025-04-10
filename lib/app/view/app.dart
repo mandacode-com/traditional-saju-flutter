@@ -92,11 +92,47 @@ class _AppState extends State<App> {
         RepositoryProvider<AppRepository>(
           create: (context) => _appRepository,
         ),
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepository(
+            userMemoryStorage: userMemoryStorage,
+            userHiveStorage: userHiveStorage,
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Saju Mobile',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: const Color(0xFF000000),
+          checkboxTheme: const CheckboxThemeData(
+            checkColor: WidgetStatePropertyAll(
+              Colors.white,
+            ),
+            fillColor: WidgetStateProperty.fromMap(
+              <WidgetStatesConstraint, Color?>{
+                WidgetState.selected: Colors.black,
+                WidgetState.focused: Colors.black,
+                WidgetState.error: Colors.black,
+                WidgetState.disabled: Colors.grey,
+              },
+            ),
+            overlayColor: WidgetStatePropertyAll(
+              Colors.transparent,
+            ),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black,
+          ),
+          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+          colorScheme: const ColorScheme.light(),
+          textTheme: ThemeData.light().textTheme.copyWith(
+                bodyMedium: const TextStyle(
+                  color: Colors.black,
+                ),
+                bodyLarge: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

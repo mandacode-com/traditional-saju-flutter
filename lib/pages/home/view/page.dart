@@ -50,8 +50,8 @@ class HomePage extends StatelessWidget {
                         .read<AppRepository>()
                         .setTargetRoute(AppRoutes.yearlyResult);
                     Navigator.of(context).pushNamed(
-                          '/yearly',
-                        );
+                      AppRoutes.userInfoBase.toString(),
+                    );
                   },
                   image: const AssetImage('assets/images/item_logo/yearly.png'),
                   price: 4900,
