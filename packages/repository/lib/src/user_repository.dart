@@ -14,7 +14,7 @@ class UserRepository {
   final UserStorage _userHiveStorage;
 
   /// [saveUser] Save user information
-  /// If userInfo.permanent is true, 
+  /// If userInfo.permanent is true,
   /// save user information to both memory and hive storage
   Future<void> saveUser(UserInfo userInfo) async {
     if (userInfo.permanent) {
@@ -61,5 +61,35 @@ class UserRepository {
   /// [deleteHiveUser] Delete user information from hive storage
   Future<void> deleteHiveUser() async {
     await _userHiveStorage.deleteUser();
+  }
+
+  /// [updateUser] Update user information
+  Future<void> updateUser({
+    Gender? gender,
+    JobStatus? jobStatus,
+    DatingStatus? datingStatus,
+    DateTime? birthdate,
+    bool? timeDisabled,
+  }) async {
+    final user = await _userMemoryStorage.getUser();
+    if (user == null) {
+      final newUser = UserInfo(
+        gender: gender,
+        jobStatus: jobStatus,
+        datingStatus: datingStatus,
+        birthdate: birthdate,
+        timeDisabled: timeDisabled,
+      );
+      await saveUser(newUser);
+      return;
+    }
+    final newUser = user.copyWith(
+      gender: gender,
+      jobStatus: jobStatus,
+      datingStatus: datingStatus,
+      birthdate: birthdate,
+      timeDisabled: timeDisabled,
+    );
+    await saveUser(newUser);
   }
 }
