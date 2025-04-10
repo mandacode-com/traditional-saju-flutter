@@ -33,11 +33,11 @@ class YearlySajuRequest {
   /// [toJson] Convert to JSON
   Map<String, dynamic> toJson() {
     return {
-      'gender': gender.toString(),
+      'gender': gender.text,
       'birthDateTime': birthDateTime.toIso8601String(),
       'birthTimeDisabled': birthTimeDisabled,
-      'datingStatus': datingStatus.toString(),
-      'jobStatus': jobStatus.toString(),
+      'datingStatus': datingStatus.text,
+      'jobStatus': jobStatus.text,
       'question': question,
     };
   }
