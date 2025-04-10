@@ -36,4 +36,23 @@ class UserInfo {
 
   /// [permanent]
   final bool permanent;
+
+  /// [copyWith] method
+  UserInfo copyWith({
+    Gender? gender,
+    JobStatus? jobStatus,
+    DatingStatus? datingStatus,
+    DateTime? birthdate,
+    bool? timeDisabled,
+    bool? permanent,
+  }) {
+    return UserInfo(
+      gender: gender ?? this.gender,
+      jobStatus: jobStatus ?? this.jobStatus,
+      datingStatus: datingStatus ?? this.datingStatus,
+      birthdate: birthdate ?? this.birthdate,
+      timeDisabled: timeDisabled ?? this.timeDisabled,
+      permanent: permanent ?? this.permanent,
+    );
+  }
 }

@@ -12,8 +12,8 @@ enum DatingStatus {
   married,
   ;
 
-  @override
-  String toString() {
+  /// [text] text getter
+  String get text {
     switch (this) {
       case DatingStatus.single:
         return 'single';
@@ -21,6 +21,18 @@ enum DatingStatus {
         return 'dating';
       case DatingStatus.married:
         return 'married';
+    }
+  }
+
+  /// [textKor] text getter in Korean
+  String get textKor {
+    switch (this) {
+      case DatingStatus.single:
+        return '미혼';
+      case DatingStatus.dating:
+        return '연애중';
+      case DatingStatus.married:
+        return '기혼';
     }
   }
 }
