@@ -18,7 +18,6 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
     on<UserInfoBaseBirthHourChanged>(_onBirthHourChanged);
     on<UserInfoBaseBirthMinutesChanged>(_onBirthMinutesChanged);
     on<UserInfoBaseTimeDisabledChanged>(_onTimeDisabledChanged);
-    on<UserInfoBaseFormSubmitted>(_onFormSubmitted);
   }
 
   final UserRepository _userRepository;
@@ -170,22 +169,6 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
         state.copyWith(
           formStatus: FormStatus.success,
           timeDisabled: event.timeDisabled,
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(formStatus: FormStatus.failure));
-    }
-  }
-
-  Future<void> _onFormSubmitted(
-    UserInfoBaseFormSubmitted event,
-    Emitter<UserInfoBaseState> emit,
-  ) async {
-    try {
-      await _userRepository.pushUserToHive();
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.success,
         ),
       );
     } catch (e) {

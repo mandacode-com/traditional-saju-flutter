@@ -59,10 +59,3 @@ final class UserInfoBaseTimeDisabledChanged extends UserInfoBaseEvent {
   @override
   List<Object> get props => [timeDisabled];
 }
-
-final class UserInfoBaseFormSubmitted extends UserInfoBaseEvent {
-  const UserInfoBaseFormSubmitted();
-
-  @override
-  List<Object> get props => [];
-}

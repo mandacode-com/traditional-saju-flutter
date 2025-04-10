@@ -64,8 +64,7 @@ class _NextPageButton extends StatelessWidget {
       label: '다음으로',
       width: double.infinity,
       onPressed: () {
-        context.read<UserInfoBaseBloc>().add(const UserInfoBaseFormSubmitted());
-        Navigator.of(context).pushNamed(AppRoutes.dailyResult.toString());
+        Navigator.of(context).pushNamed(AppRoutes.userInfoDetail.toString());
       },
     );
   }
