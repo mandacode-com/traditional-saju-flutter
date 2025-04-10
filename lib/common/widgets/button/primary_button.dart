@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    required this.label,
     required this.onPressed,
+    required this.child,
     super.key,
     this.width,
     this.height = 50,
@@ -11,12 +11,12 @@ class PrimaryButton extends StatelessWidget {
     this.foreground,
     this.decoration,
   });
-  final String label;
+  final Widget child;
   final VoidCallback? onPressed;
   final double? width;
   final double? height;
-  final Color? background;
-  final Color? foreground;
+  final WidgetStateProperty<Color?>? background;
+  final WidgetStateProperty<Color?>? foreground;
   final Decoration? decoration;
 
   @override
@@ -26,12 +26,17 @@ class PrimaryButton extends StatelessWidget {
       height: height,
       decoration: decoration,
       child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: background ?? const Color(0xCC000000),
-          foregroundColor: foreground ?? Colors.white,
-        ),
+        // style: TextButton.styleFrom(
+        //   backgroundColor: background ?? const Color(0xCC000000),
+        //   foregroundColor: foreground ?? Colors.white,
+        // ),
+        style: Theme.of(context).textButtonTheme.style?.copyWith(
+              backgroundColor: background,
+              foregroundColor: foreground,
+            ),
         onPressed: onPressed,
-        child: Text(label),
+        // child: Text(label),
+        child: child,
       ),
     );
   }

@@ -16,9 +16,36 @@ class AuthRepository {
   final TokenStorage _accessTokenStorage;
   final TokenStorage _refreshTokenStorage;
 
+  /// [verifyToken] method
+  Future<void> verifyToken(String token) async {
+    final response = await _authApi.verifyToken(token);
+    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+      throw Exception('Failed to verify token');
+    }
+    await Future.wait([
+      _accessTokenStorage.saveToken(response.accessToken),
+      _refreshTokenStorage.saveToken(response.refreshToken),
+    ]);
+  }
+
+  /// [refreshToken] method
+  Future<void> refreshToken(String refreshToken) async {
+    final response = await _authApi.refreshToken(refreshToken);
+    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+      throw Exception('Failed to refresh token');
+    }
+    await Future.wait([
+      _accessTokenStorage.saveToken(response.accessToken),
+      _refreshTokenStorage.saveToken(response.refreshToken),
+    ]);
+  }
+
   /// [signInWithGoogle] method
   Future<void> signInWithGoogle() async {
     final response = await _authApi.signInWithGoogle();
+    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+      throw Exception('Failed to sign in with Google');
+    }
     await Future.wait([
       _accessTokenStorage.saveToken(response.accessToken),
       _refreshTokenStorage.saveToken(response.refreshToken),

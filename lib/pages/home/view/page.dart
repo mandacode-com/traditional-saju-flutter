@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:models/models.dart';
 import 'package:repository/repository.dart';
+import 'package:saju_mobile_v1/common/widgets/button/primary_button.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
+import 'package:saju_mobile_v1/common/widgets/layouts/main_background.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,46 +34,24 @@ class HomePage extends StatelessWidget {
       ),
       endDrawer: _MainPageDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      backgroundColor: const Color(0xFFFDFBF3),
-      body: Center(
+      backgroundColor: Colors.transparent,
+      body: const MainBackground(
         child: AdaptiveColumn(
-          spacing: 60,
+          portraitPadding: EdgeInsets.only(
+            top: 140,
+            left: 20,
+            right: 20,
+            bottom: 100,
+          ),
+          spacing: 20,
+          forceSpaceBetween: true,
           children: [
-            const _HomePageTitle(
+            _HomePageTitle(
               title: '정통사주',
               description: '정확하게 들어맞는 정통사주풀이',
             ),
-            Column(
-              spacing: 40,
-              children: [
-                ItemButton(
-                  title: '🐍 2025년 신년운세 🐍',
-                  onPressed: () {
-                    context
-                        .read<AppRepository>()
-                        .setTargetRoute(AppRoutes.yearlyResult);
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.userInfoBase.toString(),
-                    );
-                  },
-                  image: const AssetImage('assets/images/item_logo/yearly.png'),
-                  price: 4900,
-                ),
-                ItemButton(
-                  title: '오늘의 운세',
-                  onPressed: () {
-                    context
-                        .read<AppRepository>()
-                        .setTargetRoute(AppRoutes.dailyResult);
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.userInfoBase.toString(),
-                    );
-                  },
-                  image: const AssetImage('assets/images/item_logo/daily.png'),
-                  price: 0,
-                ),
-              ],
-            ),
+            // _OauthButtons(),
+            _RouteButtons(),
           ],
         ),
       ),
@@ -108,115 +88,6 @@ class _HomePageTitle extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ItemButton extends StatelessWidget {
-  ItemButton({
-    required this.title,
-    required this.onPressed,
-    required this.price,
-    required this.image,
-    super.key,
-  });
-
-  final String title;
-  final VoidCallback onPressed;
-  final int price;
-  final AssetImage image;
-
-  final BorderRadius _borderRadius = BorderRadius.circular(10);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 20,
-              children: [
-                ClipRRect(
-                  borderRadius: _borderRadius,
-                  child: Image(
-                    image: image,
-                    fit: BoxFit.fitWidth,
-                    width: double.infinity,
-                    height: 200,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'NanumSquareNeo',
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    _PriceTag(price: price),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned.fill(
-            child: Material(
-              color: Colors.transparent,
-              borderRadius: _borderRadius,
-              child: InkWell(
-                borderRadius: _borderRadius,
-                splashColor: Colors.white.withValues(alpha: 0.2),
-                highlightColor: Colors.black.withValues(alpha: 0.2),
-                onTap: onPressed,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PriceTag extends StatelessWidget {
-  const _PriceTag({required this.price});
-
-  final int price;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color.fromRGBO(100, 100, 100, 1),
-        ),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
-      alignment: Alignment.center,
-      constraints: const BoxConstraints(
-        minWidth: 70,
-      ),
-      child: Text(
-        price == 0
-            ? '무료'
-            : '₩${price.toString().replaceAllMapped(
-                  RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-                  (Match m) => '${m[1]},',
-                )}',
-        style: const TextStyle(
-          color: Color.fromRGBO(100, 100, 100, 1),
-          fontFamily: 'NanumSquareNeo',
-          fontWeight: FontWeight.bold,
-          fontSize: 10,
-        ),
-      ),
     );
   }
 }
@@ -275,6 +146,123 @@ class _ListTitleText extends StatelessWidget {
         fontFamily: 'NanumSquareNeo',
         fontWeight: FontWeight.w800,
         fontSize: 14,
+      ),
+    );
+  }
+}
+
+class _OauthButtons extends StatelessWidget {
+  const _OauthButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 10,
+      children: [
+        _OauthButton(
+          image: const AssetImage('assets/images/oauth_logo/google.png'),
+          onPressed: () async {
+            await context.read<AuthRepository>().signInWithGoogle();
+          },
+          title: '구글로 계속하기',
+        ),
+      ],
+    );
+  }
+}
+
+class _OauthButton extends StatelessWidget {
+  const _OauthButton({
+    required this.image,
+    required this.onPressed,
+    required this.title,
+  });
+
+  final AssetImage image;
+  final String title;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryButton(
+      background: WidgetStateProperty.all(
+        const Color(0xFFFFFFFF),
+      ),
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 20,
+        children: [
+          ImageIcon(
+            image,
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RouteButtons extends StatelessWidget {
+  const _RouteButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 20,
+      children: [
+        _RouteButton(
+          onPressed: () {
+            context.read<AppRepository>().setTargetRoute(AppRoutes.dailyResult);
+            Navigator.pushNamed(context, AppRoutes.userInfoBase.toString());
+          },
+          title: '오늘의 운세',
+        ),
+        _RouteButton(
+          onPressed: () {
+            context
+                .read<AppRepository>()
+                .setTargetRoute(AppRoutes.yearlyResult);
+            Navigator.pushNamed(context, AppRoutes.userInfoBase.toString());
+          },
+          title: '🐍 2025년 신년운세 🐍',
+        ),
+      ],
+    );
+  }
+}
+
+class _RouteButton extends StatelessWidget {
+  const _RouteButton({
+    required this.onPressed,
+    required this.title,
+  });
+
+  final VoidCallback onPressed;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryButton(
+      background: WidgetStateProperty.all(
+        const Color(0xFFFFFFFF),
+      ),
+      width: double.infinity,
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
       ),
     );
   }

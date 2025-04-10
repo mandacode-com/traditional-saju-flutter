@@ -59,11 +59,11 @@ class _NextPageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryButton(
-      label: '다음으로',
       width: double.infinity,
       onPressed: () {
         Navigator.of(context).pushNamed(AppRoutes.userInfoDetail.toString());
       },
+      child: const Text('다음으로'),
     );
   }
 }

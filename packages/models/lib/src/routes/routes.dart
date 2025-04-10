@@ -3,6 +3,9 @@ enum AppRoutes {
   /// [home]
   home,
 
+  /// [homeSample]
+  homeSample,
+
   /// [userInfoBase]
   userInfoBase,
 
@@ -22,6 +25,8 @@ enum AppRoutes {
     switch (this) {
       case AppRoutes.home:
         return 'home';
+      case AppRoutes.homeSample:
+        return 'home/sample';
       case AppRoutes.userInfoBase:
         return 'user/info/base';
       case AppRoutes.userInfoDetail:

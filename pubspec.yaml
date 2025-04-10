@@ -49,6 +49,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/item_logo/
+    - assets/images/oauth_logo/
     - assets/fonts/
     - assets/.env
 

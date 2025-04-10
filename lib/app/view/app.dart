@@ -9,6 +9,7 @@ import 'package:models/models.dart';
 import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/l10n/l10n.dart';
 import 'package:saju_mobile_v1/pages/home/view/page.dart';
+import 'package:saju_mobile_v1/pages/home/view/page_sample.dart';
 import 'package:saju_mobile_v1/pages/results/daily/view/page.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
@@ -154,7 +155,10 @@ class _AppState extends State<App> {
             surfaceTintColor: Colors.transparent,
           ),
           scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-          colorScheme: const ColorScheme.light(),
+          colorScheme: const ColorScheme.light(
+            primary: Color(0xFF000000),
+            secondary: Color(0xFFFFFFFF),
+          ),
           textTheme: ThemeData.light().textTheme.copyWith(
                 headlineLarge: const TextStyle(
                   color: Colors.black,
@@ -178,12 +182,32 @@ class _AppState extends State<App> {
                   color: Colors.black,
                 ),
               ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: const Color(0xFF000000),
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: const Color(0xFF000000),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              shadowColor: Colors.transparent,
+            ),
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: const HomePage(),
         routes: <String, WidgetBuilder>{
           AppRoutes.home.toString(): (context) => const HomePage(),
+          AppRoutes.homeSample.toString(): (context) => const HomePageSample(),
           AppRoutes.userInfoBase.toString(): (context) =>
               const UserInfoBasePage(),
           AppRoutes.userInfoDetail.toString(): (context) =>
