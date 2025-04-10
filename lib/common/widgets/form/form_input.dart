@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FormButton extends StatelessWidget {
-  const FormButton({
+class FormInput extends StatelessWidget {
+  const FormInput({
     required this.child,
     super.key,
     this.isActive = false,
@@ -28,7 +28,7 @@ class FormButton extends StatelessWidget {
         padding: padding,
         constraints: BoxConstraints(minHeight: minHeight),
         decoration: BoxDecoration(
-          color: Colors.grey[850],
+          color: isActive ? Colors.black : const Color(0xFFFAFAFA),
           borderRadius: borderRadius,
           border: Border.all(
             color: isActive ? Colors.white : Colors.transparent,
