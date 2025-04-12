@@ -17,15 +17,25 @@ class AuthRepository {
   final TokenStorage _refreshTokenStorage;
 
   /// [verifyToken] method
-  Future<void> verifyToken(String token) async {
-    final response = await _authApi.verifyToken(token);
-    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
-      throw Exception('Failed to verify token');
+  Future<bool> verifyToken() async {
+    try {
+      final accessToken = await _accessTokenStorage.getToken();
+      if (accessToken == null) {
+        throw Exception('Access token is empty');
+      }
+      final response = await _authApi.verifyToken(accessToken);
+      if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+        throw Exception('Failed to verify token');
+      }
+      await Future.wait([
+        _accessTokenStorage.saveToken(response.accessToken),
+        _refreshTokenStorage.saveToken(response.refreshToken),
+      ]);
+      return true;
+    } catch (e) {
+      await _accessTokenStorage.deleteToken();
+      return false;
     }
-    await Future.wait([
-      _accessTokenStorage.saveToken(response.accessToken),
-      _refreshTokenStorage.saveToken(response.refreshToken),
-    ]);
   }
 
   /// [refreshToken] method
@@ -41,14 +51,23 @@ class AuthRepository {
   }
 
   /// [signInWithGoogle] method
-  Future<void> signInWithGoogle() async {
-    final response = await _authApi.signInWithGoogle();
-    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
-      throw Exception('Failed to sign in with Google');
+  Future<bool> signInWithGoogle() async {
+    try {
+      final response = await _authApi.signInWithGoogle();
+      if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+        throw Exception('Failed to sign in with Google');
+      }
+      await Future.wait([
+        _accessTokenStorage.saveToken(response.accessToken),
+        _refreshTokenStorage.saveToken(response.refreshToken),
+      ]);
+      return true;
+    } catch (e) {
+      await Future.wait([
+        _accessTokenStorage.deleteToken(),
+        _refreshTokenStorage.deleteToken(),
+      ]);
+      return false;
     }
-    await Future.wait([
-      _accessTokenStorage.saveToken(response.accessToken),
-      _refreshTokenStorage.saveToken(response.refreshToken),
-    ]);
   }
 }

@@ -187,12 +187,14 @@ class _BirthHourSelector extends StatelessWidget {
           .read<UserInfoBaseBloc>()
           .add(UserInfoBaseBirthHourChanged(value ?? 0)),
       items: List.generate(24, (index) => index)
-          .map((hour) => DropdownMenuItem<int>(
-                value: hour,
-                child: Center(
-                  child: Text('$hour시', textAlign: TextAlign.center),
-                ),
-              ))
+          .map(
+            (hour) => DropdownMenuItem<int>(
+              value: hour,
+              child: Center(
+                child: Text('$hour시', textAlign: TextAlign.center),
+              ),
+            ),
+          )
           .toList(),
     );
   }
@@ -209,12 +211,14 @@ class _BirthMinuteSelector extends StatelessWidget {
           .read<UserInfoBaseBloc>()
           .add(UserInfoBaseBirthMinutesChanged(value ?? 0)),
       items: List.generate(60, (index) => index)
-          .map((minute) => DropdownMenuItem<int>(
-                value: minute,
-                child: Center(
-                  child: Text('$minute분', textAlign: TextAlign.center),
-                ),
-              ))
+          .map(
+            (minute) => DropdownMenuItem<int>(
+              value: minute,
+              child: Center(
+                child: Text('$minute분', textAlign: TextAlign.center),
+              ),
+            ),
+          )
           .toList(),
     );
   }

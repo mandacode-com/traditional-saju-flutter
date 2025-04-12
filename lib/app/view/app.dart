@@ -95,9 +95,15 @@ class _AppState extends State<App> {
       refreshTokenStorage: refreshTokenStorage,
     );
     _sajuRepository = SajuRepository(
+      authApi: AuthApi(
+        apiClient: ApiClient(dio: authDio),
+        googleSignIn: googleSignIn,
+      ),
       sajuApi: SajuApi(
         apiClient: ApiClient(dio: sajuDio),
       ),
+      accessTokenStorage: accessTokenStorage,
+      refreshTokenStorage: refreshTokenStorage,
       userMemoryStorage: userMemoryStorage,
       questionMemoryStorage: questionMemoryStorage,
     );

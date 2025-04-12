@@ -5,6 +5,9 @@ import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/common/widgets/button/primary_button.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/main_background.dart';
+import 'package:saju_mobile_v1/pages/home/bloc/bloc.dart';
+import 'package:saju_mobile_v1/pages/home/bloc/event.dart';
+import 'package:saju_mobile_v1/pages/home/bloc/state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -35,24 +38,28 @@ class HomePage extends StatelessWidget {
       endDrawer: _MainPageDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       backgroundColor: Colors.transparent,
-      body: const MainBackground(
-        child: AdaptiveColumn(
-          portraitPadding: EdgeInsets.only(
-            top: 140,
-            left: 20,
-            right: 20,
-            bottom: 100,
-          ),
-          spacing: 20,
-          forceSpaceBetween: true,
-          children: [
-            _HomePageTitle(
-              title: '정통사주',
-              description: '정확하게 들어맞는 정통사주풀이',
+      body: BlocProvider(
+        create: (context) => HomeBloc(
+          authRepository: context.read<AuthRepository>(),
+        )..add(const HomeSubscriptionRequested()),
+        child: const MainBackground(
+          child: AdaptiveColumn(
+            portraitPadding: EdgeInsets.only(
+              top: 140,
+              left: 20,
+              right: 20,
+              bottom: 100,
             ),
-            // _OauthButtons(),
-            _RouteButtons(),
-          ],
+            spacing: 20,
+            forceSpaceBetween: true,
+            children: [
+              _HomePageTitle(
+                title: '정통사주',
+                description: '정확하게 들어맞는 정통사주풀이',
+              ),
+              _PageContent(),
+            ],
+          ),
         ),
       ),
     );
@@ -88,6 +95,35 @@ class _HomePageTitle extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _PageContent extends StatelessWidget {
+  const _PageContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.formStatus == FormStatus.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state.formStatus == FormStatus.failure) {
+          return const Center(
+            child: Text('로그인 실패'),
+          );
+        }
+
+        if (state.isLoggedIn) {
+          return const _RouteButtons();
+        }
+
+        return const _OauthButtons();
+      },
     );
   }
 }
@@ -163,7 +199,9 @@ class _OauthButtons extends StatelessWidget {
         _OauthButton(
           image: const AssetImage('assets/images/oauth_logo/google.png'),
           onPressed: () async {
-            await context.read<AuthRepository>().signInWithGoogle();
+            context.read<HomeBloc>().add(
+              const GoogleLoginRequested(),
+            );
           },
           title: '구글로 계속하기',
         ),

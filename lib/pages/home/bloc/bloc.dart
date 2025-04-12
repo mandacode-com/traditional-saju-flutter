@@ -10,16 +10,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   })  : _authRepository = authRepository,
         super(const HomeState()) {
     on<HomeSubscriptionRequested>(_onSubscriptionRequested);
-    on<HomeLoginRequested>(_onLoginRequested);
+    on<GoogleLoginRequested>(_onGoogleLoginRequested);
     on<HomeLogoutRequested>(_onLogoutRequested);
   }
 
   final AuthRepository _authRepository;
 
-  void _onSubscriptionRequested(
+  Future<void> _onSubscriptionRequested(
     HomeSubscriptionRequested event,
     Emitter<HomeState> emit,
-  ) {
+  ) async {
     emit(
       state.copyWith(
         formStatus: FormStatus.loading,
@@ -27,34 +27,51 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
 
     try {
-      final isLoggedIn = _authRepository.verifyToken(token);
-      if (isLoggedIn) {
+      await _authRepository.verifyToken().then((isLoggedIn) {
         emit(
           state.copyWith(
             formStatus: FormStatus.success,
+            isLoggedIn: isLoggedIn,
           ),
         );
-      } else {
-        emit(
-          state.copyWith(
-            formStatus: FormStatus.failure,
-          ),
-        );
-      }
+      });
     } catch (e) {
       emit(
         state.copyWith(
           formStatus: FormStatus.failure,
+          isLoggedIn: false,
         ),
       );
     }
   }
 
-  void _onLoginRequested(
-    HomeLoginRequested event,
+  Future<void> _onGoogleLoginRequested(
+    GoogleLoginRequested event,
     Emitter<HomeState> emit,
-  ) {
-    // Handle login request
+  ) async {
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
+
+    try {
+      await _authRepository.signInWithGoogle().then((isLoggedIn) {
+        emit(
+          state.copyWith(
+            formStatus: FormStatus.success,
+            isLoggedIn: isLoggedIn,
+          ),
+        );
+      });
+    } catch (e) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.failure,
+          isLoggedIn: false,
+        ),
+      );
+    }
   }
 
   void _onLogoutRequested(

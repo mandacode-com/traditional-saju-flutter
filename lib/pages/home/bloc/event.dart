@@ -15,8 +15,8 @@ final class HomeSubscriptionRequested extends HomeEvent {
   List<Object> get props => [];
 }
 
-final class HomeLoginRequested extends HomeEvent {
-  const HomeLoginRequested();
+final class GoogleLoginRequested extends HomeEvent {
+  const GoogleLoginRequested();
 
   @override
   List<Object> get props => [];
