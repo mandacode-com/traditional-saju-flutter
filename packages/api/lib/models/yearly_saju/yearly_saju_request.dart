@@ -34,7 +34,7 @@ class YearlySajuRequest {
   Map<String, dynamic> toJson() {
     return {
       'gender': gender.text,
-      'birthDateTime': birthDateTime.toIso8601String(),
+      'birthDateTime': birthDateTime.toUtc().toIso8601String(),
       'birthTimeDisabled': birthTimeDisabled,
       'datingStatus': datingStatus.text,
       'jobStatus': jobStatus.text,

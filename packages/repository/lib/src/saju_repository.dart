@@ -47,7 +47,7 @@ class SajuRepository {
       jobStatus: user.jobStatus,
       question: question ?? '',
     );
-    final response = await tokenSafeRefresh(
+    final response = await tokenSafeRequest(
       () => _sajuApi.yearlySaju(request, accessToken),
     );
     if (response.statusCode != 200) {
@@ -63,7 +63,6 @@ class SajuRepository {
       throw Exception('User not found');
     }
     final accessToken = await _accessTokenStorage.getToken();
-    print('Access token: $accessToken');
 
     final request = DailySajuRequest(
       gender: user.gender,
@@ -71,7 +70,7 @@ class SajuRepository {
       datingStatus: user.datingStatus,
       jobStatus: user.jobStatus,
     );
-    final response = await tokenSafeRefresh(
+    final response = await tokenSafeRequest(
       () => _sajuApi.dailySaju(request, accessToken),
     );
     if (response.statusCode != 200) {
@@ -80,31 +79,43 @@ class SajuRepository {
     return DailySajuResponse.fromJson(response.data!);
   }
 
-  /// [tokenSafeRefresh] method
-  Future<Response<T>> tokenSafeRefresh<T>(
+  /// [tokenSafeRequest] method
+  Future<Response<T>> tokenSafeRequest<T>(
     Future<Response<T>> Function() request,
   ) async {
-    final response = await request();
-    if (response.statusCode == 401) {
-      print('Token expired, refreshing...');
-      final refreshToken = await _refreshTokenStorage.getToken();
-      if (refreshToken == null) {
-        throw Exception('Refresh token is empty');
+    final response = await request().catchError((Object e) async {
+      if (e is DioException && e.response?.statusCode == 401) {
+        final refreshToken = await _refreshTokenStorage.getToken();
+        if (refreshToken == null) {
+          throw Exception('Refresh token is empty');
+        }
+        final refreshResponse =
+            await _authApi.refreshToken(refreshToken).catchError((e) {
+          throw Exception('Failed to refresh token');
+        });
+        if (refreshResponse.statusCode != 200) {
+          throw Exception('Failed to refresh token');
+        }
+        if (refreshResponse.data == null) {
+          throw Exception('Failed to refresh token');
+        }
+        final responseAccess = refreshResponse.data!.accessToken;
+        final responseRefresh = refreshResponse.data!.refreshToken;
+        if (responseAccess.isEmpty || responseRefresh.isEmpty) {
+          throw Exception('Failed to refresh token');
+        }
+        // Save the new tokens
+        await Future.wait([
+          _accessTokenStorage.saveToken(responseAccess),
+          _refreshTokenStorage.saveToken(responseRefresh),
+        ]);
+        return request();
       }
-      final refreshResponse = await _authApi.refreshToken(refreshToken);
-      if (refreshResponse.accessToken.isEmpty ||
-          refreshResponse.refreshToken.isEmpty) {
-        throw Exception('Failed to refresh token');
-      }
-      await Future.wait([
-        _accessTokenStorage.saveToken(refreshResponse.accessToken),
-        _refreshTokenStorage.saveToken(refreshResponse.refreshToken),
-      ]);
-      return request();
-    } else if (response.statusCode == 200) {
-      return response;
-    } else {
-      throw Exception('Failed to fetch data');
+      throw Exception('Failed to fetch data: $e');
+    });
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch data: ${response.statusMessage}');
     }
+    return response;
   }
 }

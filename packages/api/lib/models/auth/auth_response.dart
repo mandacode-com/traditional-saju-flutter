@@ -1,30 +1,46 @@
 /// [AuthResponse] Auth response model
-class AuthResponse {
+class AuthResponse<T> {
   /// [AuthResponse] constructor
   AuthResponse({
-    required this.accessToken,
-    required this.refreshToken,
+    required this.statusCode,
+    required this.message,
+    this.data,
   });
 
   /// [AuthResponse.fromJson] Factory method to create an instance from JSON
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+  factory AuthResponse.fromJson(
+    Map<String, dynamic> json,
+    T Function(Map<String, dynamic>)? dataFromJson,
+  ) {
     return AuthResponse(
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
+      statusCode: json['statusCode'] as int,
+      message: json['message'] as String,
+      data: dataFromJson != null
+          ? dataFromJson(json['data'] as Map<String, dynamic>)
+          : null,
     );
   }
 
-  /// [accessToken] Access token
-  final String accessToken;
+  /// [statusCode] HTTP status code
+  final int statusCode;
 
-  /// [refreshToken] Refresh token
-  final String refreshToken;
+  /// [message] HTTP status message
+  final String message;
 
-  /// [toJson] Convert to JSON
-  Map<String, dynamic> toJson() {
+  /// [data] Auth response data
+  final T? data;
+
+  /// [dataToJson] Convert to JSON
+  Map<String, dynamic> toJson(
+    T Function(T)? dataToJson,
+  ) {
+    if (data != null && dataToJson == null) {
+      throw Exception('dataToJson function is required when data is not null');
+    }
     return {
-      'accessToken': accessToken,
-      'refreshToken': refreshToken,
+      'statusCode': statusCode,
+      'message': message,
+      'data': data != null ? dataToJson!(data as T) : null,
     };
   }
 }

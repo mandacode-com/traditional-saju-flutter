@@ -24,13 +24,15 @@ class AuthRepository {
         throw Exception('Access token is empty');
       }
       final response = await _authApi.verifyToken(accessToken);
-      if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+      if (response.statusCode != 200) {
         throw Exception('Failed to verify token');
       }
-      await Future.wait([
-        _accessTokenStorage.saveToken(response.accessToken),
-        _refreshTokenStorage.saveToken(response.refreshToken),
-      ]);
+      if (response.data == null) {
+        throw Exception('Failed to verify token');
+      }
+      if (response.data!.uuid.isEmpty) {
+        throw Exception('Failed to verify token');
+      }
       return true;
     } catch (e) {
       await _accessTokenStorage.deleteToken();
@@ -39,14 +41,25 @@ class AuthRepository {
   }
 
   /// [refreshToken] method
-  Future<void> refreshToken(String refreshToken) async {
+  Future<void> refreshToken() async {
+    final refreshToken = await _refreshTokenStorage.getToken();
+    if (refreshToken == null) {
+      throw Exception('Refresh token is empty');
+    }
     final response = await _authApi.refreshToken(refreshToken);
-    if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+    if (response.statusCode != 200) {
+      throw Exception('Failed to refresh token');
+    }
+    if (response.data == null) {
+      throw Exception('Failed to refresh token');
+    }
+    if (response.data!.accessToken.isEmpty ||
+        response.data!.refreshToken.isEmpty) {
       throw Exception('Failed to refresh token');
     }
     await Future.wait([
-      _accessTokenStorage.saveToken(response.accessToken),
-      _refreshTokenStorage.saveToken(response.refreshToken),
+      _accessTokenStorage.saveToken(response.data!.accessToken),
+      _refreshTokenStorage.saveToken(response.data!.refreshToken),
     ]);
   }
 
@@ -54,12 +67,19 @@ class AuthRepository {
   Future<bool> signInWithGoogle() async {
     try {
       final response = await _authApi.signInWithGoogle();
-      if (response.accessToken.isEmpty || response.refreshToken.isEmpty) {
+      if (response.statusCode != 200) {
+        throw Exception('Failed to sign in with Google');
+      }
+      if (response.data == null) {
+        throw Exception('Failed to sign in with Google');
+      }
+      if (response.data!.accessToken.isEmpty ||
+          response.data!.refreshToken.isEmpty) {
         throw Exception('Failed to sign in with Google');
       }
       await Future.wait([
-        _accessTokenStorage.saveToken(response.accessToken),
-        _refreshTokenStorage.saveToken(response.refreshToken),
+        _accessTokenStorage.saveToken(response.data!.accessToken),
+        _refreshTokenStorage.saveToken(response.data!.refreshToken),
       ]);
       return true;
     } catch (e) {
