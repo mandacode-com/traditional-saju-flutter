@@ -1,5 +1,7 @@
+/// repository for tarot application
 library;
 
-export './src/user_info_repository.dart';
-export './src/daily_saju_repository.dart';
-export './src/yearly_saju_repository.dart';
+export 'src/app_repository.dart';
+export 'src/auth_repository.dart';
+export 'src/saju_repository.dart';
+export 'src/user_repository.dart';
