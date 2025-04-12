@@ -14,6 +14,7 @@ import 'package:saju_mobile_v1/pages/results/daily/view/page.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/detail/view/page.dart';
+import 'package:saju_mobile_v1/route_observer.dart';
 import 'package:saju_mobile_v1/storage/app/app_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/question/question_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/token/access_token_storage.dart';
@@ -211,6 +212,7 @@ class _AppState extends State<App> {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: const HomePage(),
+        navigatorObservers: [routeObserver],
         routes: <String, WidgetBuilder>{
           AppRoutes.home.toString(): (context) => const HomePage(),
           AppRoutes.homeSample.toString(): (context) => const HomePageSample(),

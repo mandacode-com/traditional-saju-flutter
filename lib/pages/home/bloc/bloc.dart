@@ -27,14 +27,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
 
     try {
-      await _authRepository.verifyToken().then((isLoggedIn) {
+      // Check if the user is logged in
+      final isLoggedIn = await _authRepository.verifyToken();
+      if (isLoggedIn) {
+        // If the user is logged in, refresh the token
         emit(
           state.copyWith(
             formStatus: FormStatus.success,
             isLoggedIn: isLoggedIn,
           ),
         );
-      });
+      } else {
+        // If the user is not logged in, refresh the token
+        // If the refresh token is expired, the user will be logged out
+        await _authRepository.refreshToken();
+        emit(
+          state.copyWith(
+            formStatus: FormStatus.success,
+            isLoggedIn: true,
+          ),
+        );
+      }
     } catch (e) {
       emit(
         state.copyWith(

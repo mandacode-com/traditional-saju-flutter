@@ -8,9 +8,46 @@ import 'package:saju_mobile_v1/common/widgets/layouts/main_background.dart';
 import 'package:saju_mobile_v1/pages/home/bloc/bloc.dart';
 import 'package:saju_mobile_v1/pages/home/bloc/event.dart';
 import 'package:saju_mobile_v1/pages/home/bloc/state.dart';
+import 'package:saju_mobile_v1/route_observer.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with RouteAware {
+  late final HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = HomeBloc(
+      authRepository: context.read<AuthRepository>(),
+    )..add(const HomeSubscriptionRequested());
+  }
+
+  @override
+  void dispose() {
+    _homeBloc.close();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+    precacheImage(
+      const AssetImage('assets/images/oauth_logo/google.png'),
+      context,
+    );
+  }
+
+  @override
+  void didPopNext() {
+    _homeBloc.add(const HomeSubscriptionRequested());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +74,9 @@ class HomePage extends StatelessWidget {
       ),
       endDrawer: _MainPageDrawer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      backgroundColor: Colors.transparent,
-      body: BlocProvider(
-        create: (context) => HomeBloc(
-          authRepository: context.read<AuthRepository>(),
-        )..add(const HomeSubscriptionRequested()),
+      backgroundColor: const Color(0xFFFDFBF3),
+      body: BlocProvider<HomeBloc>.value(
+        value: _homeBloc,
         child: const MainBackground(
           child: AdaptiveColumn(
             portraitPadding: EdgeInsets.only(
@@ -200,8 +235,8 @@ class _OauthButtons extends StatelessWidget {
           image: const AssetImage('assets/images/oauth_logo/google.png'),
           onPressed: () async {
             context.read<HomeBloc>().add(
-              const GoogleLoginRequested(),
-            );
+                  const GoogleLoginRequested(),
+                );
           },
           title: '구글로 계속하기',
         ),
