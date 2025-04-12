@@ -254,6 +254,12 @@ class _MainPageDrawer extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              title: const _ListTitleText(text: '메인 페이지'),
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.home.toString());
+              },
+            ),
           ],
         ),
       ),
