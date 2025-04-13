@@ -87,10 +87,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  void _onLogoutRequested(
+  Future<void> _onLogoutRequested(
     HomeLogoutRequested event,
     Emitter<HomeState> emit,
-  ) {
-    // Handle logout request
+  ) async {
+    print('Logout requested');
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
+
+    try {
+      await _authRepository.logout();
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.success,
+          isLoggedIn: false,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.failure,
+          isLoggedIn: true,
+        ),
+      );
+    }
   }
 }

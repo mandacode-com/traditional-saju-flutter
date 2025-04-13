@@ -51,33 +51,33 @@ class _HomePageState extends State<HomePage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      floatingActionButton: Builder(
-        builder: (BuildContext context) {
-          return FloatingActionButton(
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
-            elevation: 0,
-            hoverElevation: 0,
-            highlightElevation: 0,
-            focusElevation: 0,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
-            child: const Icon(Icons.menu),
-          );
-        },
-      ),
-      endDrawer: _MainPageDrawer(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      backgroundColor: const Color(0xFFFDFBF3),
-      body: BlocProvider<HomeBloc>.value(
-        value: _homeBloc,
-        child: const MainBackground(
+    return BlocProvider<HomeBloc>.value(
+      value: _homeBloc,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        floatingActionButton: Builder(
+          builder: (BuildContext context) {
+            return FloatingActionButton(
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+              elevation: 0,
+              hoverElevation: 0,
+              highlightElevation: 0,
+              focusElevation: 0,
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              child: const Icon(Icons.menu),
+            );
+          },
+        ),
+        endDrawer: _MainPageDrawer(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        backgroundColor: const Color(0xFFFDFBF3),
+        body: const MainBackground(
           child: AdaptiveColumn(
             portraitPadding: EdgeInsets.only(
               top: 140,
@@ -201,6 +201,12 @@ class _MainPageDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .pushNamed(AppRoutes.homeSample.toString());
+              },
+            ),
+            ListTile(
+              title: const _ListTitleText(text: '로그아웃'),
+              onTap: () {
+                context.read<HomeBloc>().add(const HomeLogoutRequested());
               },
             ),
           ],

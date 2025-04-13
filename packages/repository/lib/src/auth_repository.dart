@@ -90,4 +90,12 @@ class AuthRepository {
       return false;
     }
   }
+
+  /// [logout] method
+  Future<void> logout() async {
+    await Future.wait([
+      _accessTokenStorage.deleteToken(),
+      _refreshTokenStorage.deleteToken(),
+    ]);
+  }
 }
