@@ -1,13 +1,13 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:models/models.dart';
-import 'package:saju_mobile_v1/storage/user/user_info_hive.dart';
+import 'package:saju_mobile_v1/storage/user/model/user_info_hive.dart';
 import 'package:storage/storage.dart';
 
 class UserHiveStorage implements UserStorage {
   static const String _boxName = 'userBox';
   static const String _userKey = 'user_info';
 
-  late final Box<UserHiveModel> _userBox;
+  late final Box<UserInfoHive> _userBox;
 
   String get boxName => _boxName;
 
@@ -22,18 +22,18 @@ class UserHiveStorage implements UserStorage {
     if (user == null) {
       return null;
     }
-    return user.toUserInfo();
+    return user.toRaw();
   }
 
   @override
   Future<void> saveUser(UserInfo userInfo) async {
-    final userHiveModel = UserHiveModel.fromUserInfo(userInfo);
+    final userHiveModel = UserInfoHive.fromRaw(userInfo);
     await _userBox.put(_userKey, userHiveModel);
   }
 
   @override
   Future<void> updateUser(UserInfo userInfo) async {
-    final userHiveModel = UserHiveModel.fromUserInfo(userInfo);
+    final userHiveModel = UserInfoHive.fromRaw(userInfo);
     await _userBox.put(_userKey, userHiveModel);
   }
 }
