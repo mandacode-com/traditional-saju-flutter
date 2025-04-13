@@ -47,6 +47,8 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
           formStatus: FormStatus.success,
           gender: currentUser.gender,
           birthDate: FormedBirthDate.dirty(currentUser.birthdate),
+          birthHour: FormedBirthHour.dirty(currentUser.birthdate.hour),
+          birthMinutes: FormedBirthMinutes.dirty(currentUser.birthdate.minute),
           timeDisabled: currentUser.timeDisabled,
         ),
       );
