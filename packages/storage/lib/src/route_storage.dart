@@ -1,7 +1,7 @@
 import 'package:models/models.dart';
 
-/// [AppStorage] AppStorage interface
-abstract class AppStorage {
+/// [RouteStorage] AppStorage interface
+abstract class RouteStorage {
   /// [setTargetRoute] Set target route
   void setTargetRoute(AppRoutes route);
 

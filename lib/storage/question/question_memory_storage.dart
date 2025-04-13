@@ -5,17 +5,17 @@ class QuestionMemoryStorage implements QuestionStorage {
   bool _isEnabled = true;
 
   @override
-  Future<void> deleteQuestion() async {
+  void deleteQuestion() {
     _question = null;
   }
 
   @override
-  Future<String?> getQuestion() async {
+  String? getQuestion() {
     return _question;
   }
 
   @override
-  Future<void> saveQuestion(String question) async {
+  void saveQuestion(String question) {
     _question = question;
   }
 

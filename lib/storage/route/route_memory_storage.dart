@@ -1,7 +1,7 @@
 import 'package:models/models.dart';
 import 'package:storage/storage.dart';
 
-class AppMemoryStorage implements AppStorage {
+class RouteMemoryStorage implements RouteStorage {
   AppRoutes? _targetRoute;
 
   @override

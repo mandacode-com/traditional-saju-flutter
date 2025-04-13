@@ -16,8 +16,8 @@ import 'package:saju_mobile_v1/pages/results/yearly/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/page.dart';
 import 'package:saju_mobile_v1/pages/user/detail/view/page.dart';
 import 'package:saju_mobile_v1/route_observer.dart';
-import 'package:saju_mobile_v1/storage/app/app_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/question/question_memory_storage.dart';
+import 'package:saju_mobile_v1/storage/route/route_memory_storage.dart';
 import 'package:saju_mobile_v1/storage/token/access_token_storage.dart';
 import 'package:saju_mobile_v1/storage/token/refresh_token_storage.dart';
 import 'package:saju_mobile_v1/storage/user/user_hive_storage.dart';
@@ -32,7 +32,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  AppMemoryStorage appMemoryStorage = AppMemoryStorage();
+  RouteMemoryStorage appMemoryStorage = RouteMemoryStorage();
   AccessTokenStorage accessTokenStorage = AccessTokenStorage();
   RefreshTokenStorage refreshTokenStorage = RefreshTokenStorage(
     const FlutterSecureStorage(
@@ -86,7 +86,8 @@ class _AppState extends State<App> {
     );
 
     _appRepository = AppRepository(
-      appStorage: appMemoryStorage,
+      routeStorage: appMemoryStorage,
+      questionStorage: questionMemoryStorage,
     );
     _authRepository = AuthRepository(
       authApi: AuthApi(
