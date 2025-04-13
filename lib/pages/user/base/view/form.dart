@@ -121,7 +121,7 @@ class _BirthDateSelector extends StatelessWidget {
         final selectedDate = await showDatePicker(
           context: context,
           locale: const Locale('ko', 'KR'),
-          initialDate: DateTime.now(),
+          initialDate: birthDateTime.value ?? DateTime.now(),
           firstDate: DateTime(1900),
           lastDate: DateTime.now(),
         );

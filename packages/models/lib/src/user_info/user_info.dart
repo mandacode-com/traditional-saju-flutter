@@ -13,7 +13,7 @@ class UserInfo {
     DateTime? birthdate,
     bool? permanent,
   })  : gender = gender ?? Gender.male,
-        jobStatus = jobStatus ?? JobStatus.employed,
+        jobStatus = jobStatus ?? JobStatus.unemployed,
         datingStatus = datingStatus ?? DatingStatus.single,
         birthdate = birthdate ?? DateTime.now(),
         timeDisabled = timeDisabled ?? false,

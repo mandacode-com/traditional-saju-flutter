@@ -8,6 +8,7 @@ import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/page_description.dart';
 import 'package:saju_mobile_v1/pages/user/base/bloc/bloc.dart';
 import 'package:saju_mobile_v1/pages/user/base/bloc/event.dart';
+import 'package:saju_mobile_v1/pages/user/base/bloc/state.dart';
 import 'package:saju_mobile_v1/pages/user/base/view/form.dart';
 
 class UserInfoBasePage extends StatelessWidget {
@@ -58,12 +59,23 @@ class _NextPageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrimaryButton(
-      width: double.infinity,
-      onPressed: () {
-        Navigator.of(context).pushNamed(AppRoutes.userInfoDetail.toString());
+    return BlocBuilder<UserInfoBaseBloc, UserInfoBaseState>(
+      builder: (context, state) {
+        final isValid = state.birthDate.isValid;
+        return PrimaryButton(
+          disabled: !isValid,
+          width: double.infinity,
+          onPressed: () {
+            context.read<UserInfoBaseBloc>().add(
+                  const UserInfoBaseSubscriptionRequested(),
+                );
+            Navigator.of(context).pushNamed(
+              AppRoutes.userInfoDetail.toString(),
+            );
+          },
+          child: const Text('다음으로'),
+        );
       },
-      child: const Text('다음으로'),
     );
   }
 }
