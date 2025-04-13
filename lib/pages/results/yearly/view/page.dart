@@ -42,8 +42,8 @@ class _ResultPageContent extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Text(
-                      '운명을 해석중입나다...\n'
-                      '잠시만 기다려주세요. 자세한 풀이를 위해 노력중입니다.',
+                      '운명을 해석중입니다...\n'
+                      '잠시만 기다려주세요.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         foreground: Paint()
