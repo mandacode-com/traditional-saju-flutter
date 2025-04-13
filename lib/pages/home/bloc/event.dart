@@ -22,6 +22,13 @@ final class GoogleLoginRequested extends HomeEvent {
   List<Object> get props => [];
 }
 
+final class KakaoLoginRequested extends HomeEvent {
+  const KakaoLoginRequested();
+
+  @override
+  List<Object> get props => [];
+}
+
 final class HomeLogoutRequested extends HomeEvent {
   const HomeLogoutRequested();
 

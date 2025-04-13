@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk_talk.dart' as kakao;
 import 'package:models/models.dart';
 import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/l10n/l10n.dart';
@@ -91,6 +92,7 @@ class _AppState extends State<App> {
       authApi: AuthApi(
         apiClient: ApiClient(dio: authDio),
         googleSignIn: googleSignIn,
+        kakaoUserApi: kakao.UserApi.instance,
       ),
       accessTokenStorage: accessTokenStorage,
       refreshTokenStorage: refreshTokenStorage,
@@ -99,6 +101,7 @@ class _AppState extends State<App> {
       authApi: AuthApi(
         apiClient: ApiClient(dio: authDio),
         googleSignIn: googleSignIn,
+        kakaoUserApi: kakao.UserApi.instance,
       ),
       sajuApi: SajuApi(
         apiClient: ApiClient(dio: sajuDio),

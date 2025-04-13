@@ -5,6 +5,7 @@ import 'package:api/models/auth/google_auth_request.dart';
 import 'package:api/models/auth/verify_token_data.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk_user.dart' as kakao;
 
 /// [AuthApi] Auth API class
 class AuthApi {
@@ -12,11 +13,14 @@ class AuthApi {
   AuthApi({
     required ApiClient apiClient,
     required GoogleSignIn googleSignIn,
+    required kakao.UserApi kakaoUserApi,
   })  : _apiClient = apiClient,
-        _googleSignIn = googleSignIn;
+        _googleSignIn = googleSignIn,
+        _kakaoUserApi = kakaoUserApi;
 
   final ApiClient _apiClient;
   final GoogleSignIn _googleSignIn;
+  final kakao.UserApi _kakaoUserApi;
 
   /// [verifyToken] method
   Future<AuthResponse<VerifyTokenData>> verifyToken(String token) async {
@@ -72,34 +76,59 @@ class AuthApi {
 
   /// [signInWithGoogle] method
   Future<AuthResponse<FullTokenData>> signInWithGoogle() async {
-    try {
-      final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        throw Exception('Google sign-in failed');
-      }
-      final googleAuth = await googleUser.authentication;
-      if (googleAuth.idToken == null || googleAuth.accessToken == null) {
-        throw Exception('Google authentication failed');
-      }
-      final googleAuthRequest = GoogleAuthRequest.fromJson({
-        'idToken': googleAuth.idToken,
-        'accessToken': googleAuth.accessToken,
-      });
-
-      final response = await _apiClient.post<Map<String, dynamic>>(
-        '/m/auth/oauth/google/login',
-        data: googleAuthRequest.toJson(),
-      );
-      return AuthResponse.fromJson(
-        {
-          'statusCode': response.statusCode,
-          'message': response.data!['message'],
-          'data': response.data!['data'],
-        },
-        FullTokenData.fromJson,
-      );
-    } catch (e) {
-      rethrow;
+    final googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      throw Exception('Google sign-in failed');
     }
+    final googleAuth = await googleUser.authentication;
+    if (googleAuth.idToken == null || googleAuth.accessToken == null) {
+      throw Exception('Google authentication failed');
+    }
+    final googleAuthRequest = GoogleAuthRequest.fromJson({
+      'idToken': googleAuth.idToken,
+      'accessToken': googleAuth.accessToken,
+    });
+
+    final response = await _apiClient.post<Map<String, dynamic>>(
+      '/m/auth/oauth/google/login',
+      data: googleAuthRequest.toJson(),
+    );
+    return AuthResponse.fromJson(
+      {
+        'statusCode': response.statusCode,
+        'message': response.data!['message'],
+        'data': response.data!['data'],
+      },
+      FullTokenData.fromJson,
+    );
+  }
+
+  /// [signInWithKakao] method
+  Future<AuthResponse<FullTokenData>> signInWithKakao() async {
+    kakao.OAuthToken token;
+    if (await kakao.isKakaoTalkInstalled()) {
+      token = await _kakaoUserApi.loginWithKakaoTalk().catchError((e) {
+        return _kakaoUserApi.loginWithKakaoAccount();
+      });
+    } else {
+      token = await _kakaoUserApi.loginWithKakaoAccount();
+    }
+    if (token.accessToken.isEmpty) {
+      throw Exception('Kakao sign-in failed');
+    }
+    final response = await _apiClient.post<Map<String, dynamic>>(
+      '/m/auth/oauth/kakao/login',
+      data: {
+        'accessToken': token.accessToken,
+      },
+    );
+    return AuthResponse.fromJson(
+      {
+        'statusCode': response.statusCode,
+        'message': response.data!['message'],
+        'data': response.data!['data'],
+      },
+      FullTokenData.fromJson,
+    );
   }
 }

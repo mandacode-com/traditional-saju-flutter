@@ -11,6 +11,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         super(const HomeState()) {
     on<HomeSubscriptionRequested>(_onSubscriptionRequested);
     on<GoogleLoginRequested>(_onGoogleLoginRequested);
+    on<KakaoLoginRequested>(_onKakaoLoginRequested);
     on<HomeLogoutRequested>(_onLogoutRequested);
   }
 
@@ -87,11 +88,39 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
+  Future<void> _onKakaoLoginRequested(
+    KakaoLoginRequested event,
+    Emitter<HomeState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
+
+    try {
+      await _authRepository.signInWithKakao().then((isLoggedIn) {
+        emit(
+          state.copyWith(
+            formStatus: FormStatus.success,
+            isLoggedIn: isLoggedIn,
+          ),
+        );
+      });
+    } catch (e) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.failure,
+          isLoggedIn: false,
+        ),
+      );
+    }
+  }
+
   Future<void> _onLogoutRequested(
     HomeLogoutRequested event,
     Emitter<HomeState> emit,
   ) async {
-    print('Logout requested');
     emit(
       state.copyWith(
         formStatus: FormStatus.loading,

@@ -147,12 +147,6 @@ class _PageContent extends StatelessWidget {
           );
         }
 
-        if (state.formStatus == FormStatus.failure) {
-          return const Center(
-            child: Text('로그인 실패'),
-          );
-        }
-
         if (state.isLoggedIn) {
           return const _RouteButtons();
         }
@@ -203,10 +197,18 @@ class _MainPageDrawer extends StatelessWidget {
                     .pushNamed(AppRoutes.homeSample.toString());
               },
             ),
-            ListTile(
-              title: const _ListTitleText(text: '로그아웃'),
-              onTap: () {
-                context.read<HomeBloc>().add(const HomeLogoutRequested());
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                if (state.isLoggedIn) {
+                  return ListTile(
+                    title: const _ListTitleText(text: '로그아웃'),
+                    onTap: () {
+                      context.read<HomeBloc>().add(const HomeLogoutRequested());
+                    },
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
               },
             ),
           ],
@@ -252,6 +254,15 @@ class _OauthButtons extends StatelessWidget {
                 );
           },
           title: '구글로 계속하기',
+        ),
+        _OauthButton(
+          image: const AssetImage('assets/images/oauth_logo/kakao.png'),
+          onPressed: () async {
+            context.read<HomeBloc>().add(
+                  const KakaoLoginRequested(),
+                );
+          },
+          title: '카카오로 계속하기',
         ),
       ],
     );

@@ -48,7 +48,7 @@ android {
     }
 
 
-    def kakaoApiKey = keystoreProperties.getProperty('kakaoApiKey')
+    def kakaoNativeAppKey = keystoreProperties.getProperty('kakaoNativeAppKey')
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mandacode.saju_mobile_v1"
@@ -91,7 +91,7 @@ android {
             applicationIdSuffix ""
             manifestPlaceholders = [
               appName: "Saju Mobile V1", 
-              kakaoApiKey: kakaoApiKey, 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
         staging {
@@ -99,7 +99,7 @@ android {
             applicationIdSuffix ".stg"
             manifestPlaceholders = [
               appName: "[STG] Saju Mobile V1",
-              kakaoApiKey: kakaoApiKey, 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
         development {
@@ -107,7 +107,7 @@ android {
             applicationIdSuffix ".dev"
             manifestPlaceholders = [
               appName: "[DEV] Saju Mobile V1",
-              kakaoApiKey: kakaoApiKey, 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
     }
