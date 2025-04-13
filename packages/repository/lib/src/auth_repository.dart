@@ -83,7 +83,6 @@ class AuthRepository {
       ]);
       return true;
     } catch (e) {
-      print(e);
       await Future.wait([
         _accessTokenStorage.deleteToken(),
         _refreshTokenStorage.deleteToken(),
