@@ -1,2 +1,0 @@
-/home/sauce-linux/Dev/saju/saju_mobile_v1/android/app/.cxx/RelWithDebInfo/2h1w1653/x86_64/CMakeFiles/edit_cache.dir
-/home/sauce-linux/Dev/saju/saju_mobile_v1/android/app/.cxx/RelWithDebInfo/2h1w1653/x86_64/CMakeFiles/rebuild_cache.dir
