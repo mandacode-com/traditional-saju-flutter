@@ -23,9 +23,8 @@ class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _homeBloc = HomeBloc(
-      authRepository: context.read<AuthRepository>(),
-    )..add(const HomeSubscriptionRequested());
+    _homeBloc = HomeBloc(authRepository: context.read<AuthRepository>())
+      ..add(const HomeSubscriptionRequested());
   }
 
   @override
@@ -40,6 +39,10 @@ class _HomePageState extends State<HomePage> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
     precacheImage(
       const AssetImage('assets/images/oauth_logo/google.png'),
+      context,
+    );
+    precacheImage(
+      const AssetImage('assets/images/oauth_logo/kakao.png'),
       context,
     );
   }
@@ -88,10 +91,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
             spacing: 20,
             forceSpaceBetween: true,
             children: [
-              _HomePageTitle(
-                title: '정통사주',
-                description: '정확하게 들어맞는 정통사주풀이',
-              ),
+              _HomePageTitle(title: '정통사주', description: '정확하게 들어맞는 정통사주풀이'),
               _PageContent(),
             ],
           ),
@@ -142,9 +142,7 @@ class _PageContent extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state.formStatus == FormStatus.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (state.isLoggedIn) {
@@ -193,8 +191,9 @@ class _MainPageDrawer extends StatelessWidget {
             ListTile(
               title: const _ListTitleText(text: '샘플 페이지'),
               onTap: () {
-                Navigator.of(context)
-                    .pushNamed(AppRoutes.homeSample.toString());
+                Navigator.of(
+                  context,
+                ).pushNamed(AppRoutes.homeSample.toString());
               },
             ),
             BlocBuilder<HomeBloc, HomeState>(
@@ -249,18 +248,14 @@ class _OauthButtons extends StatelessWidget {
         _OauthButton(
           image: const AssetImage('assets/images/oauth_logo/google.png'),
           onPressed: () async {
-            context.read<HomeBloc>().add(
-                  const GoogleLoginRequested(),
-                );
+            context.read<HomeBloc>().add(const GoogleLoginRequested());
           },
           title: '구글로 계속하기',
         ),
         _OauthButton(
           image: const AssetImage('assets/images/oauth_logo/kakao.png'),
           onPressed: () async {
-            context.read<HomeBloc>().add(
-                  const KakaoLoginRequested(),
-                );
+            context.read<HomeBloc>().add(const KakaoLoginRequested());
           },
           title: '카카오로 계속하기',
         ),
@@ -283,23 +278,19 @@ class _OauthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryButton(
-      background: WidgetStateProperty.all(
-        const Color(0xFFFFFFFF),
-      ),
+      background: WidgetStateProperty.all(const Color(0xFFFFFFFF)),
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         spacing: 20,
         children: [
-          ImageIcon(
-            image,
-          ),
+          ImageIcon(image, color: Colors.black),
           Text(
             title,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -325,9 +316,9 @@ class _RouteButtons extends StatelessWidget {
         ),
         _RouteButton(
           onPressed: () {
-            context
-                .read<AppRepository>()
-                .setTargetRoute(AppRoutes.yearlyResult);
+            context.read<AppRepository>().setTargetRoute(
+              AppRoutes.yearlyResult,
+            );
             Navigator.pushNamed(context, AppRoutes.userInfoBase.toString());
           },
           title: '🐍 2025년 신년운세 🐍',
@@ -338,10 +329,7 @@ class _RouteButtons extends StatelessWidget {
 }
 
 class _RouteButton extends StatelessWidget {
-  const _RouteButton({
-    required this.onPressed,
-    required this.title,
-  });
+  const _RouteButton({required this.onPressed, required this.title});
 
   final VoidCallback onPressed;
   final String title;
@@ -349,17 +337,15 @@ class _RouteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryButton(
-      background: WidgetStateProperty.all(
-        const Color(0xFFFFFFFF),
-      ),
+      background: WidgetStateProperty.all(const Color(0xFFFFFFFF)),
       width: double.infinity,
       onPressed: onPressed,
       child: Text(
         title,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-            ),
+          color: Colors.black,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

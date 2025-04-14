@@ -14,9 +14,9 @@ class AuthApi {
     required ApiClient apiClient,
     required GoogleSignIn googleSignIn,
     required kakao.UserApi kakaoUserApi,
-  })  : _apiClient = apiClient,
-        _googleSignIn = googleSignIn,
-        _kakaoUserApi = kakaoUserApi;
+  }) : _apiClient = apiClient,
+       _googleSignIn = googleSignIn,
+       _kakaoUserApi = kakaoUserApi;
 
   final ApiClient _apiClient;
   final GoogleSignIn _googleSignIn;
@@ -27,20 +27,13 @@ class AuthApi {
     try {
       final response = await _apiClient.get<Map<String, dynamic>>(
         '/m/token/verify',
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
-      return AuthResponse.fromJson(
-        {
-          'statusCode': response.statusCode,
-          'message': response.data!['message'],
-          'data': response.data!['data'],
-        },
-        VerifyTokenData.fromJson,
-      );
+      return AuthResponse.fromJson({
+        'statusCode': response.statusCode,
+        'message': response.data!['message'],
+        'data': response.data!['data'],
+      }, VerifyTokenData.fromJson);
     } catch (e) {
       rethrow;
     }
@@ -51,9 +44,7 @@ class AuthApi {
     try {
       final response = await _apiClient.post<Map<String, dynamic>>(
         '/m/token/refresh',
-        data: {
-          'refreshToken': refreshToken,
-        },
+        data: {'refreshToken': refreshToken},
       );
       if (response.statusCode != 200) {
         throw Exception('Token refresh failed');
@@ -61,14 +52,11 @@ class AuthApi {
       if (response.data == null) {
         throw Exception('Token refresh failed');
       }
-      return AuthResponse.fromJson(
-        {
-          'statusCode': response.statusCode,
-          'message': response.data!['message'],
-          'data': response.data!['data'],
-        },
-        FullTokenData.fromJson,
-      );
+      return AuthResponse.fromJson({
+        'statusCode': response.statusCode,
+        'message': response.data!['message'],
+        'data': response.data!['data'],
+      }, FullTokenData.fromJson);
     } catch (e) {
       rethrow;
     }
@@ -93,14 +81,11 @@ class AuthApi {
       '/m/auth/oauth/google/login',
       data: googleAuthRequest.toJson(),
     );
-    return AuthResponse.fromJson(
-      {
-        'statusCode': response.statusCode,
-        'message': response.data!['message'],
-        'data': response.data!['data'],
-      },
-      FullTokenData.fromJson,
-    );
+    return AuthResponse.fromJson({
+      'statusCode': response.statusCode,
+      'message': response.data!['message'],
+      'data': response.data!['data'],
+    }, FullTokenData.fromJson);
   }
 
   /// [signInWithKakao] method
@@ -118,17 +103,12 @@ class AuthApi {
     }
     final response = await _apiClient.post<Map<String, dynamic>>(
       '/m/auth/oauth/kakao/login',
-      data: {
-        'accessToken': token.accessToken,
-      },
+      data: {'accessToken': token.accessToken},
     );
-    return AuthResponse.fromJson(
-      {
-        'statusCode': response.statusCode,
-        'message': response.data!['message'],
-        'data': response.data!['data'],
-      },
-      FullTokenData.fromJson,
-    );
+    return AuthResponse.fromJson({
+      'statusCode': response.statusCode,
+      'message': response.data!['message'],
+      'data': response.data!['data'],
+    }, FullTokenData.fromJson);
   }
 }
