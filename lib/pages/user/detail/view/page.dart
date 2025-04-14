@@ -62,6 +62,9 @@ class _NextPageButton extends StatelessWidget {
     return PrimaryButton(
       width: double.infinity,
       onPressed: () {
+        context.read<UserInfoDetailBloc>().add(
+              const UserInfoDetailFormSubmitted(),
+            );
         final app = context.read<AppRepository>();
         Navigator.of(context).pushNamed(app.getTargetRoute().toString());
       },

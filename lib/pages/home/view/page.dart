@@ -243,7 +243,7 @@ class _OauthButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 10,
+      spacing: 20,
       children: [
         _OauthButton(
           image: const AssetImage('assets/images/oauth_logo/google.png'),

@@ -7,18 +7,34 @@ class UserHiveStorage implements UserStorage {
   static const String _boxName = 'userBox';
   static const String _userKey = 'user_info';
 
-  late final Box<UserInfoHive> _userBox;
-
   String get boxName => _boxName;
+
+  Future<void> init() async {
+    registerAdapter();
+
+    if (!Hive.isBoxOpen(_boxName)) {
+      await Hive.openBox<UserInfoHive>(_boxName);
+    }
+  }
+
+  void registerAdapter() {
+    Hive
+      ..registerAdapter(UserInfoHiveAdapter())
+      ..registerAdapter(GenderHiveAdapter())
+      ..registerAdapter(DatingStatusHiveAdapter())
+      ..registerAdapter(JobStatusHiveAdapter());
+  }
 
   @override
   Future<void> deleteUser() async {
-    await _userBox.delete(_userKey);
+    final userBox = Hive.box<UserInfoHive>(_boxName);
+    await userBox.delete(_userKey);
   }
 
   @override
   Future<UserInfo?> getUser() async {
-    final user = _userBox.get(_userKey);
+    final userBox = Hive.box<UserInfoHive>(_boxName);
+    final user = userBox.get(_userKey);
     if (user == null) {
       return null;
     }
@@ -27,13 +43,15 @@ class UserHiveStorage implements UserStorage {
 
   @override
   Future<void> saveUser(UserInfo userInfo) async {
+    final userBox = Hive.box<UserInfoHive>(_boxName);
     final userHiveModel = UserInfoHive.fromRaw(userInfo);
-    await _userBox.put(_userKey, userHiveModel);
+    await userBox.put(_userKey, userHiveModel);
   }
 
   @override
   Future<void> updateUser(UserInfo userInfo) async {
+    final userBox = Hive.box<UserInfoHive>(_boxName);
     final userHiveModel = UserInfoHive.fromRaw(userInfo);
-    await _userBox.put(_userKey, userHiveModel);
+    await userBox.put(_userKey, userHiveModel);
   }
 }

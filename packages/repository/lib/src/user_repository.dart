@@ -7,38 +7,24 @@ class UserRepository {
   UserRepository({
     required UserStorage userMemoryStorage,
     required UserStorage userHiveStorage,
-  })  : _userMemoryStorage = userMemoryStorage,
-        _userHiveStorage = userHiveStorage;
+  }) : _userMemoryStorage = userMemoryStorage,
+       _userHiveStorage = userHiveStorage;
 
   final UserStorage _userMemoryStorage;
   final UserStorage _userHiveStorage;
 
   /// [saveUser] Save user information
-  /// If userInfo.permanent is true,
-  /// save user information to both memory and hive storage
   Future<void> saveUser(UserInfo userInfo) async {
-    if (userInfo.permanent) {
-      await Future.wait([
-        _userMemoryStorage.saveUser(userInfo),
-        _userHiveStorage.saveUser(userInfo),
-      ]);
-    } else {
-      await _userMemoryStorage.saveUser(userInfo);
-    }
-  }
-
-  /// [saveUserToMemory] Save user information
-  Future<void> saveUserToMemory(UserInfo userInfo) async {
     await _userMemoryStorage.saveUser(userInfo);
   }
 
-  /// [getMemoryUser] Get user information
-  Future<UserInfo?> getMemoryUser() async {
+  /// [getUser] Get user information
+  Future<UserInfo?> getUser() async {
     return _userMemoryStorage.getUser();
   }
 
-  /// [deleteMemoryUser] Delete user information from memory storage
-  Future<void> deleteMemoryUser() async {
+  /// [deleteUser] Delete user information from memory storage
+  Future<void> deleteUser() async {
     await _userMemoryStorage.deleteUser();
   }
 
@@ -83,5 +69,14 @@ class UserRepository {
     );
 
     await _userMemoryStorage.saveUser(newUser);
+  }
+
+  /// [isUserSaved] Check if user information is saved
+  Future<bool> isUserSaved() async {
+    final user = await _userHiveStorage.getUser();
+    if (user == null) {
+      return false;
+    }
+    return user.permanent;
   }
 }
