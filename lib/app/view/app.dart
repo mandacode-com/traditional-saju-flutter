@@ -36,9 +36,7 @@ class _AppState extends State<App> {
   AccessTokenStorage accessTokenStorage = AccessTokenStorage();
   RefreshTokenStorage refreshTokenStorage = RefreshTokenStorage(
     const FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-      ),
+      aOptions: AndroidOptions(encryptedSharedPreferences: true),
     ),
   );
   UserMemoryStorage userMemoryStorage = UserMemoryStorage();
@@ -55,34 +53,36 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
 
-    final googleOauthClientId = const String.fromEnvironment(
-      googleClientEnvKey,
-    ).isNotEmpty
-        ? const String.fromEnvironment(
-            googleClientEnvKey,
-          )
-        : dotenv.env[googleClientEnvKey] ?? '';
+    final googleOauthClientId =
+        const String.fromEnvironment(googleClientEnvKey).isNotEmpty
+            ? const String.fromEnvironment(googleClientEnvKey)
+            : dotenv.env[googleClientEnvKey] ?? '';
+    final authApiBaseUrl =
+        const String.fromEnvironment('AUTH_API_BASE_URL').isNotEmpty
+            ? const String.fromEnvironment('AUTH_API_BASE_URL')
+            : dotenv.env['AUTH_API_BASE_URL'] ?? '';
+    final sajuApiBaseUrl =
+        const String.fromEnvironment('SAJU_API_BASE_URL').isNotEmpty
+            ? const String.fromEnvironment('SAJU_API_BASE_URL')
+            : dotenv.env['SAJU_API_BASE_URL'] ?? '';
 
     final authDio = Dio(
       BaseOptions(
-        baseUrl: 'https://auth.mandacode.com/api/core',
+        baseUrl: authApiBaseUrl,
         connectTimeout: const Duration(seconds: 5),
         receiveTimeout: const Duration(seconds: 5),
       ),
     );
     final sajuDio = Dio(
       BaseOptions(
-        baseUrl: 'https://saju.mandacode.com/api/core',
+        baseUrl: sajuApiBaseUrl,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(minutes: 1),
       ),
     );
     final googleSignIn = GoogleSignIn(
       serverClientId: googleOauthClientId,
-      scopes: [
-        'email',
-        'profile',
-      ],
+      scopes: ['email', 'profile'],
     );
 
     _appRepository = AppRepository(
@@ -104,9 +104,7 @@ class _AppState extends State<App> {
         googleSignIn: googleSignIn,
         kakaoUserApi: kakao.UserApi.instance,
       ),
-      sajuApi: SajuApi(
-        apiClient: ApiClient(dio: sajuDio),
-      ),
+      sajuApi: SajuApi(apiClient: ApiClient(dio: sajuDio)),
       accessTokenStorage: accessTokenStorage,
       refreshTokenStorage: refreshTokenStorage,
       userMemoryStorage: userMemoryStorage,
@@ -121,14 +119,13 @@ class _AppState extends State<App> {
         RepositoryProvider<AuthRepository>(
           create: (context) => _authRepository,
         ),
-        RepositoryProvider<AppRepository>(
-          create: (context) => _appRepository,
-        ),
+        RepositoryProvider<AppRepository>(create: (context) => _appRepository),
         RepositoryProvider<UserRepository>(
-          create: (context) => UserRepository(
-            userMemoryStorage: userMemoryStorage,
-            userHiveStorage: userHiveStorage,
-          ),
+          create:
+              (context) => UserRepository(
+                userMemoryStorage: userMemoryStorage,
+                userHiveStorage: userHiveStorage,
+              ),
         ),
         RepositoryProvider<SajuRepository>(
           create: (context) => _sajuRepository,
@@ -139,26 +136,19 @@ class _AppState extends State<App> {
         theme: ThemeData(
           primaryColor: const Color(0xFF000000),
           checkboxTheme: const CheckboxThemeData(
-            checkColor: WidgetStatePropertyAll(
-              Colors.white,
-            ),
+            checkColor: WidgetStatePropertyAll(Colors.white),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(3),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(3)),
             ),
-            fillColor: WidgetStateProperty.fromMap(
-              <WidgetStatesConstraint, Color?>{
-                WidgetState.selected: Colors.black,
-                WidgetState.focused: Colors.black,
-                WidgetState.error: Colors.black,
-                WidgetState.disabled: Colors.black12,
-                WidgetState.any: Colors.transparent,
-              },
-            ),
-            overlayColor: WidgetStatePropertyAll(
-              Colors.transparent,
-            ),
+            fillColor:
+                WidgetStateProperty.fromMap(<WidgetStatesConstraint, Color?>{
+                  WidgetState.selected: Colors.black,
+                  WidgetState.focused: Colors.black,
+                  WidgetState.error: Colors.black,
+                  WidgetState.disabled: Colors.black12,
+                  WidgetState.any: Colors.transparent,
+                }),
+            overlayColor: WidgetStatePropertyAll(Colors.transparent),
           ),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.transparent,
@@ -171,28 +161,26 @@ class _AppState extends State<App> {
             secondary: Color(0xFFFFFFFF),
           ),
           textTheme: ThemeData.light().textTheme.copyWith(
-                headlineLarge: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'NanumSquareNeo',
-                  fontSize: 20,
-                ),
-                headlineMedium: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'MapoFlowerIsland',
-                  fontSize: 13,
-                ),
-                bodyMedium: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'NanumSquareNeo',
-                  fontSize: 13,
-                ),
-                bodyLarge: const TextStyle(
-                  color: Colors.black,
-                ),
-              ),
+            headlineLarge: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'NanumSquareNeo',
+              fontSize: 20,
+            ),
+            headlineMedium: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'MapoFlowerIsland',
+              fontSize: 13,
+            ),
+            bodyMedium: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'NanumSquareNeo',
+              fontSize: 13,
+            ),
+            bodyLarge: const TextStyle(color: Colors.black),
+          ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
@@ -209,9 +197,7 @@ class _AppState extends State<App> {
               shadowColor: Colors.transparent,
             ),
           ),
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -220,14 +206,14 @@ class _AppState extends State<App> {
         routes: <String, WidgetBuilder>{
           AppRoutes.home.toString(): (context) => const HomePage(),
           AppRoutes.homeSample.toString(): (context) => const HomePageSample(),
-          AppRoutes.userInfoBase.toString(): (context) =>
-              const UserInfoBasePage(),
-          AppRoutes.userInfoDetail.toString(): (context) =>
-              const UserInfoDetailPage(),
-          AppRoutes.yearlyResult.toString(): (context) =>
-              const YearlySajuResultPage(),
-          AppRoutes.dailyResult.toString(): (context) =>
-              const DailySajuResultPage(),
+          AppRoutes.userInfoBase.toString():
+              (context) => const UserInfoBasePage(),
+          AppRoutes.userInfoDetail.toString():
+              (context) => const UserInfoDetailPage(),
+          AppRoutes.yearlyResult.toString():
+              (context) => const YearlySajuResultPage(),
+          AppRoutes.dailyResult.toString():
+              (context) => const DailySajuResultPage(),
         },
       ),
     );
