@@ -1,6 +1,6 @@
 name: saju_mobile_v1
 description: A Very Good Project created by Very Good CLI.
-version: 1.0.0+4
+version: 1.0.0+6
 publish_to: none
 
 environment:
@@ -23,6 +23,7 @@ dependencies:
   google_sign_in: ^6.3.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  in_app_purchase: ^3.2.1
   intl: ^0.19.0
   kakao_flutter_sdk: ^1.9.7+3
   logger: ^2.5.0

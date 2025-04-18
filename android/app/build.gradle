@@ -80,7 +80,7 @@ android {
             dimension "default"
             applicationIdSuffix ""
             manifestPlaceholders = [
-              appName: "Saju Mobile V1", 
+              appName: "정통사주", 
               kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
