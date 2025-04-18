@@ -189,6 +189,11 @@ class _AppState extends State<App> {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
+              textStyle: const TextStyle(
+                fontFamily: 'NanumSquareNeo',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
               foregroundColor: Colors.white,
               backgroundColor: const Color(0xFF000000),
               shape: RoundedRectangleBorder(

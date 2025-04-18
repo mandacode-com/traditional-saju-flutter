@@ -84,7 +84,6 @@ class SajuRepository {
     Future<Response<T>> Function() request,
   ) async {
     final response = await request().catchError((Object e) async {
-      print('Error: $e');
       if (e is DioException && e.response?.statusCode == 401) {
         final refreshToken = await _refreshTokenStorage.getToken();
         if (refreshToken == null) {

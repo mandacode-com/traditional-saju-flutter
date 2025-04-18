@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:models/models.dart';
 import 'package:repository/repository.dart';
 import 'package:saju_mobile_v1/pages/user/detail/bloc/event.dart';
@@ -26,10 +25,6 @@ class UserInfoDetailBloc
     emit(state.copyWith(formStatus: FormStatus.loading));
 
     try {
-      final isUserSaved = await _userRepository.isUserSaved();
-      if (isUserSaved) {
-        await _userRepository.pullUserFromHive();
-      }
       final currentUser = await _userRepository.getUser();
       if (currentUser == null) {
         emit(state.copyWith(formStatus: FormStatus.success));

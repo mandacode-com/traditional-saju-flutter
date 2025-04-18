@@ -32,9 +32,10 @@ class UserInfoBasePage extends StatelessWidget {
           ),
         ),
         body: BlocProvider(
-          create: (context) => UserInfoBaseBloc(
-            userRepository: context.read<UserRepository>(),
-          )..add(const UserInfoBaseSubscriptionRequested()),
+          create:
+              (context) => UserInfoBaseBloc(
+                userRepository: context.read<UserRepository>(),
+              )..add(const UserInfoBaseSubscriptionRequested()),
           child: const Center(
             child: AdaptiveColumn(
               forceSpaceBetween: true,
@@ -66,12 +67,9 @@ class _NextPageButton extends StatelessWidget {
           disabled: !isValid,
           width: double.infinity,
           onPressed: () {
-            context.read<UserInfoBaseBloc>().add(
-                  const UserInfoBaseSubscriptionRequested(),
-                );
-            Navigator.of(context).pushNamed(
-              AppRoutes.userInfoDetail.toString(),
-            );
+            Navigator.of(
+              context,
+            ).pushNamed(AppRoutes.userInfoDetail.toString());
           },
           child: const Text('다음으로'),
         );
