@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:models/models.dart';
+import 'package:saju_mobile_v1/common/widgets/form/custom_alert_dialog.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/bloc/bloc.dart';
 import 'package:saju_mobile_v1/pages/results/yearly/view/chart.dart';
@@ -287,8 +288,25 @@ class _HomeButton extends StatelessWidget {
         backgroundColor: WidgetStateProperty.all(Colors.grey[200]),
         foregroundColor: WidgetStateProperty.all(Colors.grey[800]),
       ),
-      onPressed: () {
-        Navigator.of(context).popUntil((route) => route.isFirst);
+      onPressed: () async {
+
+        await showDialog<bool>(
+          context: context,
+          builder:
+              (context) => CustomAlertDialog(
+                title: '처음으로 돌아가시겠습니까?',
+                content: '결과는 자동으로 저장됩니다.',
+                confirmText: '예',
+                cancelText: '아니오',
+                onConfirm: () {
+                  Navigator.of(context).pop(true);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                onCancel: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+        );
       },
       child: const Text('처음으로'),
     );

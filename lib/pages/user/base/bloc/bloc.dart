@@ -8,10 +8,9 @@ import 'package:saju_mobile_v1/pages/user/base/model/formed_birth_hour.dart';
 import 'package:saju_mobile_v1/pages/user/base/model/formed_birth_min.dart';
 
 class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
-  UserInfoBaseBloc({
-    required UserRepository userRepository,
-  })  : _userRepository = userRepository,
-        super(const UserInfoBaseState()) {
+  UserInfoBaseBloc({required UserRepository userRepository})
+    : _userRepository = userRepository,
+      super(const UserInfoBaseState()) {
     on<UserInfoBaseSubscriptionRequested>(_onSubscriptionRequested);
     on<UserInfoBaseGenderChanged>(_onGenderChanged);
     on<UserInfoBaseBirthDateChanged>(_onBirthDateChanged);
@@ -26,20 +25,16 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
     UserInfoBaseSubscriptionRequested event,
     Emitter<UserInfoBaseState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.loading,
-      ),
-    );
+    emit(state.copyWith(formStatus: FormStatus.loading));
 
     try {
-      final currentUser = await _userRepository.getMemoryUser();
+      final isUserSaved = await _userRepository.isUserSaved();
+      if (isUserSaved) {
+        await _userRepository.pullUserFromHive();
+      }
+      final currentUser = await _userRepository.getUser();
       if (currentUser == null) {
-        emit(
-          state.copyWith(
-            formStatus: FormStatus.success,
-          ),
-        );
+        emit(state.copyWith(formStatus: FormStatus.success));
         return;
       }
       emit(
@@ -47,16 +42,14 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
           formStatus: FormStatus.success,
           gender: currentUser.gender,
           birthDate: FormedBirthDate.dirty(currentUser.birthdate),
+          birthHour: FormedBirthHour.dirty(currentUser.birthdate.hour),
+          birthMinutes: FormedBirthMinutes.dirty(currentUser.birthdate.minute),
           timeDisabled: currentUser.timeDisabled,
         ),
       );
       return;
     } catch (e) {
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.failure,
-        ),
-      );
+      emit(state.copyWith(formStatus: FormStatus.failure));
     }
   }
 
@@ -65,14 +58,9 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
     Emitter<UserInfoBaseState> emit,
   ) async {
     try {
-      await _userRepository.updateUser(
-        gender: event.gender,
-      );
+      await _userRepository.updateUser(gender: event.gender);
       emit(
-        state.copyWith(
-          formStatus: FormStatus.success,
-          gender: event.gender,
-        ),
+        state.copyWith(formStatus: FormStatus.success, gender: event.gender),
       );
     } catch (e) {
       emit(state.copyWith(formStatus: FormStatus.failure));
@@ -91,9 +79,7 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
         state.birthHour.value,
         state.birthMinutes.value,
       );
-      await _userRepository.updateUser(
-        birthdate: newBirthDateTime,
-      );
+      await _userRepository.updateUser(birthdate: newBirthDateTime);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -117,9 +103,7 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
         event.birthHour,
         state.birthMinutes.value,
       );
-      await _userRepository.updateUser(
-        birthdate: newBirthDateTime,
-      );
+      await _userRepository.updateUser(birthdate: newBirthDateTime);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -143,9 +127,7 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
         state.birthHour.value,
         event.birthMinutes,
       );
-      await _userRepository.updateUser(
-        birthdate: newBirthDateTime,
-      );
+      await _userRepository.updateUser(birthdate: newBirthDateTime);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -162,9 +144,7 @@ class UserInfoBaseBloc extends Bloc<UserInfoBaseEvent, UserInfoBaseState> {
     Emitter<UserInfoBaseState> emit,
   ) async {
     try {
-      await _userRepository.updateUser(
-        timeDisabled: event.timeDisabled,
-      );
+      await _userRepository.updateUser(timeDisabled: event.timeDisabled);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,

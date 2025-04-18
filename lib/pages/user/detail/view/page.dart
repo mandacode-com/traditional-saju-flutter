@@ -32,9 +32,10 @@ class UserInfoDetailPage extends StatelessWidget {
           ),
         ),
         body: BlocProvider(
-          create: (context) => UserInfoDetailBloc(
-            userRepository: context.read<UserRepository>(),
-          )..add(const UserInfoDetailSubscriptionRequested()),
+          create:
+              (context) => UserInfoDetailBloc(
+                userRepository: context.read<UserRepository>(),
+              )..add(const UserInfoDetailSubscriptionRequested()),
           child: const Center(
             child: AdaptiveColumn(
               forceSpaceBetween: true,
@@ -61,9 +62,12 @@ class _NextPageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryButton(
       width: double.infinity,
-      onPressed: () {
+      onPressed: () async {
+        context.read<UserInfoDetailBloc>().add(
+          const UserInfoDetailFormSubmitted(),
+        );
         final app = context.read<AppRepository>();
-        Navigator.of(context).pushNamed(app.getTargetRoute().toString());
+        await Navigator.of(context).pushNamed(app.getTargetRoute().toString());
       },
       child: const Text('다음으로'),
     );

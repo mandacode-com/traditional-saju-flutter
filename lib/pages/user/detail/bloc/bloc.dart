@@ -6,25 +6,14 @@ import 'package:saju_mobile_v1/pages/user/detail/bloc/state.dart';
 
 class UserInfoDetailBloc
     extends Bloc<UserInfoDetailEvent, UserInfoDetailState> {
-  UserInfoDetailBloc({
-    required UserRepository userRepository,
-  })  : _userRepository = userRepository,
-        super(const UserInfoDetailState()) {
-    on<UserInfoDetailSubscriptionRequested>(
-      _onSubscriptionRequested,
-    );
-    on<UserInfoDetailDatingChanged>(
-      _onDatingChanged,
-    );
-    on<UserInfoDetailJobChanged>(
-      _onJobChanged,
-    );
-    on<UserInfoDetailPermanentChanged>(
-      _onPermanentChanged,
-    );
-    on<UserInfoDetailFormSubmitted>(
-      _onFormSubmitted,
-    );
+  UserInfoDetailBloc({required UserRepository userRepository})
+    : _userRepository = userRepository,
+      super(const UserInfoDetailState()) {
+    on<UserInfoDetailSubscriptionRequested>(_onSubscriptionRequested);
+    on<UserInfoDetailDatingChanged>(_onDatingChanged);
+    on<UserInfoDetailJobChanged>(_onJobChanged);
+    on<UserInfoDetailPermanentChanged>(_onPermanentChanged);
+    on<UserInfoDetailFormSubmitted>(_onFormSubmitted);
   }
 
   final UserRepository _userRepository;
@@ -33,20 +22,12 @@ class UserInfoDetailBloc
     UserInfoDetailSubscriptionRequested event,
     Emitter<UserInfoDetailState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.loading,
-      ),
-    );
+    emit(state.copyWith(formStatus: FormStatus.loading));
 
     try {
-      final currentUser = await _userRepository.getMemoryUser();
+      final currentUser = await _userRepository.getUser();
       if (currentUser == null) {
-        emit(
-          state.copyWith(
-            formStatus: FormStatus.success,
-          ),
-        );
+        emit(state.copyWith(formStatus: FormStatus.success));
         return;
       }
       emit(
@@ -59,11 +40,7 @@ class UserInfoDetailBloc
       );
       return;
     } catch (e) {
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.failure,
-        ),
-      );
+      emit(state.copyWith(formStatus: FormStatus.failure));
     }
   }
 
@@ -72,9 +49,7 @@ class UserInfoDetailBloc
     Emitter<UserInfoDetailState> emit,
   ) async {
     try {
-      await _userRepository.updateUser(
-        datingStatus: event.datingStatus,
-      );
+      await _userRepository.updateUser(datingStatus: event.datingStatus);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -91,9 +66,7 @@ class UserInfoDetailBloc
     Emitter<UserInfoDetailState> emit,
   ) async {
     try {
-      await _userRepository.updateUser(
-        jobStatus: event.jobStatus,
-      );
+      await _userRepository.updateUser(jobStatus: event.jobStatus);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -110,9 +83,7 @@ class UserInfoDetailBloc
     Emitter<UserInfoDetailState> emit,
   ) async {
     try {
-      await _userRepository.updateUser(
-        permanent: event.permanent,
-      );
+      await _userRepository.updateUser(permanent: event.permanent);
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
@@ -132,11 +103,7 @@ class UserInfoDetailBloc
       if (state.permanent) {
         await _userRepository.pushUserToHive();
       }
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.success,
-        ),
-      );
+      emit(state.copyWith(formStatus: FormStatus.success));
     } catch (e) {
       emit(state.copyWith(formStatus: FormStatus.failure));
     }

@@ -112,3 +112,5 @@ app.*.map.json
 !.idea/runConfigurations/
 
 **/*.env
+
+android/app/.cxx/

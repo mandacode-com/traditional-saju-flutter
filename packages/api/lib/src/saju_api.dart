@@ -6,9 +6,7 @@ import 'package:dio/dio.dart';
 /// [SajuApi] Saju API class
 class SajuApi {
   /// [SajuApi] constructor
-  const SajuApi({
-    required ApiClient apiClient,
-  }) : _apiClient = apiClient;
+  const SajuApi({required ApiClient apiClient}) : _apiClient = apiClient;
 
   final ApiClient _apiClient;
 
@@ -18,13 +16,9 @@ class SajuApi {
     String? accessToken,
   ) async {
     return _apiClient.post<Map<String, dynamic>>(
-      '/daily',
+      '/read/daily',
       data: request.toJson(),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $accessToken',
-        },
-      ),
+      options: Options(headers: {'Authorization': 'Bearer $accessToken'}),
     );
   }
 
@@ -34,13 +28,9 @@ class SajuApi {
     String? accessToken,
   ) async {
     return _apiClient.post<Map<String, dynamic>>(
-      '/yearly',
+      '/read/yearly',
       data: request.toJson(),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $accessToken',
-        },
-      ),
+      options: Options(headers: {'Authorization': 'Bearer $accessToken'}),
     );
   }
 }

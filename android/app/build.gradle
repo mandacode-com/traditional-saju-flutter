@@ -31,8 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.mandacode.saju_mobile_v1"
     compileSdkVersion flutter.compileSdkVersion
-    // ndkVersion flutter.ndkVersion
-    ndkVersion = "27.0.12077973"
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -48,7 +47,7 @@ android {
     }
 
 
-    def kakaoApiKey = keystoreProperties.getProperty('kakaoApiKey')
+    def kakaoNativeAppKey = keystoreProperties.getProperty('kakaoNativeAppKey')
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mandacode.saju_mobile_v1"
@@ -61,20 +60,11 @@ android {
     }
 
     signingConfigs {
-        if (System.getenv("ANDROID_KEYSTORE_PATH")) {
-            release {
-                storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
-                keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
-                keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            }
-        } else {
-            release {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                storePassword keystoreProperties['storePassword']
-            }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
         }
         debug {
             storeFile file("${System.getenv("HOME")}/.android/debug.keystore")
@@ -90,8 +80,8 @@ android {
             dimension "default"
             applicationIdSuffix ""
             manifestPlaceholders = [
-              appName: "Saju Mobile V1", 
-              kakaoApiKey: kakaoApiKey, 
+              appName: "정통사주", 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
         staging {
@@ -99,7 +89,7 @@ android {
             applicationIdSuffix ".stg"
             manifestPlaceholders = [
               appName: "[STG] Saju Mobile V1",
-              kakaoApiKey: kakaoApiKey, 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
         development {
@@ -107,7 +97,7 @@ android {
             applicationIdSuffix ".dev"
             manifestPlaceholders = [
               appName: "[DEV] Saju Mobile V1",
-              kakaoApiKey: kakaoApiKey, 
+              kakaoNativeAppKey: kakaoNativeAppKey, 
             ]
         }
     }

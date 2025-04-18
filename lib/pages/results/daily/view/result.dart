@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:models/models.dart';
 import 'package:saju_mobile_v1/common/widgets/circle_with_text.dart';
+import 'package:saju_mobile_v1/common/widgets/form/custom_alert_dialog.dart';
 import 'package:saju_mobile_v1/common/widgets/layouts/adaptive_column.dart';
 import 'package:saju_mobile_v1/pages/results/daily/bloc/bloc.dart';
 
@@ -19,9 +20,10 @@ class DailySajuResult extends StatelessWidget {
       children: [
         _ResultTitle(
           title: '오늘의 운세',
-          subtitle: DateFormat('yyyy.MM.dd (E)', 'ko_KR').format(
-            DateTime.now(),
-          ),
+          subtitle: DateFormat(
+            'yyyy.MM.dd (E)',
+            'ko_KR',
+          ).format(DateTime.now()),
         ),
         _ResultContent(),
       ],
@@ -79,11 +81,12 @@ class _ResultContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.select(
-      (DailySajuResultBloc bloc) => bloc.state.formStatus == FormStatus.success,
-    )
+          (DailySajuResultBloc bloc) =>
+              bloc.state.formStatus == FormStatus.success,
+        )
         ? _SuccessResultContent(
-            result: context.read<DailySajuResultBloc>().state.dailySajuResponse,
-          )
+          result: context.read<DailySajuResultBloc>().state.dailySajuResponse,
+        )
         : const _FailureResultContent(error: '운세를 불러오는데 실패했습니다.');
   }
 }
@@ -123,54 +126,21 @@ class _SuccessResultContent extends StatelessWidget {
             child: Column(
               spacing: 20,
               children: [
-                Center(
-                  child: CircleWithText(
-                    number: result!.fortuneScore,
-                  ),
-                ),
-                Text(
-                  result!.totalFortuneMessage,
-                ),
+                Center(child: CircleWithText(number: result!.fortuneScore)),
+                Text(result!.totalFortuneMessage),
               ],
             ),
           ),
-          _ResultField(
-            title: '🤝 대인관계운',
-            child: Text(
-              result!.relationship,
-            ),
-          ),
-          _ResultField(
-            title: '💎 재물운',
-            child: Text(
-              result!.wealth,
-            ),
-          ),
-          _ResultField(
-            title: '❤️  연애운',
-            child: Text(
-              result!.romantic,
-            ),
-          ),
-          _ResultField(
-            title: '💊 건강운',
-            child: Text(
-              result!.health,
-            ),
-          ),
-          _ResultField(
-            title: '🚨 주의사항',
-            child: Text(
-              result!.caution,
-            ),
-          ),
+          _ResultField(title: '🤝 대인관계운', child: Text(result!.relationship)),
+          _ResultField(title: '💎 재물운', child: Text(result!.wealth)),
+          _ResultField(title: '❤️  연애운', child: Text(result!.romantic)),
+          _ResultField(title: '💊 건강운', child: Text(result!.health)),
+          _ResultField(title: '🚨 주의사항', child: Text(result!.caution)),
           if (result!.questionAnswer != null &&
               result!.questionAnswer!.isNotEmpty)
             _ResultField(
               title: '❓ (질문사항)',
-              child: Text(
-                result!.questionAnswer!,
-              ),
+              child: Text(result!.questionAnswer!),
             )
           else
             Container(),
@@ -178,12 +148,8 @@ class _SuccessResultContent extends StatelessWidget {
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(
-                child: _HomeButton(),
-              ),
-              Expanded(
-                child: _ShareButton(),
-              ),
+              Expanded(child: _HomeButton()),
+              Expanded(child: _ShareButton()),
             ],
           ),
         ],
@@ -208,10 +174,7 @@ class _ResultField extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
             ),
           ],
         ),
@@ -248,13 +211,7 @@ class _TodayShortMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ShadowContainer(
-      child: Center(
-        child: Text(
-          todayShortMessage,
-        ),
-      ),
-    );
+    return _ShadowContainer(child: Center(child: Text(todayShortMessage)));
   }
 }
 
@@ -276,15 +233,9 @@ class _MemberInfoItem extends StatelessWidget {
         spacing: 10,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            name,
-          ),
-          Text(
-            DateFormat('yyyy/MM/dd HH:mm').format(birthDateTime),
-          ),
-          Text(
-            gender == Gender.male ? '남자' : '여자',
-          ),
+          Text(name),
+          Text(DateFormat('yyyy/MM/dd HH:mm').format(birthDateTime)),
+          Text(gender == Gender.male ? '남자' : '여자'),
         ],
       ),
     );
@@ -304,10 +255,7 @@ class _FailureResultContent extends StatelessWidget {
         children: [
           Text(
             error,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           ElevatedButton(
             onPressed: () {
@@ -329,8 +277,24 @@ class _HomeButton extends StatelessWidget {
         backgroundColor: WidgetStateProperty.all(Colors.grey[200]),
         foregroundColor: WidgetStateProperty.all(Colors.grey[800]),
       ),
-      onPressed: () {
-        Navigator.of(context).popUntil((route) => route.isFirst);
+      onPressed: () async {
+        await showDialog<bool>(
+          context: context,
+          builder:
+              (context) => CustomAlertDialog(
+                title: '처음으로 돌아가시겠습니까?',
+                content: '결과는 자동으로 저장됩니다.',
+                confirmText: '예',
+                cancelText: '아니오',
+                onConfirm: () {
+                  Navigator.of(context).pop(true);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                onCancel: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+        );
       },
       child: const Text('처음으로'),
     );

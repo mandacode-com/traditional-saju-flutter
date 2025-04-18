@@ -10,6 +10,7 @@ class PrimaryButton extends StatelessWidget {
     this.background,
     this.foreground,
     this.decoration,
+    this.disabled = false,
   });
   final Widget child;
   final VoidCallback? onPressed;
@@ -18,24 +19,37 @@ class PrimaryButton extends StatelessWidget {
   final WidgetStateProperty<Color?>? background;
   final WidgetStateProperty<Color?>? foreground;
   final Decoration? decoration;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
+    if (disabled) {
+      return Container(
+        width: width,
+        height: height,
+        decoration: decoration,
+        child: TextButton(
+          style: Theme.of(context).textButtonTheme.style?.copyWith(
+                backgroundColor: WidgetStateProperty.all(
+                  Colors.grey[300],
+                ),
+                foregroundColor: foreground,
+              ),
+          onPressed: null,
+          child: child,
+        ),
+      );
+    }
     return Container(
       width: width,
       height: height,
       decoration: decoration,
       child: TextButton(
-        // style: TextButton.styleFrom(
-        //   backgroundColor: background ?? const Color(0xCC000000),
-        //   foregroundColor: foreground ?? Colors.white,
-        // ),
         style: Theme.of(context).textButtonTheme.style?.copyWith(
               backgroundColor: background,
               foregroundColor: foreground,
             ),
         onPressed: onPressed,
-        // child: Text(label),
         child: child,
       ),
     );

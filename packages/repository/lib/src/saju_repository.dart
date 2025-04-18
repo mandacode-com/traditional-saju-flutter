@@ -16,12 +16,12 @@ class SajuRepository {
     required TokenStorage refreshTokenStorage,
     required UserStorage userMemoryStorage,
     required QuestionStorage questionMemoryStorage,
-  })  : _authApi = authApi,
-        _sajuApi = sajuApi,
-        _accessTokenStorage = accessTokenStorage,
-        _refreshTokenStorage = refreshTokenStorage,
-        _userMemoryStorage = userMemoryStorage,
-        _questionMemoryStorage = questionMemoryStorage;
+  }) : _authApi = authApi,
+       _sajuApi = sajuApi,
+       _accessTokenStorage = accessTokenStorage,
+       _refreshTokenStorage = refreshTokenStorage,
+       _userMemoryStorage = userMemoryStorage,
+       _questionMemoryStorage = questionMemoryStorage;
 
   final AuthApi _authApi;
   final SajuApi _sajuApi;
@@ -36,7 +36,7 @@ class SajuRepository {
     if (user == null) {
       throw Exception('User not found');
     }
-    final question = await _questionMemoryStorage.getQuestion();
+    final question = _questionMemoryStorage.getQuestion();
     final accessToken = await _accessTokenStorage.getToken();
 
     final request = YearlySajuRequest(
@@ -89,10 +89,11 @@ class SajuRepository {
         if (refreshToken == null) {
           throw Exception('Refresh token is empty');
         }
-        final refreshResponse =
-            await _authApi.refreshToken(refreshToken).catchError((e) {
-          throw Exception('Failed to refresh token');
-        });
+        final refreshResponse = await _authApi
+            .refreshToken(refreshToken)
+            .catchError((e) {
+              throw Exception('Failed to refresh token');
+            });
         if (refreshResponse.statusCode != 200) {
           throw Exception('Failed to refresh token');
         }
