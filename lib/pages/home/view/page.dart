@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
 
   @override
   void didPopNext() {
-    _homeBloc.add(const HomeSubscriptionRequested());
+    _homeBloc.add(const HomeDidPopNextRequested());
   }
 
   @override

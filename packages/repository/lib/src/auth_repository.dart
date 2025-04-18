@@ -8,13 +8,27 @@ class AuthRepository {
     required AuthApi authApi,
     required TokenStorage accessTokenStorage,
     required TokenStorage refreshTokenStorage,
-  })  : _authApi = authApi,
-        _accessTokenStorage = accessTokenStorage,
-        _refreshTokenStorage = refreshTokenStorage;
+  }) : _authApi = authApi,
+       _accessTokenStorage = accessTokenStorage,
+       _refreshTokenStorage = refreshTokenStorage;
 
   final AuthApi _authApi;
   final TokenStorage _accessTokenStorage;
   final TokenStorage _refreshTokenStorage;
+
+  /// [isNotExpired] method
+  Future<bool> isNotExpired() async {
+    try {
+      final accessToken = await _accessTokenStorage.getToken();
+      if (accessToken == null) {
+        throw Exception('Access token is empty');
+      }
+      return await _authApi.isNotExpired(accessToken);
+    } catch (e) {
+      await _accessTokenStorage.deleteToken();
+      return false;
+    }
+  }
 
   /// [verifyToken] method
   Future<bool> verifyToken() async {

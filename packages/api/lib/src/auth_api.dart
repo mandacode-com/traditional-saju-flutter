@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:api/api.dart';
 import 'package:api/models/auth/auth_response.dart';
 import 'package:api/models/auth/full_token_data.dart';
@@ -21,6 +23,32 @@ class AuthApi {
   final ApiClient _apiClient;
   final GoogleSignIn _googleSignIn;
   final kakao.UserApi _kakaoUserApi;
+
+  /// [isNotExpired] method
+  Future<bool> isNotExpired(String token) async {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) {
+        throw Exception('Invalid token format');
+      }
+      final payload = base64Url.normalize(parts[1]);
+      final payloadMap = json.decode(utf8.decode(base64Url.decode(payload)));
+      if (payloadMap is! Map<String, dynamic>) {
+        throw Exception('Invalid payload');
+      }
+      final exp = payloadMap['exp'] as int?;
+      if (exp == null) {
+        throw Exception('Token expiration time not found');
+      }
+      final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      if (exp < now) {
+        throw Exception('Token expired');
+      }
+      return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   /// [verifyToken] method
   Future<AuthResponse<VerifyTokenData>> verifyToken(String token) async {
