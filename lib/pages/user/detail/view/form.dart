@@ -24,12 +24,8 @@ class UserInfoDetailForm extends StatelessWidget {
               spacing: 10,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _DatingStatusSelectionButton(
-                  datingStatus: DatingStatus.single,
-                ),
-                _DatingStatusSelectionButton(
-                  datingStatus: DatingStatus.dating,
-                ),
+                _DatingStatusSelectionButton(datingStatus: DatingStatus.single),
+                _DatingStatusSelectionButton(datingStatus: DatingStatus.dating),
                 _DatingStatusSelectionButton(
                   datingStatus: DatingStatus.married,
                 ),
@@ -42,15 +38,9 @@ class UserInfoDetailForm extends StatelessWidget {
               spacing: 10,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _JobStatusSelectionButton(
-                  jobStatus: JobStatus.student,
-                ),
-                _JobStatusSelectionButton(
-                  jobStatus: JobStatus.unemployed,
-                ),
-                _JobStatusSelectionButton(
-                  jobStatus: JobStatus.employed,
-                ),
+                _JobStatusSelectionButton(jobStatus: JobStatus.student),
+                _JobStatusSelectionButton(jobStatus: JobStatus.unemployed),
+                _JobStatusSelectionButton(jobStatus: JobStatus.employed),
               ],
             ),
           ),
@@ -62,10 +52,9 @@ class UserInfoDetailForm extends StatelessWidget {
                 value: context.select(
                   (UserInfoDetailBloc bloc) => bloc.state.permanent,
                 ),
-                onChanged: (value) => context.read<UserInfoDetailBloc>().add(
-                      UserInfoDetailPermanentChanged(
-                        permanent: value ?? false,
-                      ),
+                onChanged:
+                    (value) => context.read<UserInfoDetailBloc>().add(
+                      UserInfoDetailPermanentChanged(permanent: value ?? false),
                     ),
               ),
             ],
@@ -95,9 +84,7 @@ class _FormItem extends StatelessWidget {
 }
 
 class _DatingStatusSelectionButton extends StatelessWidget {
-  const _DatingStatusSelectionButton({
-    required this.datingStatus,
-  });
+  const _DatingStatusSelectionButton({required this.datingStatus});
 
   final DatingStatus datingStatus;
 
@@ -105,26 +92,21 @@ class _DatingStatusSelectionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: FormInput(
-        onPressed: () => context.read<UserInfoDetailBloc>().add(
+        onPressed:
+            () => context.read<UserInfoDetailBloc>().add(
               UserInfoDetailDatingChanged(datingStatus),
             ),
         isActive: context.select(
           (UserInfoDetailBloc bloc) => bloc.state.datingStatus == datingStatus,
         ),
-        child: Center(
-          child: Text(
-            datingStatus.textKor,
-          ),
-        ),
+        child: Center(child: Text(datingStatus.textKor)),
       ),
     );
   }
 }
 
 class _JobStatusSelectionButton extends StatelessWidget {
-  const _JobStatusSelectionButton({
-    required this.jobStatus,
-  });
+  const _JobStatusSelectionButton({required this.jobStatus});
 
   final JobStatus jobStatus;
 
@@ -132,17 +114,14 @@ class _JobStatusSelectionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: FormInput(
-        onPressed: () => context.read<UserInfoDetailBloc>().add(
+        onPressed:
+            () => context.read<UserInfoDetailBloc>().add(
               UserInfoDetailJobChanged(jobStatus),
             ),
         isActive: context.select(
           (UserInfoDetailBloc bloc) => bloc.state.jobStatus == jobStatus,
         ),
-        child: Center(
-          child: Text(
-            jobStatus.textKor,
-          ),
-        ),
+        child: Center(child: Text(jobStatus.textKor)),
       ),
     );
   }

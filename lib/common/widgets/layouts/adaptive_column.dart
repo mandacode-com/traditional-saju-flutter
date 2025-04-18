@@ -23,9 +23,10 @@ class AdaptiveColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    final padding = (orientation == Orientation.portrait)
-        ? portraitPadding
-        : landscapePadding;
+    final padding =
+        (orientation == Orientation.portrait)
+            ? portraitPadding
+            : landscapePadding;
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
@@ -34,9 +35,10 @@ class AdaptiveColumn extends StatelessWidget {
             padding: padding,
             child: Column(
               spacing: spacing,
-              mainAxisAlignment: forceSpaceBetween
-                  ? MainAxisAlignment.spaceBetween
-                  : MainAxisAlignment.start,
+              mainAxisAlignment:
+                  forceSpaceBetween
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.start,
               children: children,
             ),
           ),

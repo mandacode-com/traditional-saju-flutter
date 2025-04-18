@@ -9,9 +9,12 @@ class FormLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(
-        fontWeight: FontWeight.w600,
-      )),
+      child: Text(
+        label,
+        style: Theme.of(
+          context,
+        ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+      ),
     );
   }
 }

@@ -6,10 +6,9 @@ import 'package:saju_mobile_v1/pages/results/daily/bloc/state.dart';
 
 class DailySajuResultBloc
     extends Bloc<DailySajuResultEvent, DailySajuResultState> {
-  DailySajuResultBloc({
-    required SajuRepository sajuRepository,
-  })  : _sajuRepository = sajuRepository,
-        super(const DailySajuResultState()) {
+  DailySajuResultBloc({required SajuRepository sajuRepository})
+    : _sajuRepository = sajuRepository,
+      super(const DailySajuResultState()) {
     on<DailyResultSubscriptionRequested>(_onResultSubscriptionRequested);
     on<ClearDailyResultPressed>(_onResultClearPressed);
   }
@@ -31,11 +30,7 @@ class DailySajuResultBloc
         ),
       );
     } catch (e) {
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.failure,
-        ),
-      );
+      emit(state.copyWith(formStatus: FormStatus.failure));
     }
   }
 
@@ -43,10 +38,6 @@ class DailySajuResultBloc
     ClearDailyResultPressed envet,
     Emitter<DailySajuResultState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.initial,
-      ),
-    );
+    emit(state.copyWith(formStatus: FormStatus.initial));
   }
 }

@@ -7,10 +7,10 @@ final class UserInfoDetailState extends Equatable {
     DatingStatus? datingStatus,
     JobStatus? jobStatus,
     bool? permanent,
-  })  : _formStatus = formStatus ?? FormStatus.initial,
-        _datingStatus = datingStatus ?? DatingStatus.single,
-        _jobStatus = jobStatus ?? JobStatus.unemployed,
-        _permanent = permanent ?? false;
+  }) : _formStatus = formStatus ?? FormStatus.initial,
+       _datingStatus = datingStatus ?? DatingStatus.single,
+       _jobStatus = jobStatus ?? JobStatus.unemployed,
+       _permanent = permanent ?? false;
 
   final FormStatus _formStatus;
   final DatingStatus _datingStatus;
@@ -46,9 +46,9 @@ final class UserInfoDetailState extends Equatable {
 
   @override
   List<Object> get props => [
-        _formStatus,
-        _datingStatus,
-        _jobStatus,
-        _permanent,
-      ];
+    _formStatus,
+    _datingStatus,
+    _jobStatus,
+    _permanent,
+  ];
 }

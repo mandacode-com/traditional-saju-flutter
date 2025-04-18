@@ -17,10 +17,7 @@ class YearlySajuResult extends StatelessWidget {
       portraitPadding: EdgeInsets.zero,
       landscapePadding: EdgeInsets.zero,
       spacing: 40,
-      children: [
-        const _ResultTitle(title: '2025 신년운세'),
-        _ResultContent(),
-      ],
+      children: [const _ResultTitle(title: '2025 신년운세'), _ResultContent()],
     );
   }
 }
@@ -59,13 +56,12 @@ class _ResultContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.select(
-      (YearlySajuResultBloc bloc) =>
-          bloc.state.formStatus == FormStatus.success,
-    )
+          (YearlySajuResultBloc bloc) =>
+              bloc.state.formStatus == FormStatus.success,
+        )
         ? _SuccessResultContent(
-            result:
-                context.read<YearlySajuResultBloc>().state.yearlySajuResponse,
-          )
+          result: context.read<YearlySajuResultBloc>().state.yearlySajuResponse,
+        )
         : const _FailureResultContent(error: '운세를 불러오는데 실패했습니다.');
   }
 }
@@ -92,67 +88,45 @@ class _SuccessResultContent extends StatelessWidget {
           ),
           _ResultField(
             title: '🔍 사주원국표 / 오행분석',
-            child: Center(
-              child: ChartView(
-                chart: result!.chart,
-              ),
-            ),
+            child: Center(child: ChartView(chart: result!.chart)),
           ),
           _ResultField(
             title: '🌟 신년운세 총운',
-            child: Text(
-              result!.description.general,
-            ),
+            child: Text(result!.description.general),
           ),
           _ResultField(
             title: '🤝 대인관계운',
-            child: Text(
-              result!.description.relationship,
-            ),
+            child: Text(result!.description.relationship),
           ),
           _ResultField(
             title: '💎 재물운',
-            child: Text(
-              result!.description.career,
-            ),
+            child: Text(result!.description.career),
           ),
           _ResultField(
             title: '❤️ 연애운',
-            child: Text(
-              result!.description.romantic,
-            ),
+            child: Text(result!.description.romantic),
           ),
           _ResultField(
             title: '💊 건강운',
-            child: Text(
-              result!.description.health,
-            ),
+            child: Text(result!.description.health),
           ),
           _ResultField(
             title: '🏢 직장운',
-            child: Text(
-              result!.description.career,
-            ),
+            child: Text(result!.description.career),
           ),
           _ResultField(
             title: '🍀 운을 높이는 법',
-            child: Text(
-              result!.description.waysToImprove,
-            ),
+            child: Text(result!.description.waysToImprove),
           ),
           _ResultField(
             title: '🚨 올해의 주의사항',
-            child: Text(
-              result!.description.caution,
-            ),
+            child: Text(result!.description.caution),
           ),
           if (result!.description.questionAnswer != null &&
               result!.description.questionAnswer!.isNotEmpty)
             _ResultField(
               title: '❓ (질문사항)',
-              child: Text(
-                result!.description.questionAnswer!,
-              ),
+              child: Text(result!.description.questionAnswer!),
             )
           else
             Container(),
@@ -160,12 +134,8 @@ class _SuccessResultContent extends StatelessWidget {
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(
-                child: _HomeButton(),
-              ),
-              Expanded(
-                child: _ShareButton(),
-              ),
+              Expanded(child: _HomeButton()),
+              Expanded(child: _ShareButton()),
             ],
           ),
         ],
@@ -190,10 +160,7 @@ class _ResultField extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
             ),
           ],
         ),
@@ -214,9 +181,7 @@ class _MemberInfoItem extends StatelessWidget {
   final DateTime birthDateTime;
   final Gender gender;
 
-  static const textStyle = TextStyle(
-    fontSize: 14,
-  );
+  static const textStyle = TextStyle(fontSize: 14);
 
   @override
   Widget build(BuildContext context) {
@@ -231,18 +196,12 @@ class _MemberInfoItem extends StatelessWidget {
           spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              name,
-              style: textStyle,
-            ),
+            Text(name, style: textStyle),
             Text(
               DateFormat('yyyy/MM/dd HH:mm').format(birthDateTime),
               style: textStyle,
             ),
-            Text(
-              gender == Gender.male ? '남자' : '여자',
-              style: textStyle,
-            ),
+            Text(gender == Gender.male ? '남자' : '여자', style: textStyle),
           ],
         ),
       ),
@@ -263,10 +222,7 @@ class _FailureResultContent extends StatelessWidget {
         children: [
           Text(
             error,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           ElevatedButton(
             onPressed: () {
@@ -289,7 +245,6 @@ class _HomeButton extends StatelessWidget {
         foregroundColor: WidgetStateProperty.all(Colors.grey[800]),
       ),
       onPressed: () async {
-
         await showDialog<bool>(
           context: context,
           builder:

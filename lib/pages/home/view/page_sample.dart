@@ -47,12 +47,12 @@ class HomePageSample extends StatelessWidget {
                 ItemButton(
                   title: '🐍 2025년 신년운세 🐍',
                   onPressed: () {
-                    context
-                        .read<AppRepository>()
-                        .setTargetRoute(AppRoutes.yearlyResult);
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.userInfoBase.toString(),
+                    context.read<AppRepository>().setTargetRoute(
+                      AppRoutes.yearlyResult,
                     );
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.userInfoBase.toString());
                   },
                   image: const AssetImage('assets/images/item_logo/yearly.png'),
                   price: 4900,
@@ -60,12 +60,12 @@ class HomePageSample extends StatelessWidget {
                 ItemButton(
                   title: '오늘의 운세',
                   onPressed: () {
-                    context
-                        .read<AppRepository>()
-                        .setTargetRoute(AppRoutes.dailyResult);
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.userInfoBase.toString(),
+                    context.read<AppRepository>().setTargetRoute(
+                      AppRoutes.dailyResult,
                     );
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.userInfoBase.toString());
                   },
                   image: const AssetImage('assets/images/item_logo/daily.png'),
                   price: 0,
@@ -193,23 +193,16 @@ class _PriceTag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color.fromRGBO(100, 100, 100, 1),
-        ),
+        border: Border.all(color: const Color.fromRGBO(100, 100, 100, 1)),
         borderRadius: BorderRadius.circular(15),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
       alignment: Alignment.center,
-      constraints: const BoxConstraints(
-        minWidth: 70,
-      ),
+      constraints: const BoxConstraints(minWidth: 70),
       child: Text(
         price == 0
             ? '무료'
-            : '₩${price.toString().replaceAllMapped(
-                  RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-                  (Match m) => '${m[1]},',
-                )}',
+            : '₩${price.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
         style: const TextStyle(
           color: Color.fromRGBO(100, 100, 100, 1),
           fontFamily: 'NanumSquareNeo',

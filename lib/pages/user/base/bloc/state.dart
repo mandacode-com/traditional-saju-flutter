@@ -12,12 +12,12 @@ final class UserInfoBaseState extends Equatable {
     FormedBirthHour? birthHour,
     FormedBirthMinutes? birthMinutes,
     bool? timeDisabled,
-  })  : _formStatus = formStatus ?? FormStatus.initial,
-        _gender = gender ?? Gender.male,
-        _birthDate = birthDate ?? const FormedBirthDate.pure(),
-        _birthHour = birthHour ?? const FormedBirthHour.pure(),
-        _birthMinutes = birthMinutes ?? const FormedBirthMinutes.pure(),
-        _timeDisabled = timeDisabled ?? false;
+  }) : _formStatus = formStatus ?? FormStatus.initial,
+       _gender = gender ?? Gender.male,
+       _birthDate = birthDate ?? const FormedBirthDate.pure(),
+       _birthHour = birthHour ?? const FormedBirthHour.pure(),
+       _birthMinutes = birthMinutes ?? const FormedBirthMinutes.pure(),
+       _timeDisabled = timeDisabled ?? false;
 
   final FormStatus _formStatus;
   final Gender _gender;
@@ -65,11 +65,11 @@ final class UserInfoBaseState extends Equatable {
 
   @override
   List<Object> get props => [
-        _formStatus,
-        _gender,
-        _birthDate,
-        _birthHour,
-        _birthMinutes,
-        _timeDisabled,
-      ];
+    _formStatus,
+    _gender,
+    _birthDate,
+    _birthHour,
+    _birthMinutes,
+    _timeDisabled,
+  ];
 }

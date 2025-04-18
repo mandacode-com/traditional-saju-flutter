@@ -44,9 +44,9 @@ class CustomDropdownButton<T> extends StatelessWidget {
             isExpanded: true,
             items: items,
             onChanged: disabled ? null : onChanged,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.black),
             value: value,
           ),
         ),

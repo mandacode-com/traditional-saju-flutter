@@ -30,11 +30,9 @@ class PrimaryButton extends StatelessWidget {
         decoration: decoration,
         child: TextButton(
           style: Theme.of(context).textButtonTheme.style?.copyWith(
-                backgroundColor: WidgetStateProperty.all(
-                  Colors.grey[300],
-                ),
-                foregroundColor: foreground,
-              ),
+            backgroundColor: WidgetStateProperty.all(Colors.grey[300]),
+            foregroundColor: foreground,
+          ),
           onPressed: null,
           child: child,
         ),
@@ -46,9 +44,9 @@ class PrimaryButton extends StatelessWidget {
       decoration: decoration,
       child: TextButton(
         style: Theme.of(context).textButtonTheme.style?.copyWith(
-              backgroundColor: background,
-              foregroundColor: foreground,
-            ),
+          backgroundColor: background,
+          foregroundColor: foreground,
+        ),
         onPressed: onPressed,
         child: child,
       ),

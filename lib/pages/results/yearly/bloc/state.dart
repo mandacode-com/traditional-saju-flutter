@@ -6,8 +6,8 @@ final class YearlySajuResultState extends Equatable {
   const YearlySajuResultState({
     FormStatus? formStatus,
     YearlySajuResponse? yearlySajuResponse,
-  })  : _formStatus = formStatus ?? FormStatus.initial,
-        _yearlySajuResponse = yearlySajuResponse;
+  }) : _formStatus = formStatus ?? FormStatus.initial,
+       _yearlySajuResponse = yearlySajuResponse;
 
   final FormStatus _formStatus;
   final YearlySajuResponse? _yearlySajuResponse;
@@ -30,8 +30,5 @@ final class YearlySajuResultState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        _formStatus,
-        _yearlySajuResponse,
-      ];
+  List<Object?> get props => [_formStatus, _yearlySajuResponse];
 }

@@ -6,10 +6,9 @@ import 'package:saju_mobile_v1/pages/results/yearly/bloc/state.dart';
 
 class YearlySajuResultBloc
     extends Bloc<YearlySajuResultEvent, YearlySajuResultState> {
-  YearlySajuResultBloc({
-    required SajuRepository sajuRepository,
-  })  : _sajuRepository = sajuRepository,
-        super(const YearlySajuResultState()) {
+  YearlySajuResultBloc({required SajuRepository sajuRepository})
+    : _sajuRepository = sajuRepository,
+      super(const YearlySajuResultState()) {
     on<YearlyResultSubscriptionRequested>(_onResultSubscriptionRequested);
     on<ClearYearlyResultPressed>(_onResultClearPressed);
   }
@@ -31,11 +30,7 @@ class YearlySajuResultBloc
         ),
       );
     } catch (e) {
-      emit(
-        state.copyWith(
-          formStatus: FormStatus.failure,
-        ),
-      );
+      emit(state.copyWith(formStatus: FormStatus.failure));
     }
   }
 
@@ -43,10 +38,6 @@ class YearlySajuResultBloc
     ClearYearlyResultPressed envet,
     Emitter<YearlySajuResultState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.initial,
-      ),
-    );
+    emit(state.copyWith(formStatus: FormStatus.initial));
   }
 }

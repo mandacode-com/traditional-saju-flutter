@@ -30,19 +30,13 @@ class UserInfoBaseForm extends StatelessWidget {
               ],
             ),
           ),
-          const _FormItem(
-            label: '생년월일(양력)',
-            child: _BirthDateSelector(),
-          ),
+          const _FormItem(label: '생년월일(양력)', child: _BirthDateSelector()),
           _FormItem(
             label: '태어난 시각',
             child: Row(
               spacing: 10,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _BirthHourSelector(),
-                _BirthMinuteSelector(),
-              ],
+              children: [_BirthHourSelector(), _BirthMinuteSelector()],
             ),
           ),
           Row(
@@ -53,7 +47,8 @@ class UserInfoBaseForm extends StatelessWidget {
                 value: context.select(
                   (UserInfoBaseBloc bloc) => bloc.state.timeDisabled,
                 ),
-                onChanged: (value) => context.read<UserInfoBaseBloc>().add(
+                onChanged:
+                    (value) => context.read<UserInfoBaseBloc>().add(
                       UserInfoBaseTimeDisabledChanged(
                         timeDisabled: value ?? false,
                       ),
@@ -98,9 +93,10 @@ class _GenderSelectorButton extends StatelessWidget {
     return Expanded(
       child: FormInput(
         isActive: currentGender == gender,
-        onPressed: () => context
-            .read<UserInfoBaseBloc>()
-            .add(UserInfoBaseGenderChanged(gender)),
+        onPressed:
+            () => context.read<UserInfoBaseBloc>().add(
+              UserInfoBaseGenderChanged(gender),
+            ),
         child: Center(child: Text(gender.textKor)),
       ),
     );
@@ -127,25 +123,26 @@ class _BirthDateSelector extends StatelessWidget {
         );
         if (selectedDate != null && context.mounted) {
           context.read<UserInfoBaseBloc>().add(
-                UserInfoBaseBirthDateChanged(selectedDate),
-              );
+            UserInfoBaseBirthDateChanged(selectedDate),
+          );
         }
       },
-      child: birthDateTime.value == null
-          ? Text(
-              '생년월일을 선택해주세요.',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
-                  ),
-            )
-          : Text(
-              '${birthDateTime.value!.year}년 '
-              '${birthDateTime.value!.month}월 '
-              '${birthDateTime.value!.day}일',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+      child:
+          birthDateTime.value == null
+              ? Text(
+                '생년월일을 선택해주세요.',
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+              )
+              : Text(
+                '${birthDateTime.value!.year}년 '
+                '${birthDateTime.value!.month}월 '
+                '${birthDateTime.value!.day}일',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
     );
   }
 }
@@ -183,19 +180,21 @@ class _BirthHourSelector extends StatelessWidget {
       value: context.select(
         (UserInfoBaseBloc bloc) => bloc.state.birthHour.value,
       ),
-      onChanged: (value) => context
-          .read<UserInfoBaseBloc>()
-          .add(UserInfoBaseBirthHourChanged(value ?? 0)),
-      items: List.generate(24, (index) => index)
-          .map(
-            (hour) => DropdownMenuItem<int>(
-              value: hour,
-              child: Center(
-                child: Text('$hour시', textAlign: TextAlign.center),
-              ),
-            ),
-          )
-          .toList(),
+      onChanged:
+          (value) => context.read<UserInfoBaseBloc>().add(
+            UserInfoBaseBirthHourChanged(value ?? 0),
+          ),
+      items:
+          List.generate(24, (index) => index)
+              .map(
+                (hour) => DropdownMenuItem<int>(
+                  value: hour,
+                  child: Center(
+                    child: Text('$hour시', textAlign: TextAlign.center),
+                  ),
+                ),
+              )
+              .toList(),
     );
   }
 }
@@ -207,19 +206,21 @@ class _BirthMinuteSelector extends StatelessWidget {
       value: context.select(
         (UserInfoBaseBloc bloc) => bloc.state.birthMinutes.value,
       ),
-      onChanged: (value) => context
-          .read<UserInfoBaseBloc>()
-          .add(UserInfoBaseBirthMinutesChanged(value ?? 0)),
-      items: List.generate(60, (index) => index)
-          .map(
-            (minute) => DropdownMenuItem<int>(
-              value: minute,
-              child: Center(
-                child: Text('$minute분', textAlign: TextAlign.center),
-              ),
-            ),
-          )
-          .toList(),
+      onChanged:
+          (value) => context.read<UserInfoBaseBloc>().add(
+            UserInfoBaseBirthMinutesChanged(value ?? 0),
+          ),
+      items:
+          List.generate(60, (index) => index)
+              .map(
+                (minute) => DropdownMenuItem<int>(
+                  value: minute,
+                  child: Center(
+                    child: Text('$minute분', textAlign: TextAlign.center),
+                  ),
+                ),
+              )
+              .toList(),
     );
   }
 }

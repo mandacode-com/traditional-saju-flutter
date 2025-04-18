@@ -6,8 +6,8 @@ final class DailySajuResultState extends Equatable {
   const DailySajuResultState({
     FormStatus? formStatus,
     DailySajuResponse? dailySajuResponse,
-  })  : _formStatus = formStatus ?? FormStatus.initial,
-        _dailySajuResponse = dailySajuResponse;
+  }) : _formStatus = formStatus ?? FormStatus.initial,
+       _dailySajuResponse = dailySajuResponse;
 
   final FormStatus _formStatus;
   final DailySajuResponse? _dailySajuResponse;
@@ -30,8 +30,5 @@ final class DailySajuResultState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        _formStatus,
-        _dailySajuResponse,
-      ];
+  List<Object?> get props => [_formStatus, _dailySajuResponse];
 }

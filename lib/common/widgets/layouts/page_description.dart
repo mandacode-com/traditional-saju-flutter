@@ -23,17 +23,13 @@ class PageDiscription extends StatelessWidget {
           title,
           style: Theme.of(
             context,
-          ).textTheme.headlineLarge?.copyWith(
-                fontSize: titleFontSize,
-              ),
+          ).textTheme.headlineLarge?.copyWith(fontSize: titleFontSize),
         ),
         Text(
           subtitle,
           style: Theme.of(
             context,
-          ).textTheme.headlineMedium?.copyWith(
-                fontSize: subtitleFontSize,
-              ),
+          ).textTheme.headlineMedium?.copyWith(fontSize: subtitleFontSize),
         ),
       ],
     );

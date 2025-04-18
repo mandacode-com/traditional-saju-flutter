@@ -3,7 +3,7 @@ import 'package:storage/storage.dart';
 
 class RefreshTokenStorage implements TokenStorage {
   RefreshTokenStorage(FlutterSecureStorage? secureStorage)
-      : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   static const _refreshTokenKey = 'refresh_token';
 

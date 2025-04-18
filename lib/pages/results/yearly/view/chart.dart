@@ -6,13 +6,7 @@ class ChartView extends StatelessWidget {
 
   final Chart chart;
 
-  static const List<String> _columns = [
-    '',
-    '연주',
-    '월주',
-    '일주',
-    '시주',
-  ];
+  static const List<String> _columns = ['', '연주', '월주', '일주', '시주'];
 
   static String convertHevenlyStem(HeavenlyStem stem) {
     switch (stem) {
@@ -93,10 +87,7 @@ class ChartView extends StatelessWidget {
         fontSize: 14,
       ),
       decoration: const BoxDecoration(),
-      dataTextStyle: const TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-      ),
+      dataTextStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
       columnSpacing: 20,
       columns: _columns
           .map(
@@ -109,9 +100,7 @@ class ChartView extends StatelessWidget {
       rows: [
         DataRow(
           cells: [
-            const DataCell(
-              _DataCellTitle(text: '천간'),
-            ),
+            const DataCell(_DataCellTitle(text: '천간')),
             DataCell(
               _DataCellItem(
                 text: convertHevenlyStem(chart.heavenly.stems.year),
@@ -123,15 +112,14 @@ class ChartView extends StatelessWidget {
               ),
             ),
             DataCell(
-              _DataCellItem(
-                text: convertHevenlyStem(chart.heavenly.stems.day),
-              ),
+              _DataCellItem(text: convertHevenlyStem(chart.heavenly.stems.day)),
             ),
             DataCell(
               _DataCellItem(
-                text: chart.heavenly.stems.hour == null
-                    ? undefinedHour
-                    : convertHevenlyStem(chart.heavenly.stems.hour!),
+                text:
+                    chart.heavenly.stems.hour == null
+                        ? undefinedHour
+                        : convertHevenlyStem(chart.heavenly.stems.hour!),
               ),
             ),
           ],
@@ -156,9 +144,10 @@ class ChartView extends StatelessWidget {
             ),
             DataCell(
               _DataCellItem(
-                text: chart.heavenly.fiveElements.hour == null
-                    ? undefinedHour
-                    : convertFiveElement(chart.heavenly.fiveElements.hour!),
+                text:
+                    chart.heavenly.fiveElements.hour == null
+                        ? undefinedHour
+                        : convertFiveElement(chart.heavenly.fiveElements.hour!),
               ),
             ),
           ],
@@ -183,9 +172,10 @@ class ChartView extends StatelessWidget {
             ),
             DataCell(
               _DataCellItem(
-                text: chart.earthly.branches.hour == null
-                    ? undefinedHour
-                    : convertEarthlyBranch(chart.earthly.branches.hour!),
+                text:
+                    chart.earthly.branches.hour == null
+                        ? undefinedHour
+                        : convertEarthlyBranch(chart.earthly.branches.hour!),
               ),
             ),
           ],
@@ -210,9 +200,10 @@ class ChartView extends StatelessWidget {
             ),
             DataCell(
               _DataCellItem(
-                text: chart.earthly.fiveElements.hour == null
-                    ? undefinedHour
-                    : convertFiveElement(chart.earthly.fiveElements.hour!),
+                text:
+                    chart.earthly.fiveElements.hour == null
+                        ? undefinedHour
+                        : convertFiveElement(chart.earthly.fiveElements.hour!),
               ),
             ),
           ],
@@ -244,9 +235,6 @@ class _DataCellItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-    );
+    return Text(text, textAlign: TextAlign.center);
   }
 }

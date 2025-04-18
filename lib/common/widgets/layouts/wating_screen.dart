@@ -31,8 +31,7 @@ class _WatingBackground extends StatefulWidget {
   final Duration duration;
 
   @override
-  _WatingBackgroundState createState() =>
-      _WatingBackgroundState();
+  _WatingBackgroundState createState() => _WatingBackgroundState();
 }
 
 class _WatingBackgroundState extends State<_WatingBackground>
@@ -66,26 +65,27 @@ class _WatingBackgroundState extends State<_WatingBackground>
         return Stack(
           children: [
             Positioned(
-              left: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? _position.value * MediaQuery.of(context).size.width
-                  : 0,
-              height: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? MediaQuery.of(context).size.height
-                  : MediaQuery.of(context).size.width,
-              top: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? 0
-                  : -MediaQuery.of(context).size.height / 2,
+              left:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? _position.value * MediaQuery.of(context).size.width
+                      : 0,
+              height:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? MediaQuery.of(context).size.height
+                      : MediaQuery.of(context).size.width,
+              top:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0
+                      : -MediaQuery.of(context).size.height / 2,
               child: Image(
                 image: widget.image,
-                fit: MediaQuery.of(context).orientation == Orientation.portrait
-                    ? BoxFit.fitHeight
-                    : BoxFit.fitWidth,
+                fit:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? BoxFit.fitHeight
+                        : BoxFit.fitWidth,
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              child: widget.child,
-            ),
+            Container(alignment: Alignment.center, child: widget.child),
           ],
         );
       },
