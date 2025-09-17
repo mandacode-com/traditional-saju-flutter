@@ -111,6 +111,5 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-**/*.env
-
-android/app/.cxx/
+# Generated l10n files
+lib/l10n/gen/

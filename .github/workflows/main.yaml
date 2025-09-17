@@ -1,7 +1,7 @@
-name: saju_mobile_v1
+name: traditional_saju_v1
 
 concurrency:
-  group: $-$
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
