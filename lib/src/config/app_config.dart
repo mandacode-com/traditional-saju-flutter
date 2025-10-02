@@ -8,8 +8,10 @@ class AppConfig {
   static const AppConfig instance = AppConfig._();
 
   /// Kakao native app key for OAuth
-  String get kakaoNativeAppKey => dotenv.get('KAKAO_NATIVE_APP_KEY');
+  String get kakaoNativeAppKey =>
+      dotenv.maybeGet('KAKAO_NATIVE_APP_KEY') ?? 'test_kakao_dev_key';
 
   /// API base URL
-  String get apiBaseUrl => dotenv.get('API_BASE_URL');
+  String get apiBaseUrl =>
+      dotenv.maybeGet('API_BASE_URL') ?? 'https://saju.mandacode.com/api/v1';
 }

@@ -35,8 +35,18 @@ Future<void> bootstrap(
 
   // Load environment variables
   final envFile = '.env.$environment';
-  await dotenv.load(fileName: envFile);
-  log('Loaded environment: $envFile');
+  try {
+    await dotenv.load(fileName: envFile);
+    log('Loaded environment: $envFile');
+  } catch (e) {
+    if (environment == 'development') {
+      log('Warning: $envFile not found, using default values');
+    } else {
+      throw Exception(
+        'Failed to load $envFile for $environment environment: $e',
+      );
+    }
+  }
 
   // Initialize storage (Hive)
   await StorageInitializer.initialize();
