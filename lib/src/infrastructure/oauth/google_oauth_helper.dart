@@ -4,10 +4,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 class GoogleOAuthHelper {
   GoogleOAuthHelper({
     GoogleSignIn? googleSignIn,
-  }) : _googleSignIn = googleSignIn ??
-            GoogleSignIn(
-              scopes: ['email', 'profile'],
-            );
+  }) : _googleSignIn =
+           googleSignIn ??
+           GoogleSignIn(
+             scopes: ['email', 'profile'],
+           );
 
   final GoogleSignIn _googleSignIn;
 
