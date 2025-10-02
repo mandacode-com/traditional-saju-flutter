@@ -104,9 +104,12 @@ class ApiClient {
                     return handler.resolve(retryResponse);
                   }
                 }
-              } catch (e) {
+              } on DioException catch (e) {
                 _logger.e('Token refresh failed: $e');
                 // Clear tokens on refresh failure
+                await clearTokens();
+              } on Exception catch (e) {
+                _logger.e('Unexpected error during token refresh: $e');
                 await clearTokens();
               }
             }
@@ -122,7 +125,7 @@ class ApiClient {
       LogInterceptor(
         requestBody: true,
         responseBody: true,
-        logPrint: (obj) => _logger.d(obj),
+        logPrint: _logger.d,
       ),
     );
   }

@@ -19,15 +19,13 @@ class SajuAdapter implements SajuPort {
 
   @override
   Future<DailyFortune> getDailyFortune() async {
-    // TODO: Implement after defining how to get user context
-    // Need current user's birth info and preferences
+    // TODO(traditional_saju): Implement with user context (birth info)
     throw UnimplementedError('getDailyFortune not yet implemented');
   }
 
   @override
   Future<YearlyFortune> getYearlyFortune() async {
-    // TODO: Implement after defining how to get user context
-    // Need current user's birth info and preferences
+    // TODO(traditional_saju): Implement with user context (birth info)
     throw UnimplementedError('getYearlyFortune not yet implemented');
   }
 
@@ -51,9 +49,7 @@ class SajuAdapter implements SajuPort {
 
   @override
   Future<Chart> getBasicSajuChart(BirthDate birthDate) async {
-    // TODO: This needs actual implementation
-    // The API doesn't have a direct "basic chart" endpoint
-    // We might need to call yearly saju with birthTimeUnknown = true
+    // TODO(traditional_saju): Call yearly saju with birthTimeUnknown=true
     throw UnimplementedError(
       'getBasicSajuChart requires API endpoint clarification',
     );
@@ -65,8 +61,7 @@ class SajuAdapter implements SajuPort {
     required BirthHour birthHour,
     required BirthMinutes birthMinutes,
   }) async {
-    // TODO: This needs actual implementation
-    // We need to map to yearly saju endpoint with proper formatting
+    // TODO(traditional_saju): Map to yearly saju endpoint with user context
     throw UnimplementedError(
       'getCompleteSajuChart requires user context and proper DTO mapping',
     );

@@ -22,8 +22,7 @@ class YearlySajuRequestDto {
       'birthTime': birthTime,
       'gender': gender,
       if (isLeapMonth != null) 'isLeapMonth': isLeapMonth,
-      if (isBirthTimeUnknown != null)
-        'isBirthTimeUnknown': isBirthTimeUnknown,
+      if (isBirthTimeUnknown != null) 'isBirthTimeUnknown': isBirthTimeUnknown,
       if (question != null) 'question': question,
     };
   }

@@ -13,9 +13,7 @@ class UserAdapter implements UserPort {
 
   @override
   Future<UserInfo?> getCurrentUser() async {
-    // TODO: Implement user fetch endpoint
-    // The API spec doesn't show a GET /user endpoint
-    // Need to clarify how to get current user info
+    // TODO(traditional_saju): Implement GET /user endpoint
     throw UnimplementedError('getCurrentUser requires API endpoint');
   }
 
@@ -25,7 +23,7 @@ class UserAdapter implements UserPort {
     try {
       final user = await getCurrentUser();
       return user != null;
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

@@ -100,7 +100,7 @@ class AuthAdapter implements AuthPort {
         ),
       );
       return response.statusCode == 200;
-    } catch (e) {
+    } on DioException {
       return false;
     }
   }
