@@ -3,7 +3,8 @@ import 'package:traditional_saju/src/domain/saju/entity/daily_fortune.dart';
 
 /// Use case for getting daily fortune analysis
 class GetDailyFortuneUseCase {
-  const GetDailyFortuneUseCase(this._sajuPort);
+  const GetDailyFortuneUseCase({required SajuPort sajuPort})
+    : _sajuPort = sajuPort;
 
   final SajuPort _sajuPort;
 

@@ -6,7 +6,8 @@ import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 
 /// Use case for getting Saju chart based on birth information
 class GetSajuChartUseCase {
-  const GetSajuChartUseCase(this._sajuPort);
+  const GetSajuChartUseCase({required SajuPort sajuPort})
+    : _sajuPort = sajuPort;
 
   final SajuPort _sajuPort;
 

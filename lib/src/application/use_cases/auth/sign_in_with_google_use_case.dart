@@ -3,7 +3,8 @@ import 'package:traditional_saju/src/domain/auth/entity/authentication.dart';
 
 /// Use case for signing in with Google
 class SignInWithGoogleUseCase {
-  const SignInWithGoogleUseCase(this._authPort);
+  const SignInWithGoogleUseCase({required AuthPort authPort})
+    : _authPort = authPort;
 
   final AuthPort _authPort;
 

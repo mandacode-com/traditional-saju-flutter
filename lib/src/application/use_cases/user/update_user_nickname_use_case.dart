@@ -7,8 +7,7 @@ class UpdateUserNicknameUseCase {
 
   final UserPort _userPort;
 
-  /// Execute user nickname update
-  /// [nickname] - New nickname for the user
+  /// Update user nickname
   Future<void> execute(String nickname) async {
     return _userPort.updateNickname(nickname);
   }

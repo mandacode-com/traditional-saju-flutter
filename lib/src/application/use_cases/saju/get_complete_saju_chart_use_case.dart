@@ -6,7 +6,8 @@ import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 
 /// Use case for getting complete Saju chart with precise time
 class GetCompleteSajuChartUseCase {
-  const GetCompleteSajuChartUseCase(this._sajuPort);
+  const GetCompleteSajuChartUseCase({required SajuPort sajuPort})
+    : _sajuPort = sajuPort;
 
   final SajuPort _sajuPort;
 

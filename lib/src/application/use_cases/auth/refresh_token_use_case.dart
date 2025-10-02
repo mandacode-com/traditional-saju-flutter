@@ -3,7 +3,8 @@ import 'package:traditional_saju/src/domain/auth/entity/authentication.dart';
 
 /// Use case for refreshing authentication tokens
 class RefreshTokenUseCase {
-  const RefreshTokenUseCase(this._authPort);
+  const RefreshTokenUseCase({required AuthPort authPort})
+    : _authPort = authPort;
 
   final AuthPort _authPort;
 

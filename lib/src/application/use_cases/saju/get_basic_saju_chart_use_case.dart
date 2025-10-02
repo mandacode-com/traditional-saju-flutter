@@ -4,7 +4,8 @@ import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 
 /// Use case for getting basic Saju chart without time information
 class GetBasicSajuChartUseCase {
-  const GetBasicSajuChartUseCase(this._sajuPort);
+  const GetBasicSajuChartUseCase({required SajuPort sajuPort})
+    : _sajuPort = sajuPort;
 
   final SajuPort _sajuPort;
 

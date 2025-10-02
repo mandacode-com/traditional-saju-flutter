@@ -3,7 +3,8 @@ import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
 
 /// Use case for getting yearly fortune analysis
 class GetYearlyFortuneUseCase {
-  const GetYearlyFortuneUseCase(this._sajuPort);
+  const GetYearlyFortuneUseCase({required SajuPort sajuPort})
+    : _sajuPort = sajuPort;
 
   final SajuPort _sajuPort;
 

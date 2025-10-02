@@ -3,7 +3,8 @@ import 'package:traditional_saju/src/domain/user/entity/user.dart';
 
 /// Use case for getting current user information
 class GetCurrentUserUseCase {
-  const GetCurrentUserUseCase(this._userPort);
+  const GetCurrentUserUseCase({required UserPort userPort})
+    : _userPort = userPort;
 
   final UserPort _userPort;
 

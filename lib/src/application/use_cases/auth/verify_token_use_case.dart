@@ -2,7 +2,7 @@ import 'package:traditional_saju/src/application/ports/auth/auth_port.dart';
 
 /// Use case for verifying authentication token
 class VerifyTokenUseCase {
-  const VerifyTokenUseCase(this._authPort);
+  const VerifyTokenUseCase({required AuthPort authPort}) : _authPort = authPort;
 
   final AuthPort _authPort;
 

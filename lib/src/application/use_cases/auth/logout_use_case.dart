@@ -2,7 +2,7 @@ import 'package:traditional_saju/src/application/ports/auth/auth_port.dart';
 
 /// Use case for user logout
 class LogoutUseCase {
-  const LogoutUseCase(this._authPort);
+  const LogoutUseCase({required AuthPort authPort}) : _authPort = authPort;
 
   final AuthPort _authPort;
 
