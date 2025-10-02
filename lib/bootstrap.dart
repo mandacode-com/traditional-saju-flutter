@@ -3,6 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:traditional_saju/src/di/service_locator.dart';
+import 'package:traditional_saju/src/infrastructure/storage/storage_initializer.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -20,14 +23,26 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  FutureOr<Widget> Function() builder, {
+  String environment = 'development',
+}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
+  // Load environment variables
+  final envFile = '.env.$environment';
+  await dotenv.load(fileName: envFile);
+  log('Loaded environment: $envFile');
+
+  // Initialize storage (Hive)
+  await StorageInitializer.initialize();
+
+  // Initialize dependency injection
+  await setupServiceLocator();
 
   runApp(await builder());
 }
