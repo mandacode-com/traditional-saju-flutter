@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(traditional_saju_v1 LANGUAGES CXX)
+project(traditional_saju LANGUAGES CXX)
 
-set(BINARY_NAME "traditional_saju_v1")
+set(BINARY_NAME "traditional_saju")
 
 cmake_policy(SET CMP0063 NEW)
 

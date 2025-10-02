@@ -1,4 +1,4 @@
-name: traditional_saju_v1
+name: traditional_saju
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

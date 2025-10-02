@@ -1,5 +1,5 @@
-name: traditional_saju_v1
-description: A Very Good Project created by Very Good CLI.
+name: traditional_saju
+description: Traditional Saju fortune telling application.
 version: 1.0.0+1
 publish_to: none
 

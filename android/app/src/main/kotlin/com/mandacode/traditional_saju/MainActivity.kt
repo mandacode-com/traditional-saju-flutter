@@ -1,4 +1,4 @@
-package com.mandacode.traditional_saju_v1
+package com.mandacode.traditional_saju
 
 import io.flutter.embedding.android.FlutterActivity
 
