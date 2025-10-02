@@ -10,6 +10,6 @@ class VerifyTokenUseCase {
   /// [accessToken] - Access token to verify
   /// Returns true if token is valid, false otherwise
   Future<bool> execute(String accessToken) async {
-    return await _authPort.verifyToken(accessToken);
+    return _authPort.verifyToken(accessToken);
   }
 }

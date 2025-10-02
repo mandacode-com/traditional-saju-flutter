@@ -1,8 +1,8 @@
 import 'package:traditional_saju/src/application/ports/saju/saju_port.dart';
-import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 import 'package:traditional_saju/src/domain/saju/entity/birth_date.dart';
 import 'package:traditional_saju/src/domain/saju/entity/birth_hour.dart';
 import 'package:traditional_saju/src/domain/saju/entity/birth_minutes.dart';
+import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 
 /// Use case for getting Saju chart based on birth information
 class GetSajuChartUseCase {
@@ -20,7 +20,7 @@ class GetSajuChartUseCase {
     BirthHour? birthHour,
     BirthMinutes? birthMinutes,
   }) async {
-    return await _sajuPort.getSajuChart(
+    return _sajuPort.getSajuChart(
       birthDate: birthDate,
       birthHour: birthHour,
       birthMinutes: birthMinutes,

@@ -12,6 +12,6 @@ class UpdateUserUseCase {
   /// [userDto] - User data transfer object with updated information
   /// Returns updated [UserInfo] entity
   Future<UserInfo> execute(UpdateUserRequestDto userDto) async {
-    return await _userPort.updateUser(userDto);
+    return _userPort.updateUser(userDto);
   }
 }

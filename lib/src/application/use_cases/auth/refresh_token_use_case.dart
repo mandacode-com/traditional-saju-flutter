@@ -11,6 +11,6 @@ class RefreshTokenUseCase {
   /// [refreshToken] - Current refresh token
   /// Returns new [Authentication] entity with updated tokens
   Future<Authentication> execute(String refreshToken) async {
-    return await _authPort.refreshToken(refreshToken);
+    return _authPort.refreshToken(refreshToken);
   }
 }

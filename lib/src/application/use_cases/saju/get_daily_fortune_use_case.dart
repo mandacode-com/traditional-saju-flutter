@@ -10,6 +10,6 @@ class GetDailyFortuneUseCase {
   /// Execute daily fortune analysis
   /// Returns [DailyFortune] entity with today's fortune messages
   Future<DailyFortune> execute() async {
-    return await _sajuPort.getDailyFortune();
+    return _sajuPort.getDailyFortune();
   }
 }

@@ -54,7 +54,6 @@ class AuthDto {
   int get hashCode => Object.hash(accessToken, refreshToken);
 }
 
-
 /// Data Transfer Object for Login requests
 @immutable
 class LoginRequestDto {

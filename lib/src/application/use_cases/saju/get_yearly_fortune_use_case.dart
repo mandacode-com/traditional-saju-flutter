@@ -10,6 +10,6 @@ class GetYearlyFortuneUseCase {
   /// Execute yearly fortune analysis
   /// Returns [YearlyFortune] entity with chart and detailed description
   Future<YearlyFortune> execute() async {
-    return await _sajuPort.getYearlyFortune();
+    return _sajuPort.getYearlyFortune();
   }
 }

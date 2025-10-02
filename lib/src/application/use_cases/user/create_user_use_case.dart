@@ -12,6 +12,6 @@ class CreateUserUseCase {
   /// [userDto] - User data transfer object with user information
   /// Returns created [UserInfo] entity
   Future<UserInfo> execute(CreateUserRequestDto userDto) async {
-    return await _userPort.createUser(userDto);
+    return _userPort.createUser(userDto);
   }
 }

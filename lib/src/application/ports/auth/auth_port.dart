@@ -1,4 +1,3 @@
-import 'package:traditional_saju/src/application/ports/auth/dto/auth_dto.dart';
 import 'package:traditional_saju/src/domain/auth/entity/authentication.dart';
 
 /// Port for authentication operations

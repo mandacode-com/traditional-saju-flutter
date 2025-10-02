@@ -30,7 +30,9 @@ class ChartDto {
       heavenly: ChartHeavenlyDto.fromJson(
         json['heavenly'] as Map<String, dynamic>,
       ),
-      earthly: ChartEarthlyDto.fromJson(json['earthly'] as Map<String, dynamic>),
+      earthly: ChartEarthlyDto.fromJson(
+        json['earthly'] as Map<String, dynamic>,
+      ),
     );
   }
 

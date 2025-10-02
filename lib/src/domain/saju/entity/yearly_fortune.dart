@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune_description.dart';
 import 'package:traditional_saju/src/domain/user/value/gender.dart';
-import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 
 /// Yearly fortune analysis entity
 @immutable

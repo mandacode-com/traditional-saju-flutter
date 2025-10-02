@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:traditional_saju/src/application/ports/saju/dto/chart_dto.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune_description.dart';
 import 'package:traditional_saju/src/domain/user/value/gender.dart';
-import 'package:traditional_saju/src/application/ports/saju/dto/chart_dto.dart';
 
 /// Data Transfer Object for Yearly Fortune Description
 @immutable

@@ -11,6 +11,6 @@ class SignInWithGoogleUseCase {
   /// [googleToken] - Token received from Google sign in
   /// Returns [Authentication] entity containing access and refresh tokens
   Future<Authentication> execute(String googleToken) async {
-    return await _authPort.signInWithGoogle(googleToken);
+    return _authPort.signInWithGoogle(googleToken);
   }
 }

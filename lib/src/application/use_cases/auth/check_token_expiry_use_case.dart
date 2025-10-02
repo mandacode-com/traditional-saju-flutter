@@ -10,6 +10,6 @@ class CheckTokenExpiryUseCase {
   /// [accessToken] - Access token to check
   /// Returns true if token is not expired, false otherwise
   Future<bool> execute(String accessToken) async {
-    return await _authPort.isNotExpired(accessToken);
+    return _authPort.isNotExpired(accessToken);
   }
 }

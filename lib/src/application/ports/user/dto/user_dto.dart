@@ -154,7 +154,7 @@ class UpdateUserRequestDto {
   final bool? permanent;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = {};
+    final json = <String, dynamic>{};
     if (gender != null) json['gender'] = gender;
     if (jobStatus != null) json['job_status'] = jobStatus;
     if (datingStatus != null) json['dating_status'] = datingStatus;

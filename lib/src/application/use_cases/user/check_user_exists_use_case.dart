@@ -9,6 +9,6 @@ class CheckUserExistsUseCase {
   /// Execute user existence check
   /// Returns true if user exists, false otherwise
   Future<bool> execute() async {
-    return await _userPort.userExists();
+    return _userPort.userExists();
   }
 }

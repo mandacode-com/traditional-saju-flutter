@@ -10,6 +10,6 @@ class GetCurrentUserUseCase {
   /// Execute get current user
   /// Returns [UserInfo] entity if user exists, null otherwise
   Future<UserInfo?> execute() async {
-    return await _userPort.getCurrentUser();
+    return _userPort.getCurrentUser();
   }
 }

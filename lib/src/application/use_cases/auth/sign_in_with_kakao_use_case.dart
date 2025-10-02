@@ -11,6 +11,6 @@ class SignInWithKakaoUseCase {
   /// [kakaoToken] - Token received from Kakao sign in
   /// Returns [Authentication] entity containing access and refresh tokens
   Future<Authentication> execute(String kakaoToken) async {
-    return await _authPort.signInWithKakao(kakaoToken);
+    return _authPort.signInWithKakao(kakaoToken);
   }
 }
