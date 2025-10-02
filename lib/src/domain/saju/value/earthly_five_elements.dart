@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:traditional_saju_v1/src/domain/saju/value/five_element.dart';
+import 'package:traditional_saju/src/domain/saju/value/five_element.dart';
 
 @immutable
 class EarthlyFiveElements {

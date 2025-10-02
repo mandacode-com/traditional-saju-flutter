@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:traditional_saju_v1/src/domain/saju/entity/chart_earthly.dart';
-import 'package:traditional_saju_v1/src/domain/saju/entity/chart_heavenly.dart';
+import 'package:traditional_saju/src/domain/saju/entity/chart_earthly.dart';
+import 'package:traditional_saju/src/domain/saju/entity/chart_heavenly.dart';
 
 @immutable
 class Chart {

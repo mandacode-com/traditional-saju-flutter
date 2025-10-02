@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:traditional_saju_v1/src/domain/user/value/dating_status.dart';
-import 'package:traditional_saju_v1/src/domain/user/value/gender.dart';
-import 'package:traditional_saju_v1/src/domain/user/value/job_status.dart';
+import 'package:traditional_saju/src/domain/user/value/dating_status.dart';
+import 'package:traditional_saju/src/domain/user/value/gender.dart';
+import 'package:traditional_saju/src/domain/user/value/job_status.dart';
 
 @immutable
 class UserInfo {

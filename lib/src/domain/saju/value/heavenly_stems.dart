@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:traditional_saju_v1/src/domain/saju/value/heavenly_stem.dart';
+import 'package:traditional_saju/src/domain/saju/value/heavenly_stem.dart';
 
 @immutable
 class HeavenlyStems {

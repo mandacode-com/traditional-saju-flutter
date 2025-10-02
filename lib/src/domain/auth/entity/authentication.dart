@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:traditional_saju_v1/src/domain/auth/value/access_token.dart';
-import 'package:traditional_saju_v1/src/domain/auth/value/refresh_token.dart';
+import 'package:traditional_saju/src/domain/auth/value/access_token.dart';
+import 'package:traditional_saju/src/domain/auth/value/refresh_token.dart';
 
 @immutable
 class Authentication {
