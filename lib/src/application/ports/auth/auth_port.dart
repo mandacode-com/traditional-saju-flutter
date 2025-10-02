@@ -24,4 +24,10 @@ abstract interface class AuthPort {
 
   /// Logout user by invalidating tokens
   Future<void> logout(String accessToken);
+
+  /// Sign out user (clear local tokens)
+  Future<void> signOut();
+
+  /// Check if user is authenticated (has valid tokens)
+  Future<bool> isAuthenticated();
 }
