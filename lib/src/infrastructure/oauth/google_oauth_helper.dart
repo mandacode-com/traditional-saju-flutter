@@ -1,10 +1,8 @@
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:traditional_saju/src/config/oauth_config.dart';
 
 /// Helper class for Google OAuth authentication
 class GoogleOAuthHelper {
   GoogleOAuthHelper({
-    required OAuthConfig config,
     GoogleSignIn? googleSignIn,
   }) : _googleSignIn = googleSignIn ??
             GoogleSignIn(

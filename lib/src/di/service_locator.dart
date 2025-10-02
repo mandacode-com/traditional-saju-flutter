@@ -17,7 +17,6 @@ import 'package:traditional_saju/src/application/use_cases/user/check_user_exist
 import 'package:traditional_saju/src/application/use_cases/user/delete_user_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/get_current_user_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/update_user_nickname_use_case.dart';
-import 'package:traditional_saju/src/config/oauth_config.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/auth/auth_adapter.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/saju/saju_adapter.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/user/user_adapter.dart';
@@ -32,9 +31,6 @@ final GetIt getIt = GetIt.instance;
 
 /// Initialize dependency injection container
 Future<void> setupServiceLocator() async {
-  // Configuration (loaded from .env in bootstrap)
-  getIt.registerLazySingleton<OAuthConfig>(OAuthConfig.fromEnv);
-
   // Core dependencies
   getIt.registerLazySingleton<Logger>(Logger.new);
   getIt.registerLazySingleton<FlutterSecureStorage>(
@@ -64,9 +60,7 @@ Future<void> setupServiceLocator() async {
   );
 
   // OAuth helpers
-  getIt.registerLazySingleton<GoogleOAuthHelper>(
-    () => GoogleOAuthHelper(config: getIt<OAuthConfig>()),
-  );
+  getIt.registerLazySingleton<GoogleOAuthHelper>(GoogleOAuthHelper.new);
   getIt.registerLazySingleton<KakaoOAuthHelper>(KakaoOAuthHelper.new);
 
   // Adapters (Ports implementations)
