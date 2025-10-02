@@ -17,6 +17,7 @@ import 'package:traditional_saju/src/application/use_cases/user/check_user_exist
 import 'package:traditional_saju/src/application/use_cases/user/delete_user_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/get_current_user_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/update_user_nickname_use_case.dart';
+import 'package:traditional_saju/src/config/app_config.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/auth/auth_adapter.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/saju/saju_adapter.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/user/user_adapter.dart';
@@ -31,6 +32,9 @@ final GetIt getIt = GetIt.instance;
 
 /// Initialize dependency injection container
 Future<void> setupServiceLocator() async {
+  // Configuration
+  getIt.registerLazySingleton<AppConfig>(() => AppConfig.instance);
+
   // Core dependencies
   getIt.registerLazySingleton<Logger>(Logger.new);
   getIt.registerLazySingleton<FlutterSecureStorage>(
@@ -53,7 +57,7 @@ Future<void> setupServiceLocator() async {
   // HTTP Client
   getIt.registerLazySingleton<ApiClient>(
     () => ApiClient(
-      baseUrl: 'https://saju.mandacode.com/api/v1',
+      baseUrl: getIt<AppConfig>().apiBaseUrl,
       secureStorage: getIt<FlutterSecureStorage>(),
       logger: getIt<Logger>(),
     ),
@@ -61,7 +65,11 @@ Future<void> setupServiceLocator() async {
 
   // OAuth helpers
   getIt.registerLazySingleton<GoogleOAuthHelper>(GoogleOAuthHelper.new);
-  getIt.registerLazySingleton<KakaoOAuthHelper>(KakaoOAuthHelper.new);
+  getIt.registerLazySingleton<KakaoOAuthHelper>(
+    () => KakaoOAuthHelper(
+      nativeAppKey: getIt<AppConfig>().kakaoNativeAppKey,
+    ),
+  );
 
   // Adapters (Ports implementations)
   getIt.registerLazySingleton<AuthPort>(

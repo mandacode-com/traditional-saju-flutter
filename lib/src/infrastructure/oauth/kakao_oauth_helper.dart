@@ -2,6 +2,10 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 /// Helper class for Kakao OAuth authentication
 class KakaoOAuthHelper {
+  KakaoOAuthHelper({required String nativeAppKey}) {
+    KakaoSdk.init(nativeAppKey: nativeAppKey);
+  }
+
   /// Sign in with Kakao and return the access token
   Future<String?> signIn() async {
     try {
