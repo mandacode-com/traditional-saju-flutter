@@ -20,7 +20,7 @@ class AuthAdapter implements AuthPort {
       queryParameters: {'provider': 'google'},
       options: Options(
         headers: {
-          'Authorization': googleAccessToken, // OAuth provider's access token
+          'Authorization': 'Bearer $googleAccessToken',
         },
       ),
     );
@@ -121,5 +121,20 @@ class AuthAdapter implements AuthPort {
 
     // Clear stored tokens
     await _apiClient.clearTokens();
+  }
+
+  @override
+  Future<void> signOut() async {
+    // Just clear local tokens, no API call needed
+    await _apiClient.clearTokens();
+  }
+
+  @override
+  Future<bool> isAuthenticated() async {
+    final accessToken = await _apiClient.getAccessToken();
+    if (accessToken == null || accessToken.isEmpty) {
+      return false;
+    }
+    return verifyToken(accessToken);
   }
 }

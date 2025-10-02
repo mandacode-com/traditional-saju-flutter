@@ -6,27 +6,65 @@ import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 import 'package:traditional_saju/src/domain/saju/entity/daily_fortune.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
 import 'package:traditional_saju/src/infrastructure/client/api_client.dart';
+import 'package:traditional_saju/src/infrastructure/dto/saju/daily_fortune_response_dto.dart';
 import 'package:traditional_saju/src/infrastructure/dto/saju/daily_saju_request_dto.dart';
+import 'package:traditional_saju/src/infrastructure/dto/saju/yearly_fortune_response_dto.dart';
 import 'package:traditional_saju/src/infrastructure/dto/saju/yearly_saju_request_dto.dart';
+import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
 
 /// Implementation of SajuPort using REST API
 class SajuAdapter implements SajuPort {
   const SajuAdapter({
     required ApiClient apiClient,
-  }) : _apiClient = apiClient;
+    required UserStorageService userStorage,
+  }) : _apiClient = apiClient,
+       _userStorage = userStorage;
 
   final ApiClient _apiClient;
+  final UserStorageService _userStorage;
 
   @override
   Future<DailyFortune> getDailyFortune() async {
-    // TODO(traditional_saju): Implement with user context (birth info)
-    throw UnimplementedError('getDailyFortune not yet implemented');
+    final userInfo = _userStorage.getUserInfo();
+    if (userInfo == null) {
+      throw Exception('User info not found');
+    }
+
+    final request = DailySajuRequestDto(
+      birthDateTime: userInfo.birthdate.toIso8601String(),
+      gender: userInfo.gender.toString().split('.').last,
+      datingStatus: userInfo.datingStatus.toString().split('.').last,
+      jobStatus: userInfo.jobStatus.toString().split('.').last,
+    );
+
+    final responseData = await _callDailySajuApi(request);
+    final dto = DailyFortuneResponseDto.fromJson(responseData);
+    return dto.toDomain();
   }
 
   @override
   Future<YearlyFortune> getYearlyFortune() async {
-    // TODO(traditional_saju): Implement with user context (birth info)
-    throw UnimplementedError('getYearlyFortune not yet implemented');
+    final userInfo = _userStorage.getUserInfo();
+    if (userInfo == null) {
+      throw Exception('User info not found');
+    }
+
+    final birthDateTime = userInfo.birthdate;
+    final year = birthDateTime.year;
+    final month = birthDateTime.month.toString().padLeft(2, '0');
+    final day = birthDateTime.day.toString().padLeft(2, '0');
+    final hour = birthDateTime.hour.toString().padLeft(2, '0');
+    final minute = birthDateTime.minute.toString().padLeft(2, '0');
+
+    final request = YearlySajuRequestDto(
+      birthDate: '$year-$month-$day',
+      birthTime: '$hour:$minute',
+      gender: userInfo.gender.toString().split('.').last,
+    );
+
+    final responseData = await _callYearlySajuApi(request);
+    final dto = YearlyFortuneResponseDto.fromJson(responseData);
+    return dto.toDomain();
   }
 
   @override
@@ -49,10 +87,25 @@ class SajuAdapter implements SajuPort {
 
   @override
   Future<Chart> getBasicSajuChart(BirthDate birthDate) async {
-    // TODO(traditional_saju): Call yearly saju with birthTimeUnknown=true
-    throw UnimplementedError(
-      'getBasicSajuChart requires API endpoint clarification',
+    final userInfo = _userStorage.getUserInfo();
+    if (userInfo == null) {
+      throw Exception('User info not found');
+    }
+
+    final year = birthDate.value.year;
+    final month = birthDate.value.month.toString().padLeft(2, '0');
+    final day = birthDate.value.day.toString().padLeft(2, '0');
+
+    final request = YearlySajuRequestDto(
+      birthDate: '$year-$month-$day',
+      birthTime: '00:00',
+      gender: userInfo.gender.toString().split('.').last,
+      isBirthTimeUnknown: true,
     );
+
+    final responseData = await _callYearlySajuApi(request);
+    final dto = YearlyFortuneResponseDto.fromJson(responseData);
+    return dto.chart.toDomain();
   }
 
   @override
@@ -61,10 +114,26 @@ class SajuAdapter implements SajuPort {
     required BirthHour birthHour,
     required BirthMinutes birthMinutes,
   }) async {
-    // TODO(traditional_saju): Map to yearly saju endpoint with user context
-    throw UnimplementedError(
-      'getCompleteSajuChart requires user context and proper DTO mapping',
+    final userInfo = _userStorage.getUserInfo();
+    if (userInfo == null) {
+      throw Exception('User info not found');
+    }
+
+    final year = birthDate.value.year;
+    final month = birthDate.value.month.toString().padLeft(2, '0');
+    final day = birthDate.value.day.toString().padLeft(2, '0');
+    final hour = birthHour.value.toString().padLeft(2, '0');
+    final minute = birthMinutes.value.toString().padLeft(2, '0');
+
+    final request = YearlySajuRequestDto(
+      birthDate: '$year-$month-$day',
+      birthTime: '$hour:$minute',
+      gender: userInfo.gender.toString().split('.').last,
     );
+
+    final responseData = await _callYearlySajuApi(request);
+    final dto = YearlyFortuneResponseDto.fromJson(responseData);
+    return dto.chart.toDomain();
   }
 
   // Helper method for future use
