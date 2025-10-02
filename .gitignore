@@ -41,6 +41,11 @@ unlinked.ds
 unlinked_spec.ds
 .fvm/
 
+# Environment files (contains secrets)
+.env.development
+.env.staging
+.env.production
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
