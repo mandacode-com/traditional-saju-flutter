@@ -8,8 +8,8 @@ class ApiClient {
     required String baseUrl,
     required FlutterSecureStorage secureStorage,
     Logger? logger,
-  })  : _secureStorage = secureStorage,
-        _logger = logger ?? Logger() {
+  }) : _secureStorage = secureStorage,
+       _logger = logger ?? Logger() {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
@@ -65,8 +65,9 @@ class ApiClient {
 
           // Handle 401 Unauthorized - Token expired
           if (error.response?.statusCode == 401) {
-            final refreshToken =
-                await _secureStorage.read(key: _refreshTokenKey);
+            final refreshToken = await _secureStorage.read(
+              key: _refreshTokenKey,
+            );
 
             if (refreshToken != null) {
               try {
@@ -117,11 +118,13 @@ class ApiClient {
     );
 
     // Logging interceptor
-    _dio.interceptors.add(LogInterceptor(
-      requestBody: true,
-      responseBody: true,
-      logPrint: (obj) => _logger.d(obj),
-    ));
+    _dio.interceptors.add(
+      LogInterceptor(
+        requestBody: true,
+        responseBody: true,
+        logPrint: (obj) => _logger.d(obj),
+      ),
+    );
   }
 
   /// Save authentication tokens
