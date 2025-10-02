@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:traditional_saju_v1/counter/counter.dart';
-import 'package:traditional_saju_v1/l10n/l10n.dart';
+import 'package:traditional_saju/src/presentation/app/l10n/l10n.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +15,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const Scaffold(body: Center(child: Text('Hello World'))),
     );
   }
 }
