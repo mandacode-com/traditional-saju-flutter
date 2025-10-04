@@ -26,12 +26,21 @@ class ChartDto {
   }
 
   factory ChartDto.fromJson(Map<String, dynamic> json) {
+    final heavenlyJson = json['heavenly'];
+    final earthlyJson = json['earthly'];
+
+    if (heavenlyJson == null || earthlyJson == null) {
+      throw const FormatException(
+        'Invalid chart data: missing heavenly or earthly fields',
+      );
+    }
+
     return ChartDto(
       heavenly: ChartHeavenlyDto.fromJson(
-        json['heavenly'] as Map<String, dynamic>,
+        heavenlyJson as Map<String, dynamic>,
       ),
       earthly: ChartEarthlyDto.fromJson(
-        json['earthly'] as Map<String, dynamic>,
+        earthlyJson as Map<String, dynamic>,
       ),
     );
   }
@@ -83,12 +92,25 @@ class ChartHeavenlyDto {
   }
 
   factory ChartHeavenlyDto.fromJson(Map<String, dynamic> json) {
+    final stemsJson = json['stems'];
+    final fiveElementsJson = json['fiveElements'];
+
+    debugPrint('ChartHeavenlyDto.fromJson: $json');
+    debugPrint('stemsJson: $stemsJson');
+    debugPrint('fiveElementsJson: $fiveElementsJson');
+
+    if (stemsJson == null || fiveElementsJson == null) {
+      throw const FormatException(
+        'Invalid heavenly chart data: missing stems or fiveElements fields',
+      );
+    }
+
     return ChartHeavenlyDto(
       stems: HeavenlyStemsDto.fromJson(
-        json['stems'] as Map<String, dynamic>,
+        stemsJson as Map<String, dynamic>,
       ),
       fiveElements: HeavenlyFiveElementsDto.fromJson(
-        json['five_elements'] as Map<String, dynamic>,
+        fiveElementsJson as Map<String, dynamic>,
       ),
     );
   }
@@ -106,7 +128,7 @@ class ChartHeavenlyDto {
   Map<String, dynamic> toJson() {
     return {
       'stems': stems.toJson(),
-      'five_elements': fiveElements.toJson(),
+      'fiveElements': fiveElements.toJson(),
     };
   }
 
@@ -138,12 +160,21 @@ class ChartEarthlyDto {
   }
 
   factory ChartEarthlyDto.fromJson(Map<String, dynamic> json) {
+    final branchesJson = json['branches'];
+    final fiveElementsJson = json['fiveElements'];
+
+    if (branchesJson == null || fiveElementsJson == null) {
+      throw const FormatException(
+        'Invalid earthly chart data: missing branches or fiveElements fields',
+      );
+    }
+
     return ChartEarthlyDto(
       branches: EarthlyBranchesDto.fromJson(
-        json['branches'] as Map<String, dynamic>,
+        branchesJson as Map<String, dynamic>,
       ),
       fiveElements: EarthlyFiveElementsDto.fromJson(
-        json['five_elements'] as Map<String, dynamic>,
+        fiveElementsJson as Map<String, dynamic>,
       ),
     );
   }
@@ -161,7 +192,7 @@ class ChartEarthlyDto {
   Map<String, dynamic> toJson() {
     return {
       'branches': branches.toJson(),
-      'five_elements': fiveElements.toJson(),
+      'fiveElements': fiveElements.toJson(),
     };
   }
 

@@ -27,11 +27,18 @@ class YearlyFortuneBloc extends Bloc<YearlyFortuneEvent, YearlyFortuneState> {
           yearlyFortune: yearlyFortune,
         ),
       );
+    } on FormatException catch (e) {
+      emit(
+        state.copyWith(
+          status: YearlyFortuneStatus.failure,
+          error: '데이터 형식 오류: ${e.message}',
+        ),
+      );
     } on Exception catch (e) {
       emit(
         state.copyWith(
           status: YearlyFortuneStatus.failure,
-          error: e.toString(),
+          error: '운세를 불러오는 중 오류가 발생했습니다: $e',
         ),
       );
     }
