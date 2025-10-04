@@ -18,10 +18,10 @@ import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_b
 import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_event.dart';
 import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_state.dart';
 
-class UserInfoDetailPage extends StatelessWidget {
-  const UserInfoDetailPage({super.key, this.bloc, this.targetFortune});
+class UserAdditionalInfoPage extends StatelessWidget {
+  const UserAdditionalInfoPage({super.key, this.bloc, this.targetFortune});
 
-  static const routeName = 'user-info-detail';
+  static const routeName = 'user-additional-info';
   final UserInfoBloc? bloc;
   final String? targetFortune;
 

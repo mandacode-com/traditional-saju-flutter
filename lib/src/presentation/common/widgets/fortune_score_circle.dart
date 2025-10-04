@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Circle widget with number text inside for fortune score display
-class CircleWithText extends StatelessWidget {
-  const CircleWithText({required this.number, super.key});
+class FortuneScoreCircle extends StatelessWidget {
+  const FortuneScoreCircle({required this.number, super.key});
 
   final int number;
 

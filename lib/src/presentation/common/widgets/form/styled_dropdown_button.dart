@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-/// Custom dropdown button with consistent styling
-class CustomDropdownButton<T> extends StatelessWidget {
-  const CustomDropdownButton({
+/// Styled dropdown button with app theme styling
+class StyledDropdownButton<T> extends StatelessWidget {
+  const StyledDropdownButton({
     required this.items,
     required this.onChanged,
     required this.value,

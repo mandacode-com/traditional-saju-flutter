@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Custom alert dialog with confirm/cancel actions
-class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog({
+/// Confirmation dialog with confirm/cancel actions
+class ConfirmationDialog extends StatelessWidget {
+  const ConfirmationDialog({
     required this.title,
     required this.content,
     required this.confirmText,

@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/domain/saju/entity/daily_fortune.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/circle_with_text.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/form/custom_alert_dialog.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/fortune_score_circle.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/form/confirmation_dialog.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/adaptive_column.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/waiting_screen.dart';
 import 'package:traditional_saju/src/presentation/features/daily_fortune/bloc/daily_fortune_bloc.dart';
@@ -25,7 +25,7 @@ class DailyFortunePage extends StatelessWidget {
         if (!didPop) {
           await showDialog<bool>(
             context: context,
-            builder: (context) => CustomAlertDialog(
+            builder: (context) => ConfirmationDialog(
               title: '처음으로 돌아가시겠습니까?',
               content: '결과는 자동으로 저장됩니다.',
               confirmText: '예',
@@ -129,7 +129,9 @@ class _DailySajuResult extends StatelessWidget {
                 child: Column(
                   spacing: 20,
                   children: [
-                    Center(child: CircleWithText(number: result.fortuneScore)),
+                    Center(
+                      child: FortuneScoreCircle(number: result.fortuneScore),
+                    ),
                     Text(result.totalFortuneMessage),
                   ],
                 ),
@@ -306,7 +308,7 @@ class _HomeButton extends StatelessWidget {
       onPressed: () async {
         await showDialog<bool>(
           context: context,
-          builder: (context) => CustomAlertDialog(
+          builder: (context) => ConfirmationDialog(
             title: '처음으로 돌아가시겠습니까?',
             content: '결과는 자동으로 저장됩니다.',
             confirmText: '예',

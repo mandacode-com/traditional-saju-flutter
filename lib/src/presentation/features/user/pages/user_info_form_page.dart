@@ -7,7 +7,7 @@ import 'package:traditional_saju/src/domain/user/value/gender_ext.dart';
 import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/page_back_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/primary_button.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/form/custom_dropdown_button.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/form/styled_dropdown_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/form_input.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/form_label.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/text_checkbox.dart';
@@ -17,10 +17,10 @@ import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_b
 import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_event.dart';
 import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_state.dart';
 
-class UserInfoBasePage extends StatelessWidget {
-  const UserInfoBasePage({super.key, this.targetFortune});
+class UserInfoFormPage extends StatelessWidget {
+  const UserInfoFormPage({super.key, this.targetFortune});
 
-  static const routeName = 'user-info-base';
+  static const routeName = 'user-info-form';
   final String? targetFortune;
 
   @override
@@ -201,7 +201,7 @@ class _BirthHourSelector extends StatelessWidget {
     return BlocBuilder<UserInfoBloc, UserInfoState>(
       builder: (context, state) {
         return Expanded(
-          child: CustomDropdownButton<int>(
+          child: StyledDropdownButton<int>(
             value: state.birthHour,
             onChanged: (value) => context.read<UserInfoBloc>().add(
                   UserInfoBirthHourChanged(value ?? 0),
@@ -230,7 +230,7 @@ class _BirthMinuteSelector extends StatelessWidget {
     return BlocBuilder<UserInfoBloc, UserInfoState>(
       builder: (context, state) {
         return Expanded(
-          child: CustomDropdownButton<int>(
+          child: StyledDropdownButton<int>(
             value: state.birthMinutes,
             onChanged: (value) => context.read<UserInfoBloc>().add(
                   UserInfoBirthMinutesChanged(value ?? 0),
@@ -269,7 +269,7 @@ class _NextPageButton extends StatelessWidget {
             final bloc = context.read<UserInfoBloc>();
             // Pass both the bloc and target fortune type
             context.pushNamed(
-              'user-info-detail',
+              'user-additional-info',
               extra: {'bloc': bloc, 'targetFortune': targetFortune},
             );
           },

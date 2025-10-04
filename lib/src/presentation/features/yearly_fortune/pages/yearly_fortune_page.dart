@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/form/custom_alert_dialog.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/form/confirmation_dialog.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/adaptive_column.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/waiting_screen.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/saju/chart_view.dart';
@@ -24,7 +24,7 @@ class YearlyFortunePage extends StatelessWidget {
         if (!didPop) {
           await showDialog<bool>(
             context: context,
-            builder: (context) => CustomAlertDialog(
+            builder: (context) => ConfirmationDialog(
               title: '처음으로 돌아가시겠습니까?',
               content: '결과는 자동으로 저장됩니다.',
               confirmText: '예',
@@ -261,7 +261,7 @@ class _HomeButton extends StatelessWidget {
       onPressed: () async {
         await showDialog<bool>(
           context: context,
-          builder: (context) => CustomAlertDialog(
+          builder: (context) => ConfirmationDialog(
             title: '처음으로 돌아가시겠습니까?',
             content: '결과는 자동으로 저장됩니다.',
             confirmText: '예',
