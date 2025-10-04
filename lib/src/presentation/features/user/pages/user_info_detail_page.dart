@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:traditional_saju/src/di/service_locator.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/domain/user/value/dating_status.dart';
 import 'package:traditional_saju/src/domain/user/value/dating_status_ext.dart';
 import 'package:traditional_saju/src/domain/user/value/job_status.dart';

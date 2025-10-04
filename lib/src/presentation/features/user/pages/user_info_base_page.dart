@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:traditional_saju/src/di/service_locator.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/domain/user/value/gender.dart';
 import 'package:traditional_saju/src/domain/user/value/gender_ext.dart';
 import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
