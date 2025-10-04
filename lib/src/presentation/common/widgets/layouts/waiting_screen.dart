@@ -74,6 +74,9 @@ class _WaitingBackgroundState extends State<_WaitingBackground>
               left: MediaQuery.of(context).orientation == Orientation.portrait
                   ? _position.value * MediaQuery.of(context).size.width
                   : 0,
+              width: MediaQuery.of(context).orientation == Orientation.portrait
+                  ? MediaQuery.of(context).size.width * 2
+                  : null,
               height: MediaQuery.of(context).orientation == Orientation.portrait
                   ? MediaQuery.of(context).size.height
                   : MediaQuery.of(context).size.width,
@@ -83,7 +86,7 @@ class _WaitingBackgroundState extends State<_WaitingBackground>
               child: Image(
                 image: widget.image,
                 fit: MediaQuery.of(context).orientation == Orientation.portrait
-                    ? BoxFit.fitHeight
+                    ? BoxFit.cover
                     : BoxFit.fitWidth,
               ),
             ),
