@@ -4,22 +4,17 @@ import 'package:traditional_saju/src/config/app_config.dart';
 
 void main() {
   setUpAll(() {
-    // Initialize dotenv with test values
-    dotenv.testLoad(
-      mergeWith: {
-        'KAKAO_NATIVE_APP_KEY': 'test_key',
-        'API_BASE_URL': 'https://saju.mandacode.com/api/v1',
-      },
-    );
+    // Initialize dotenv with empty values to use defaults
+    dotenv.testLoad(mergeWith: {});
   });
 
   group('AppConfig', () {
-    test('returns kakaoNativeAppKey', () {
+    test('returns default kakaoNativeAppKey when env not set', () {
       const config = AppConfig.instance;
-      expect(config.kakaoNativeAppKey, isNotEmpty);
+      expect(config.kakaoNativeAppKey, 'test_kakao_dev_key');
     });
 
-    test('returns apiBaseUrl', () {
+    test('returns default apiBaseUrl when env not set', () {
       const config = AppConfig.instance;
       expect(config.apiBaseUrl, 'https://saju.mandacode.com/api/v1');
     });

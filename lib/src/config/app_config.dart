@@ -9,9 +9,9 @@ class AppConfig {
 
   /// Kakao native app key for OAuth
   String get kakaoNativeAppKey =>
-      dotenv.maybeGet('KAKAO_NATIVE_APP_KEY') ?? 'test_kakao_dev_key';
+      dotenv.env['KAKAO_NATIVE_APP_KEY'] ?? 'test_kakao_dev_key';
 
   /// API base URL
   String get apiBaseUrl =>
-      dotenv.maybeGet('API_BASE_URL') ?? 'https://saju.mandacode.com/api/v1';
+      dotenv.env['API_BASE_URL'] ?? 'https://saju.mandacode.com/api/v1';
 }

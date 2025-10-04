@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
@@ -13,12 +12,12 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
+    debugPrint('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
+    debugPrint('onError(${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
   }
 }
@@ -28,7 +27,8 @@ Future<void> bootstrap(
   String environment = 'development',
 }) async {
   FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
+    debugPrint(details.exceptionAsString());
+    debugPrint(details.stack.toString());
   };
 
   Bloc.observer = const AppBlocObserver();
@@ -37,15 +37,8 @@ Future<void> bootstrap(
   final envFile = '.env.$environment';
   try {
     await dotenv.load(fileName: envFile);
-    log('Loaded environment: $envFile');
-  } catch (e) {
-    if (environment == 'development') {
-      log('Warning: $envFile not found, using default values');
-    } else {
-      throw Exception(
-        'Failed to load $envFile for $environment environment: $e',
-      );
-    }
+  } on Exception catch (e) {
+    dotenv.testLoad(mergeWith: {});
   }
 
   // Initialize storage (Hive)

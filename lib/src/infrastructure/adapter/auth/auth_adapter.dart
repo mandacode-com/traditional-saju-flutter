@@ -48,7 +48,7 @@ class AuthAdapter implements AuthPort {
       queryParameters: {'provider': 'kakao'},
       options: Options(
         headers: {
-          'Authorization': kakaoAccessToken, // OAuth provider's access token
+          'Authorization': 'Bearer $kakaoAccessToken',
         },
       ),
     );

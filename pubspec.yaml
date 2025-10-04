@@ -43,6 +43,9 @@ flutter:
     - assets/images/oauth_logo/
     - assets/images/item_logo/
     - assets/images/app_logo/
+    - .env.development
+    - .env.staging
+    - .env.production
 
   fonts:
     - family: SSRock
