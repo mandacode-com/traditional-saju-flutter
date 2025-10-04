@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
+
 import 'package:traditional_saju/src/domain/user/value/gender.dart';
 import 'package:traditional_saju/src/domain/user/value/gender_ext.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/page_back_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/primary_button.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/form/styled_dropdown_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/form_input.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/form_label.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/form/styled_dropdown_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/text_checkbox.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/adaptive_column.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/page_description.dart';
@@ -64,7 +65,7 @@ class _UserInfoBaseForm extends StatelessWidget {
         return Column(
           spacing: 30,
           children: [
-            _FormItem(
+            const _FormItem(
               label: '성별',
               child: Row(
                 spacing: 10,
@@ -97,8 +98,8 @@ class _UserInfoBaseForm extends StatelessWidget {
                   text: '시간 모름',
                   value: state.timeUnknown,
                   onChanged: (value) => context.read<UserInfoBloc>().add(
-                        UserInfoTimeUnknownChanged(timeUnknown: value ?? false),
-                      ),
+                    UserInfoTimeUnknownChanged(timeUnknown: value ?? false),
+                  ),
                 ),
               ],
             ),
@@ -140,8 +141,8 @@ class _GenderSelectorButton extends StatelessWidget {
           child: FormInput(
             isActive: state.gender == gender,
             onPressed: () => context.read<UserInfoBloc>().add(
-                  UserInfoGenderChanged(gender),
-                ),
+              UserInfoGenderChanged(gender),
+            ),
             child: Center(child: Text(gender.textKor)),
           ),
         );
@@ -169,18 +170,17 @@ class _BirthDateSelector extends StatelessWidget {
             );
             if (selectedDate != null && context.mounted) {
               context.read<UserInfoBloc>().add(
-                    UserInfoBirthDateChanged(selectedDate),
-                  );
+                UserInfoBirthDateChanged(selectedDate),
+              );
             }
           },
           child: state.birthDate == null
               ? Text(
                   '생년월일을 선택해주세요.',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: Colors.grey[600]),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                 )
               : Text(
                   '${state.birthDate!.year}년 '
@@ -204,8 +204,8 @@ class _BirthHourSelector extends StatelessWidget {
           child: StyledDropdownButton<int>(
             value: state.birthHour,
             onChanged: (value) => context.read<UserInfoBloc>().add(
-                  UserInfoBirthHourChanged(value ?? 0),
-                ),
+              UserInfoBirthHourChanged(value ?? 0),
+            ),
             items: List.generate(24, (index) => index)
                 .map(
                   (hour) => DropdownMenuItem<int>(
@@ -233,8 +233,8 @@ class _BirthMinuteSelector extends StatelessWidget {
           child: StyledDropdownButton<int>(
             value: state.birthMinutes,
             onChanged: (value) => context.read<UserInfoBloc>().add(
-                  UserInfoBirthMinutesChanged(value ?? 0),
-                ),
+              UserInfoBirthMinutesChanged(value ?? 0),
+            ),
             items: List.generate(60, (index) => index)
                 .map(
                   (minute) => DropdownMenuItem<int>(

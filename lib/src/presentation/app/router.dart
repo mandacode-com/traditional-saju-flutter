@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:traditional_saju/src/presentation/features/daily_fortune/pages/daily_fortune_page.dart';
 import 'package:traditional_saju/src/presentation/features/home/pages/home_page.dart';
 import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_bloc.dart';
-import 'package:traditional_saju/src/presentation/features/user/pages/user_info_form_page.dart';
 import 'package:traditional_saju/src/presentation/features/user/pages/user_additional_info_page.dart';
+import 'package:traditional_saju/src/presentation/features/user/pages/user_info_form_page.dart';
 import 'package:traditional_saju/src/presentation/features/yearly_fortune/pages/yearly_fortune_page.dart';
 
 final router = GoRouter(

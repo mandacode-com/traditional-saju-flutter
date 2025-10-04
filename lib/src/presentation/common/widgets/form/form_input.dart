@@ -37,11 +37,12 @@ class FormInput extends StatelessWidget {
           ),
         ),
         child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: isActive || forceTextActive
-                        ? Colors.white
-                        : Colors.grey[600],
-                  ) ??
+          style:
+              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isActive || forceTextActive
+                    ? Colors.white
+                    : Colors.grey[600],
+              ) ??
               TextStyle(
                 color: isActive || forceTextActive
                     ? Colors.white

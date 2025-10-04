@@ -253,7 +253,8 @@ class _RouteButtons extends StatelessWidget {
 
   void _navigateToFortune(BuildContext context, String fortuneType) {
     // Always navigate to user info form first
-    // Pass the target fortune type so we know where to navigate after submission
+    // Pass the target fortune type so we know where to navigate after
+    // submission
     context.pushNamed('user-info-form', extra: fortuneType);
   }
 

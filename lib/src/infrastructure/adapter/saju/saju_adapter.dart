@@ -71,8 +71,8 @@ class SajuAdapter implements SajuPort {
       birthDateTime: formattedDateTime,
       datingStatus: userInfo.datingStatus.toString().split('.').last,
       jobStatus: userInfo.jobStatus.toString().split('.').last,
-      birthTimeDisabled: userInfo.birthdate.hour == 0 &&
-                         userInfo.birthdate.minute == 0,
+      birthTimeDisabled:
+          userInfo.birthdate.hour == 0 && userInfo.birthdate.minute == 0,
     );
 
     final responseData = await _callYearlySajuApi(request);
@@ -165,7 +165,6 @@ class SajuAdapter implements SajuPort {
       birthDateTime: formattedDateTime,
       datingStatus: userInfo.datingStatus.toString().split('.').last,
       jobStatus: userInfo.jobStatus.toString().split('.').last,
-      birthTimeDisabled: false,
     );
 
     final responseData = await _callYearlySajuApi(request);

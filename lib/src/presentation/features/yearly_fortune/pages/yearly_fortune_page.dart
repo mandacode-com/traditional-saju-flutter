@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
+
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/confirmation_dialog.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/adaptive_column.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/waiting_screen.dart';
@@ -44,7 +45,8 @@ class YearlyFortunePage extends StatelessWidget {
         body: BlocProvider(
           create: (_) {
             final bloc = getIt<YearlyFortuneBloc>();
-            // Trigger API call immediately since we only navigate here after form submission
+            // Trigger API call immediately since we only navigate here
+            // after form submission
             bloc.add(const YearlyFortuneLoadRequested());
             return bloc;
           },

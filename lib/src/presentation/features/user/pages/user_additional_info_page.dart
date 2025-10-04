@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
+
 import 'package:traditional_saju/src/domain/user/value/dating_status.dart';
 import 'package:traditional_saju/src/domain/user/value/dating_status_ext.dart';
 import 'package:traditional_saju/src/domain/user/value/job_status.dart';
 import 'package:traditional_saju/src/domain/user/value/job_status_ext.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/page_back_button.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/button/primary_button.dart';
@@ -35,14 +36,16 @@ class UserAdditionalInfoPage extends StatelessWidget {
         ),
       ),
       body: BlocProvider.value(
-        value: bloc ??
+        value:
+            bloc ??
             (UserInfoBloc(
               userStorage: getIt<UserStorageService>(),
             )..add(const UserInfoLoadRequested())),
         child: BlocListener<UserInfoBloc, UserInfoState>(
           listener: (context, state) {
             if (state.status == UserInfoStatus.submitted) {
-              // Navigate to the appropriate fortune page after successful submission
+              // Navigate to the appropriate fortune page after successful
+              // submission
               if (targetFortune != null) {
                 context.go('/$targetFortune');
               } else {
@@ -79,7 +82,7 @@ class _UserInfoDetailForm extends StatelessWidget {
         return Column(
           spacing: 40,
           children: [
-            _FormItem(
+            const _FormItem(
               label: '연애상태',
               child: Row(
                 spacing: 10,
@@ -97,7 +100,7 @@ class _UserInfoDetailForm extends StatelessWidget {
                 ],
               ),
             ),
-            _FormItem(
+            const _FormItem(
               label: '구직상태',
               child: Row(
                 spacing: 10,
@@ -116,8 +119,8 @@ class _UserInfoDetailForm extends StatelessWidget {
                   text: '이 정보 저장하기',
                   value: state.permanent,
                   onChanged: (value) => context.read<UserInfoBloc>().add(
-                        UserInfoPermanentChanged(permanent: value ?? false),
-                      ),
+                    UserInfoPermanentChanged(permanent: value ?? false),
+                  ),
                 ),
               ],
             ),
@@ -158,8 +161,8 @@ class _DatingStatusSelectionButton extends StatelessWidget {
         return Expanded(
           child: FormInput(
             onPressed: () => context.read<UserInfoBloc>().add(
-                  UserInfoDatingStatusChanged(datingStatus),
-                ),
+              UserInfoDatingStatusChanged(datingStatus),
+            ),
             isActive: state.datingStatus == datingStatus,
             child: Center(child: Text(datingStatus.textKor)),
           ),
@@ -181,8 +184,8 @@ class _JobStatusSelectionButton extends StatelessWidget {
         return Expanded(
           child: FormInput(
             onPressed: () => context.read<UserInfoBloc>().add(
-                  UserInfoJobStatusChanged(jobStatus),
-                ),
+              UserInfoJobStatusChanged(jobStatus),
+            ),
             isActive: state.jobStatus == jobStatus,
             child: Center(child: Text(jobStatus.textKor)),
           ),

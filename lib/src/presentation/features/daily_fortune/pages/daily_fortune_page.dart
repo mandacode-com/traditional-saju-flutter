@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
+
 import 'package:traditional_saju/src/domain/saju/entity/daily_fortune.dart';
-import 'package:traditional_saju/src/presentation/common/widgets/fortune_score_circle.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/form/confirmation_dialog.dart';
+import 'package:traditional_saju/src/presentation/common/widgets/fortune_score_circle.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/adaptive_column.dart';
 import 'package:traditional_saju/src/presentation/common/widgets/layouts/waiting_screen.dart';
 import 'package:traditional_saju/src/presentation/features/daily_fortune/bloc/daily_fortune_bloc.dart';
@@ -45,7 +46,8 @@ class DailyFortunePage extends StatelessWidget {
         body: BlocProvider(
           create: (_) {
             final bloc = getIt<DailyFortuneBloc>();
-            // Trigger API call immediately since we only navigate here after form submission
+            // Trigger API call immediately since we only navigate here
+            // after form submission
             bloc.add(const DailyFortuneLoadRequested());
             return bloc;
           },

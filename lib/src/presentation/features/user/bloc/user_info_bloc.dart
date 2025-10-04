@@ -8,8 +8,8 @@ import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_s
 class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
   UserInfoBloc({
     required UserStorageService userStorage,
-  })  : _userStorage = userStorage,
-        super(const UserInfoState()) {
+  }) : _userStorage = userStorage,
+       super(const UserInfoState()) {
     on<UserInfoLoadRequested>(_onLoadRequested);
     on<UserInfoGenderChanged>(_onGenderChanged);
     on<UserInfoBirthDateChanged>(_onBirthDateChanged);
