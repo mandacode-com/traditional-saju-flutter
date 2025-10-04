@@ -37,7 +37,7 @@ Future<void> bootstrap(
   final envFile = '.env.$environment';
   try {
     await dotenv.load(fileName: envFile);
-  } on Exception catch (e) {
+  } on Exception {
     dotenv.testLoad(mergeWith: {});
   }
 
