@@ -34,9 +34,8 @@ Future<void> bootstrap(
   Bloc.observer = const AppBlocObserver();
 
   // Load environment variables
-  final envFile = '.env.$environment';
   try {
-    await dotenv.load(fileName: envFile);
+    await dotenv.load(fileName: '.env.$environment');
   } on Exception {
     dotenv.testLoad(mergeWith: {});
   }
