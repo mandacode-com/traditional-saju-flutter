@@ -13,7 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
-  flutter_dotenv: ^5.2.1
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.4

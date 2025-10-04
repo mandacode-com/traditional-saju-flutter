@@ -45,6 +45,7 @@ unlinked_spec.ds
 .env.development
 .env.staging
 .env.production
+.env.make
 
 # Android related
 **/android/**/gradle-wrapper.jar

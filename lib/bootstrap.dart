@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/infrastructure/storage/storage_initializer.dart';
 
@@ -22,23 +21,13 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(
-  FutureOr<Widget> Function() builder, {
-  String environment = 'development',
-}) async {
+Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     debugPrint(details.exceptionAsString());
     debugPrint(details.stack.toString());
   };
 
   Bloc.observer = const AppBlocObserver();
-
-  // Load environment variables
-  try {
-    await dotenv.load(fileName: '.env.$environment');
-  } on Exception {
-    dotenv.testLoad(mergeWith: {});
-  }
 
   // Initialize storage (Hive)
   await StorageInitializer.initialize();
