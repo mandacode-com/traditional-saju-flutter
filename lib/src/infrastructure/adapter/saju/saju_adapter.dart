@@ -60,10 +60,19 @@ class SajuAdapter implements SajuPort {
     final hour = birthDateTime.hour.toString().padLeft(2, '0');
     final minute = birthDateTime.minute.toString().padLeft(2, '0');
 
+    // Convert to UTC and format as ISO8601 with Z suffix
+    final birthDateTimeUtc = userInfo.birthdate.toUtc();
+    final formattedDateTime = birthDateTimeUtc.toIso8601String();
+
     final request = YearlySajuRequestDto(
       birthDate: '$year-$month-$day',
       birthTime: '$hour:$minute',
       gender: userInfo.gender.toString().split('.').last,
+      birthDateTime: formattedDateTime,
+      datingStatus: userInfo.datingStatus.toString().split('.').last,
+      jobStatus: userInfo.jobStatus.toString().split('.').last,
+      birthTimeDisabled: userInfo.birthdate.hour == 0 &&
+                         userInfo.birthdate.minute == 0,
     );
 
     final responseData = await _callYearlySajuApi(request);
@@ -100,10 +109,19 @@ class SajuAdapter implements SajuPort {
     final month = birthDate.value.month.toString().padLeft(2, '0');
     final day = birthDate.value.day.toString().padLeft(2, '0');
 
+    // Create DateTime with 00:00 time and convert to UTC ISO8601
+    final dateTime = DateTime(year, birthDate.value.month, birthDate.value.day);
+    final birthDateTimeUtc = dateTime.toUtc();
+    final formattedDateTime = birthDateTimeUtc.toIso8601String();
+
     final request = YearlySajuRequestDto(
       birthDate: '$year-$month-$day',
       birthTime: '00:00',
       gender: userInfo.gender.toString().split('.').last,
+      birthDateTime: formattedDateTime,
+      datingStatus: userInfo.datingStatus.toString().split('.').last,
+      jobStatus: userInfo.jobStatus.toString().split('.').last,
+      birthTimeDisabled: true,
       isBirthTimeUnknown: true,
     );
 
@@ -129,10 +147,25 @@ class SajuAdapter implements SajuPort {
     final hour = birthHour.value.toString().padLeft(2, '0');
     final minute = birthMinutes.value.toString().padLeft(2, '0');
 
+    // Create DateTime and convert to UTC ISO8601
+    final dateTime = DateTime(
+      year,
+      birthDate.value.month,
+      birthDate.value.day,
+      birthHour.value,
+      birthMinutes.value,
+    );
+    final birthDateTimeUtc = dateTime.toUtc();
+    final formattedDateTime = birthDateTimeUtc.toIso8601String();
+
     final request = YearlySajuRequestDto(
       birthDate: '$year-$month-$day',
       birthTime: '$hour:$minute',
       gender: userInfo.gender.toString().split('.').last,
+      birthDateTime: formattedDateTime,
+      datingStatus: userInfo.datingStatus.toString().split('.').last,
+      jobStatus: userInfo.jobStatus.toString().split('.').last,
+      birthTimeDisabled: false,
     );
 
     final responseData = await _callYearlySajuApi(request);
