@@ -30,8 +30,12 @@ class SajuAdapter implements SajuPort {
       throw Exception('User info not found');
     }
 
+    // Convert to UTC and format as ISO8601 with Z suffix
+    final birthDateTimeUtc = userInfo.birthdate.toUtc();
+    final formattedDateTime = birthDateTimeUtc.toIso8601String();
+
     final request = DailySajuRequestDto(
-      birthDateTime: userInfo.birthdate.toIso8601String(),
+      birthDateTime: formattedDateTime,
       gender: userInfo.gender.toString().split('.').last,
       datingStatus: userInfo.datingStatus.toString().split('.').last,
       jobStatus: userInfo.jobStatus.toString().split('.').last,
