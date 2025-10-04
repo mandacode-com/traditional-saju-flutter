@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:traditional_saju/src/di/service_locator.dart';
+import 'package:traditional_saju/src/infrastructure/di/service_locator.dart';
 import 'package:traditional_saju/src/presentation/app/l10n/l10n.dart';
 import 'package:traditional_saju/src/presentation/app/router.dart';
 import 'package:traditional_saju/src/presentation/app/theme/app_theme.dart';
