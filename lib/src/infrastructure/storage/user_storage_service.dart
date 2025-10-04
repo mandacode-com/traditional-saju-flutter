@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:traditional_saju/src/domain/user/entity/user.dart';
-import 'package:traditional_saju/src/infrastructure/storage/models/user_info_hive.dart';
+import 'package:traditional_saju/src/infrastructure/storage/hive_models/user_info_hive.dart';
 
 class UserStorageService {
   UserStorageService({required this.boxName});
