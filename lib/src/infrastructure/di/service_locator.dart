@@ -16,7 +16,6 @@ import 'package:traditional_saju/src/application/use_cases/saju/get_yearly_fortu
 import 'package:traditional_saju/src/application/use_cases/user/check_user_exists_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/delete_user_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/get_current_user_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/user/update_user_nickname_use_case.dart';
 import 'package:traditional_saju/src/config/app_config.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/auth/auth_adapter.dart';
 import 'package:traditional_saju/src/infrastructure/adapter/saju/saju_adapter.dart';
@@ -112,9 +111,6 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerLazySingleton(
     () => CheckUserExistsUseCase(userPort: getIt<UserPort>()),
-  );
-  getIt.registerLazySingleton(
-    () => UpdateUserNicknameUseCase(userPort: getIt<UserPort>()),
   );
   getIt.registerLazySingleton(
     () => DeleteUserUseCase(userPort: getIt<UserPort>()),

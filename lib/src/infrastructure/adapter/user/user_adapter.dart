@@ -1,7 +1,6 @@
 import 'package:traditional_saju/src/application/ports/user/user_port.dart';
 import 'package:traditional_saju/src/domain/user/entity/user.dart';
 import 'package:traditional_saju/src/infrastructure/client/api_client.dart';
-import 'package:traditional_saju/src/infrastructure/dto/user/update_nickname_dto.dart';
 
 /// Implementation of UserPort using REST API
 class UserAdapter implements UserPort {
@@ -33,14 +32,5 @@ class UserAdapter implements UserPort {
     await _apiClient.dio.delete<void>('/user');
     // Clear tokens after deletion
     await _apiClient.clearTokens();
-  }
-
-  @override
-  Future<void> updateNickname(String nickname) async {
-    final dto = UpdateNicknameDto(nickname: nickname);
-    await _apiClient.dio.patch<void>(
-      '/user/nickname',
-      data: dto.toJson(),
-    );
   }
 }

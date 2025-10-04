@@ -9,10 +9,6 @@ abstract interface class UserPort {
   /// Delete current user account
   Future<void> deleteUser();
 
-  /// Update user nickname
-  /// Returns updated [UserInfo] entity
-  Future<void> updateNickname(String nickname);
-
   /// Check if user exists
   /// Returns true if user exists, false otherwise
   Future<bool> userExists();
