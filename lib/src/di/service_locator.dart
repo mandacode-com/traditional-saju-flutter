@@ -27,6 +27,9 @@ import 'package:traditional_saju/src/infrastructure/oauth/kakao_oauth_helper.dar
 import 'package:traditional_saju/src/infrastructure/storage/token_storage_service.dart';
 import 'package:traditional_saju/src/infrastructure/storage/user_storage_service.dart';
 import 'package:traditional_saju/src/presentation/features/auth/bloc/auth_bloc.dart';
+import 'package:traditional_saju/src/presentation/features/daily_fortune/bloc/daily_fortune_bloc.dart';
+import 'package:traditional_saju/src/presentation/features/user/bloc/user_info_bloc.dart';
+import 'package:traditional_saju/src/presentation/features/yearly_fortune/bloc/yearly_fortune_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -143,6 +146,21 @@ Future<void> setupServiceLocator() async {
       signOut: getIt<SignOutUseCase>(),
       googleOAuthHelper: getIt<GoogleOAuthHelper>(),
       kakaoOAuthHelper: getIt<KakaoOAuthHelper>(),
+    ),
+  );
+  getIt.registerFactory(
+    () => UserInfoBloc(
+      userStorage: getIt<UserStorageService>(),
+    ),
+  );
+  getIt.registerFactory(
+    () => DailyFortuneBloc(
+      getDailyFortune: getIt<GetDailyFortuneUseCase>(),
+    ),
+  );
+  getIt.registerFactory(
+    () => YearlyFortuneBloc(
+      getYearlyFortune: getIt<GetYearlyFortuneUseCase>(),
     ),
   );
 }
