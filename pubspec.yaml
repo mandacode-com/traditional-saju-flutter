@@ -1,94 +1,68 @@
-name: saju_mobile_v1
-description: A Very Good Project created by Very Good CLI.
-version: 1.0.0+8
+name: traditional_saju
+description: Traditional Saju fortune telling application.
+version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
 
 dependencies:
-  api:
-    path: packages/api
   bloc: ^9.0.0
-  dio: ^5.8.0+1
+  dio: ^5.8.0
   equatable: ^2.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
-  flutter_dotenv: ^5.2.1
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.4
-  formz: ^0.8.0
+  get_it: ^8.0.3
+  go_router: ^16.2.1
   google_sign_in: ^6.3.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  in_app_purchase: ^3.2.3
-  intl: ^0.19.0
-  kakao_flutter_sdk: ^1.9.7+3
+  intl: ^0.20.2
+  kakao_flutter_sdk: ^1.9.7
   logger: ^2.5.0
-  models:
-    path: packages/models
-  path_provider: ^2.1.5
-  repository:
-    path: packages/repository
-  storage:
-    path: packages/storage
 
 dev_dependencies:
   bloc_test: ^10.0.0
-  build_runner: ^2.4.15
-  flutter_launcher_icons: "^0.14.3"
+  build_runner: ^2.4.13
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.1
   mocktail: ^1.0.4
-  very_good_analysis: ^7.0.0
-
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/images/app_logo/logo.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  web:
-    generate: true
-    image_path: "assets/images/app_logo/logo.png"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
-  windows:
-    generate: true
-    image_path: "assets/images/app_logo/logo.png"
-    icon_size: 48 # min:48, max:256, default: 48
-  macos:
-    generate: true
-    image_path: "assets/images/app_logo/logo.png"
+  very_good_analysis: ^9.0.0
 
 flutter:
-  uses-material-design: true
   generate: true
+  uses-material-design: true
 
   assets:
     - assets/images/
-    - assets/images/app_logo/
-    - assets/images/item_logo/
     - assets/images/oauth_logo/
-    - assets/fonts/
-    - assets/.env
+    - assets/images/item_logo/
+    - assets/images/app_logo/
 
   fonts:
-    - family: Hakgyoansim
-      fonts:
-        - asset: assets/fonts/Hakgyoansim.ttf
-    - family: MapoFlowerIsland
-      fonts:
-        - asset: assets/fonts/MapoFlowerIsland.ttf
     - family: SSRock
       fonts:
         - asset: assets/fonts/SSRockRegular.ttf
+    - family: MapoFlowerIsland
+      fonts:
+        - asset: assets/fonts/MapoFlowerIsland.ttf
+    - family: Hakgyoansim
+      fonts:
+        - asset: assets/fonts/Hakgyoansim.ttf
     - family: NanumSquareNeo
       fonts:
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-aLt.ttf
+          weight: 300
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-bRg.ttf
+          weight: 400
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-cBd.ttf
+          weight: 700
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-dEb.ttf
+          weight: 800
         - asset: assets/fonts/nanum_square_neo/NanumSquareNeo-eHv.ttf
+          weight: 900

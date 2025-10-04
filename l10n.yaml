@@ -1,4 +1,10 @@
-arb-dir: lib/l10n/arb
+arb-dir: lib/src/presentation/app/l10n/arb
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
+output-dir: lib/src/presentation/app/l10n
 nullable-getter: false
+synthetic-package: false
+
+# Needed to ensure the formatter does not run on the generated files.
+# See https://github.com/dart-lang/dart_style/issues/864 for more information
+header: "// dart format off\n// coverage:ignore-file"

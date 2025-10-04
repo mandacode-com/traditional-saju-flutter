@@ -1,8 +1,6 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:saju_mobile_v1/app/app.dart';
-import 'package:saju_mobile_v1/bootstrap.dart';
+import 'package:traditional_saju/bootstrap.dart';
+import 'package:traditional_saju/src/presentation/app/app.dart';
 
-Future<void> main() async {
-  await dotenv.load(fileName: 'assets/.env');
-  await bootstrap(() => const App());
+void main() {
+  bootstrap(() => const App());
 }

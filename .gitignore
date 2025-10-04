@@ -41,6 +41,12 @@ unlinked.ds
 unlinked_spec.ds
 .fvm/
 
+# Environment files (contains secrets)
+.env.development
+.env.staging
+.env.production
+.env.make
+
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
@@ -111,6 +117,5 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-**/*.env
-
-android/app/.cxx/
+# Generated l10n files
+lib/l10n/gen/

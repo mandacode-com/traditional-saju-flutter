@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Saju",
+    "saju",
+    "genhtml",
+    "lcov",
+    "xcworkspace",
+    "xcassets",
+    "Contador",
+    "Texto",
+    "mostrado",
+    "página",
+    "contador",
+    "mandacode",
+    "pubspec",
+    "arb",
+    "bool",
+    "datetime",
+    "serializable"
+  ],
+  "ignorePaths": [
+    ".dart_tool/**",
+    "build/**",
+    "**/*.g.dart",
+    "coverage/**",
+    ".git/**"
+  ]
+}
