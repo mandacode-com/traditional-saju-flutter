@@ -59,16 +59,19 @@ android {
         create("production") {
             dimension = "default"
             applicationIdSuffix = ""
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "Traditional Saju"
         }
         create("staging") {
             dimension = "default"
             applicationIdSuffix = ".stg"
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "[STG] Traditional Saju"
         }
         create("development") {
             dimension = "default"
             applicationIdSuffix = ".dev"
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "[DEV] Traditional Saju"
         }
     }
