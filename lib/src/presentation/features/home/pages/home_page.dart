@@ -108,7 +108,21 @@ class _PageContent extends StatelessWidget {
           return const _RouteButtons();
         }
 
-        return const _OauthButtons();
+        // return const _OauthButtons();
+        // Show oauth buttons with error message if error state
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 20,
+          children: [
+            if (state is AuthError) ...[
+              Text(
+                state.message,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ],
+            const _OauthButtons(),
+          ],
+        );
       },
     );
   }
