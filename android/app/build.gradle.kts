@@ -28,7 +28,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.mandacode.traditional_saju"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
@@ -60,16 +59,19 @@ android {
         create("production") {
             dimension = "default"
             applicationIdSuffix = ""
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "Traditional Saju"
         }
         create("staging") {
             dimension = "default"
             applicationIdSuffix = ".stg"
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "[STG] Traditional Saju"
         }
         create("development") {
             dimension = "default"
             applicationIdSuffix = ".dev"
+            manifestPlaceholders["applicationLabel"] = "정통사주"
             manifestPlaceholders["appName"] = "[DEV] Traditional Saju"
         }
     }
