@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -255,7 +257,7 @@ class _RouteButtons extends StatelessWidget {
     // Always navigate to user info form first
     // Pass the target fortune type so we know where to navigate after
     // submission
-    context.pushNamed('user-info-form', extra: fortuneType);
+    unawaited(context.pushNamed('user-info-form', extra: fortuneType));
   }
 
   @override

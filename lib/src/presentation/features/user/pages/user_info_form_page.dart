@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -268,9 +270,11 @@ class _NextPageButton extends StatelessWidget {
           onPressed: () {
             final bloc = context.read<UserInfoBloc>();
             // Pass both the bloc and target fortune type
-            context.pushNamed(
-              'user-additional-info',
-              extra: {'bloc': bloc, 'targetFortune': targetFortune},
+            unawaited(
+              context.pushNamed(
+                'user-additional-info',
+                extra: {'bloc': bloc, 'targetFortune': targetFortune},
+              ),
             );
           },
           child: const Text('다음으로'),
