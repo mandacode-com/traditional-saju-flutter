@@ -5,8 +5,7 @@ import 'package:traditional_saju/src/application/ports/auth/auth_port.dart';
 import 'package:traditional_saju/src/application/ports/saju/saju_port.dart';
 import 'package:traditional_saju/src/application/ports/user/user_port.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/check_auth_status_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/auth/sign_in_with_google_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/auth/sign_in_with_kakao_use_case.dart';
+import 'package:traditional_saju/src/application/use_cases/auth/login_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/sign_out_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/saju/get_basic_saju_chart_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/saju/get_complete_saju_chart_use_case.dart';
@@ -66,7 +65,13 @@ Future<void> setupServiceLocator() async {
   );
 
   // OAuth helpers
-  getIt.registerLazySingleton<GoogleOAuthHelper>(GoogleOAuthHelper.new);
+  // getIt.registerLazySingleton<GoogleOAuthHelper>(GoogleOAuthHelper.new);
+  getIt.registerLazySingleton<GoogleOAuthHelper>(
+    () => GoogleOAuthHelper(
+      clientId: getIt<AppConfig>().googleClientId,
+      serverClientId: getIt<AppConfig>().googleServerClientId,
+    ),
+  );
   getIt.registerLazySingleton<KakaoOAuthHelper>(
     () => KakaoOAuthHelper(
       nativeAppKey: getIt<AppConfig>().kakaoNativeAppKey,
@@ -93,10 +98,7 @@ Future<void> setupServiceLocator() async {
 
   // Auth Use Cases
   getIt.registerLazySingleton(
-    () => SignInWithGoogleUseCase(authPort: getIt<AuthPort>()),
-  );
-  getIt.registerLazySingleton(
-    () => SignInWithKakaoUseCase(authPort: getIt<AuthPort>()),
+    () => LoginUseCase(authPort: getIt<AuthPort>()),
   );
   getIt.registerLazySingleton(
     () => SignOutUseCase(authPort: getIt<AuthPort>()),
@@ -137,8 +139,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerFactory(
     () => AuthBloc(
       checkAuthStatus: getIt<CheckAuthStatusUseCase>(),
-      signInWithGoogle: getIt<SignInWithGoogleUseCase>(),
-      signInWithKakao: getIt<SignInWithKakaoUseCase>(),
+      loginUseCase: getIt<LoginUseCase>(),
       signOut: getIt<SignOutUseCase>(),
       googleOAuthHelper: getIt<GoogleOAuthHelper>(),
       kakaoOAuthHelper: getIt<KakaoOAuthHelper>(),
