@@ -65,13 +65,13 @@ android {
         create("staging") {
             dimension = "default"
             applicationIdSuffix = ".stg"
-            manifestPlaceholders["applicationLabel"] = "정통사주"
+            manifestPlaceholders["applicationLabel"] = "정통사주.stg"
             manifestPlaceholders["appName"] = "[STG] Traditional Saju"
         }
         create("development") {
             dimension = "default"
             applicationIdSuffix = ".dev"
-            manifestPlaceholders["applicationLabel"] = "정통사주"
+            manifestPlaceholders["applicationLabel"] = "정통사주.dev"
             manifestPlaceholders["appName"] = "[DEV] Traditional Saju"
         }
     }
