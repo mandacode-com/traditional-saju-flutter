@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/check_auth_status_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/sign_in_with_google_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/auth/sign_in_with_kakao_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/sign_out_use_case.dart';
 import 'package:traditional_saju/src/infrastructure/oauth/google_oauth_helper.dart';
 import 'package:traditional_saju/src/infrastructure/oauth/kakao_oauth_helper.dart';
@@ -11,14 +10,12 @@ import 'package:traditional_saju/src/presentation/features/auth/bloc/auth_state.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required CheckAuthStatusUseCase checkAuthStatus,
-    required SignInWithGoogleUseCase signInWithGoogle,
-    required SignInWithKakaoUseCase signInWithKakao,
+    required LoginUseCase loginUseCase,
     required SignOutUseCase signOut,
     required GoogleOAuthHelper googleOAuthHelper,
     required KakaoOAuthHelper kakaoOAuthHelper,
   }) : _checkAuthStatus = checkAuthStatus,
-       _signInWithGoogle = signInWithGoogle,
-       _signInWithKakao = signInWithKakao,
+       _loginUseCase = loginUseCase,
        _signOut = signOut,
        _googleOAuthHelper = googleOAuthHelper,
        _kakaoOAuthHelper = kakaoOAuthHelper,
@@ -30,8 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   final CheckAuthStatusUseCase _checkAuthStatus;
-  final SignInWithGoogleUseCase _signInWithGoogle;
-  final SignInWithKakaoUseCase _signInWithKakao;
+  final LoginUseCase _loginUseCase;
   final SignOutUseCase _signOut;
   final GoogleOAuthHelper _googleOAuthHelper;
   final KakaoOAuthHelper _kakaoOAuthHelper;
@@ -59,13 +55,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
     try {
-      final googleAccessToken = await _googleOAuthHelper.signIn();
-      if (googleAccessToken == null) {
+      final idToken = await _googleOAuthHelper.signIn();
+      if (idToken == null) {
         emit(const AuthError('Google sign in cancelled'));
         return;
       }
 
-      await _signInWithGoogle.execute(googleAccessToken);
+      await _loginUseCase.execute('google', idToken);
       emit(const AuthAuthenticated());
     } on Exception catch (e) {
       emit(AuthError(e.toString()));
@@ -78,13 +74,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
     try {
-      final kakaoAccessToken = await _kakaoOAuthHelper.signIn();
-      if (kakaoAccessToken == null) {
+      final idToken = await _kakaoOAuthHelper.signIn();
+      if (idToken == null) {
         emit(const AuthError('Kakao sign in cancelled'));
         return;
       }
 
-      await _signInWithKakao.execute(kakaoAccessToken);
+      await _loginUseCase.execute('kakao', idToken);
       emit(const AuthAuthenticated());
     } on Exception catch (e) {
       emit(AuthError(e.toString()));

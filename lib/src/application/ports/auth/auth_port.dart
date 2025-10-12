@@ -2,13 +2,9 @@ import 'package:traditional_saju/src/domain/auth/entity/authentication.dart';
 
 /// Port for authentication operations
 abstract interface class AuthPort {
-  /// Sign in with Google provider
-  /// Returns [Authentication] entity containing access and refresh tokens
-  Future<Authentication> signInWithGoogle(String googleToken);
-
-  /// Sign in with Kakao provider
-  /// Returns [Authentication] entity containing access and refresh tokens
-  Future<Authentication> signInWithKakao(String kakaoToken);
+  /// General login method for different providers
+  /// [provider] can be 'google', 'kakao', etc.
+  Future<Authentication> login(String provider, String idToken);
 
   /// Refresh the access token using refresh token
   /// Returns new [Authentication] entity with updated tokens
