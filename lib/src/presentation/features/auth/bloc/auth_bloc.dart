@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/check_auth_status_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/auth/sign_in_with_google_use_case.dart';
+import 'package:traditional_saju/src/application/use_cases/auth/login_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/sign_out_use_case.dart';
 import 'package:traditional_saju/src/infrastructure/oauth/google_oauth_helper.dart';
 import 'package:traditional_saju/src/infrastructure/oauth/kakao_oauth_helper.dart';
