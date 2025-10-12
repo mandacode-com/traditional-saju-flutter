@@ -5,14 +5,12 @@ class DailySajuRequestDto {
     required this.gender,
     required this.datingStatus,
     required this.jobStatus,
-    this.question,
   });
 
   final String birthDateTime; // ISO 8601 format
   final String gender; // male, female
   final String datingStatus; // single, dating, married
   final String jobStatus; // employed, unemployed, student, self-employed
-  final String? question;
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,7 +18,6 @@ class DailySajuRequestDto {
       'gender': gender,
       'datingStatus': datingStatus,
       'jobStatus': jobStatus,
-      if (question != null) 'question': question,
     };
   }
 }

@@ -7,10 +7,7 @@ import 'package:traditional_saju/src/application/ports/user/user_port.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/check_auth_status_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/login_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/auth/sign_out_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/saju/get_basic_saju_chart_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/saju/get_complete_saju_chart_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/saju/get_daily_fortune_use_case.dart';
-import 'package:traditional_saju/src/application/use_cases/saju/get_saju_chart_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/saju/get_yearly_fortune_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/check_user_exists_use_case.dart';
 import 'package:traditional_saju/src/application/use_cases/user/delete_user_use_case.dart';
@@ -124,15 +121,6 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerLazySingleton(
     () => GetYearlyFortuneUseCase(sajuPort: getIt<SajuPort>()),
-  );
-  getIt.registerLazySingleton(
-    () => GetSajuChartUseCase(sajuPort: getIt<SajuPort>()),
-  );
-  getIt.registerLazySingleton(
-    () => GetBasicSajuChartUseCase(sajuPort: getIt<SajuPort>()),
-  );
-  getIt.registerLazySingleton(
-    () => GetCompleteSajuChartUseCase(sajuPort: getIt<SajuPort>()),
   );
 
   // BLoCs
