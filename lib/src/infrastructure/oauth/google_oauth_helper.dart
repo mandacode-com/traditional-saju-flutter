@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Helper class for Google OAuth authentication
@@ -6,9 +8,11 @@ class GoogleOAuthHelper {
     required String clientId,
     required String serverClientId,
   }) {
-    GoogleSignIn.instance.initialize(
-      clientId: clientId,
-      serverClientId: serverClientId,
+    unawaited(
+      GoogleSignIn.instance.initialize(
+        clientId: clientId,
+        serverClientId: serverClientId,
+      ),
     );
   }
 
