@@ -17,7 +17,7 @@ class KakaoOAuthHelper {
         token = await UserApi.instance.loginWithKakaoAccount();
       }
 
-      return token.accessToken;
+      return token.idToken;
     } catch (e) {
       throw Exception('Kakao sign in failed: $e');
     }

@@ -1,27 +1,28 @@
+import 'dart:async';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Helper class for Google OAuth authentication
 class GoogleOAuthHelper {
   GoogleOAuthHelper({
-    GoogleSignIn? googleSignIn,
-  }) : _googleSignIn =
-           googleSignIn ??
-           GoogleSignIn(
-             scopes: ['email', 'profile'],
-           );
-
-  final GoogleSignIn _googleSignIn;
+    required String clientId,
+    required String serverClientId,
+  }) {
+    unawaited(
+      GoogleSignIn.instance.initialize(
+        clientId: clientId,
+        serverClientId: serverClientId,
+      ),
+    );
+  }
 
   /// Sign in with Google and return the access token
   Future<String?> signIn() async {
     try {
-      final account = await _googleSignIn.signIn();
-      if (account == null) {
-        return null;
-      }
+      final account = await GoogleSignIn.instance.authenticate();
 
-      final authentication = await account.authentication;
-      return authentication.accessToken;
+      final authentication = account.authentication;
+      return authentication.idToken;
     } catch (e) {
       throw Exception('Google sign in failed: $e');
     }
@@ -29,11 +30,7 @@ class GoogleOAuthHelper {
 
   /// Sign out from Google
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
-  }
-
-  /// Check if user is currently signed in
-  Future<bool> isSignedIn() async {
-    return _googleSignIn.isSignedIn();
+    // await _googleSignIn.signOut();
+    await GoogleSignIn.instance.signOut();
   }
 }

@@ -13,50 +13,17 @@ class AuthAdapter implements AuthPort {
   final ApiClient _apiClient;
 
   @override
-  Future<Authentication> signInWithGoogle(String googleAccessToken) async {
-    // googleAccessToken is the OAuth access token from Google Sign-In SDK
+  Future<Authentication> login(String provider, String idToken) async {
     final response = await _apiClient.dio.post<Map<String, dynamic>>(
       '/auth/login',
-      queryParameters: {'provider': 'google'},
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $googleAccessToken',
-        },
-      ),
+      data: {
+        'provider': provider,
+        'id_token': idToken,
+      },
     );
-
     if (response.data == null) {
       throw Exception('Login failed: No response data');
     }
-
-    final authDto = AuthResponseDto.fromJson(response.data!);
-
-    // Save JWT tokens from our API
-    await _apiClient.saveTokens(
-      accessToken: authDto.accessToken,
-      refreshToken: authDto.refreshToken,
-    );
-
-    return authDto.toDomain();
-  }
-
-  @override
-  Future<Authentication> signInWithKakao(String kakaoAccessToken) async {
-    // kakaoAccessToken is the OAuth access token from Kakao SDK
-    final response = await _apiClient.dio.post<Map<String, dynamic>>(
-      '/auth/login',
-      queryParameters: {'provider': 'kakao'},
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $kakaoAccessToken',
-        },
-      ),
-    );
-
-    if (response.data == null) {
-      throw Exception('Login failed: No response data');
-    }
-
     final authDto = AuthResponseDto.fromJson(response.data!);
 
     // Save JWT tokens from our API
