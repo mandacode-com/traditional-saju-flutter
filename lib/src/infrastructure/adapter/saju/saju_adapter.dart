@@ -1,8 +1,4 @@
 import 'package:traditional_saju/src/application/ports/saju/saju_port.dart';
-import 'package:traditional_saju/src/domain/saju/entity/birth_date.dart';
-import 'package:traditional_saju/src/domain/saju/entity/birth_hour.dart';
-import 'package:traditional_saju/src/domain/saju/entity/birth_minutes.dart';
-import 'package:traditional_saju/src/domain/saju/entity/chart.dart';
 import 'package:traditional_saju/src/domain/saju/entity/daily_fortune.dart';
 import 'package:traditional_saju/src/domain/saju/entity/yearly_fortune.dart';
 import 'package:traditional_saju/src/infrastructure/client/api_client.dart';
